@@ -95,11 +95,11 @@ namespace Peo.Identity.Application.Endpoints
 
                 return TypedResults.Ok(new RefreshTokenResponse(newToken, Guid.Parse(user.Id)));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.LogError(e, e.Message);
                 return TypedResults.Unauthorized();
             }
         }
     }
-} 
+}

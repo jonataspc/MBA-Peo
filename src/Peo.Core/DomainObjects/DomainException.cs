@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Peo.Core.DomainObjects
+﻿namespace Peo.Core.DomainObjects
 {
     public class DomainException : Exception
     {

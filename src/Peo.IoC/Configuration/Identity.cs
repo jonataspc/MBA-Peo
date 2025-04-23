@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Peo.Identity.Application.Extensions;
 using Peo.Identity.Application.Services;
 using Peo.Identity.Domain.Interfaces.Data;
 using Peo.Identity.Domain.Interfaces.Services;
 using Peo.Identity.Infra.Data.Contexts;
 using Peo.Identity.Infra.Data.Repositories;
-using Peo.Identity.Application.Extensions;
 
 namespace Peo.IoC.Configuration
 {
@@ -39,6 +39,7 @@ namespace Peo.IoC.Configuration
 
             return services;
         }
+
         public static WebApplication MapEndpoints(this WebApplication app)
         {
             app.MapIdentityEndpoints();

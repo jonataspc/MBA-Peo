@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Peo.Identity.Domain.Entities;
 using Peo.Identity.Infra.Data.Configurations.Base;
 
-
 namespace Peo.Identity.Infra.Data.Configurations
 {
     internal class UserEntityConfiguration : EntityBaseConfiguration<User>, IEntityTypeConfiguration<User>

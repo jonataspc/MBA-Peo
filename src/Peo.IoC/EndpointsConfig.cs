@@ -5,11 +5,10 @@ namespace Peo.IoC
 {
     public static class EndpointsConfig
     {
-    public static WebApplication AddEndpoints(this WebApplication app)
+        public static WebApplication AddEndpoints(this WebApplication app)
         {
             app.MapEndpoints();
             return app;
         }
-    
     }
 }
