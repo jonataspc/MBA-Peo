@@ -12,4 +12,5 @@
     <ProjectReference Include="..\Peo.StudentManagement.Domain\Peo.StudentManagement.Domain.csproj" />
   </ItemGroup>
 
+
 </Project>
