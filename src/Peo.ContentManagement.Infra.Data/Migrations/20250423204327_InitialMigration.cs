@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Peo.ContentManagement.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCourse : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-        
+            
 
             migrationBuilder.CreateTable(
                 name: "Course",
@@ -44,13 +44,13 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    VideoUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 1024, nullable: true),
+                    VideoUrl = table.Column<string>(type: "TEXT", maxLength: 1024, nullable: false),
                     Duration = table.Column<TimeSpan>(type: "TEXT", nullable: false),
-                    CourseId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    CourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", precision: 0, nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", precision: 0, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,7 +59,8 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
                         name: "FK_Lesson_Course_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Course",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,11 +86,11 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Url = table.Column<string>(type: "TEXT", nullable: false),
-                    LessonId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    Title = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
+                    Url = table.Column<string>(type: "TEXT", maxLength: 1024, nullable: false),
+                    LessonId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", precision: 0, nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", precision: 0, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,7 +99,8 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
                         name: "FK_LessonFile_Lesson_LessonId",
                         column: x => x.LessonId,
                         principalTable: "Lesson",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -131,8 +133,7 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Course");
-
-         
+             
         }
     }
 }

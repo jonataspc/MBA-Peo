@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Vernou.Swashbuckle.HttpResultsAdapter;
 
 namespace Peo.Web.Api.Configuration
@@ -10,6 +11,7 @@ namespace Peo.Web.Api.Configuration
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(option =>
             {
+                option.CustomSchemaIds(type => type.FullName);
                 option.OperationFilter<HttpResultsOperationFilter>();
                 option.SwaggerDoc("v1", new OpenApiInfo { Title = "Plataforma de Educação Online - WebAPI", Version = "v1" });
                 option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

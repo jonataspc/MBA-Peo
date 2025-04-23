@@ -3,4 +3,4 @@ using Peo.Core.DomainObjects.Result;
 
 namespace Peo.ContentManagement.Application.UseCases.Course.GetAll;
 
-public sealed record Query(string TitleWildcard) : IRequest<Result<Response>>;
+public sealed record Query() : IRequest<Result<Response>>;

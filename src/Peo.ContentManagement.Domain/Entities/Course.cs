@@ -16,13 +16,13 @@ namespace Peo.ContentManagement.Domain.Entities
         public bool IsPublished { get; private set; }
         public DateTime? PublishedAt { get; private set; }
         public virtual List<string> Tags { get; private set; } = [];
-        public virtual List<Lesson> Lessons { get; private set; } = [];
+        public virtual ICollection<Lesson> Lessons { get; private set; } = [];
 
         public Course()
         {
         }
 
-        public Course(string title, string? description, Guid instructorId, ProgramContent? programContent, decimal price, bool isPublished, DateTime? publishedAt, List<string> tags, List<Lesson> lessons)
+        public Course(string title, string? description, Guid instructorId, ProgramContent? programContent, decimal price, bool isPublished, DateTime? publishedAt, List<string> tags, ICollection<Lesson> lessons)
         {
             Title = title;
             Description = description;

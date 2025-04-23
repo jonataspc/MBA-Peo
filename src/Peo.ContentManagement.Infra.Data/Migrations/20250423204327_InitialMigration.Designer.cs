@@ -11,8 +11,8 @@ using Peo.ContentManagement.Infra.Data.Contexts;
 namespace Peo.ContentManagement.Infra.Data.Migrations
 {
     [DbContext(typeof(ContentManagementContext))]
-    [Migration("20250423143808_AddCourse")]
-    partial class AddCourse
+    [Migration("20250423204327_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,6 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.Course", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -73,30 +72,34 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.Lesson", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CourseId")
+                    b.Property<Guid>("CourseId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(1024)
                         .HasColumnType("TEXT");
 
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ModifiedAt")
+                        .HasPrecision(0)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
+                        .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("VideoUrl")
                         .IsRequired()
+                        .HasMaxLength(1024)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -109,24 +112,27 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.LessonFile", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("LessonId")
+                    b.Property<Guid>("LessonId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ModifiedAt")
+                        .HasPrecision(0)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
+                        .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
                         .IsRequired()
+                        .HasMaxLength(1024)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -193,16 +199,24 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
 
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.Lesson", b =>
                 {
-                    b.HasOne("Peo.ContentManagement.Domain.Entities.Course", null)
+                    b.HasOne("Peo.ContentManagement.Domain.Entities.Course", "Course")
                         .WithMany("Lessons")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.LessonFile", b =>
                 {
-                    b.HasOne("Peo.ContentManagement.Domain.Entities.Lesson", null)
+                    b.HasOne("Peo.ContentManagement.Domain.Entities.Lesson", "Lesson")
                         .WithMany("Files")
-                        .HasForeignKey("LessonId");
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.Course", b =>

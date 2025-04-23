@@ -16,7 +16,13 @@ namespace Peo.IoC.Configuration
             // Handlers
             services.AddScoped<IRequestHandler<ContentManagement.Application.UseCases.Course.Create.Command, Result<ContentManagement.Application.UseCases.Course.Create.Response>>, ContentManagement.Application.UseCases.Course.Create.Handler>();
 
+            services.AddScoped<IRequestHandler<ContentManagement.Application.UseCases.Course.GetById.Query, Result<ContentManagement.Application.UseCases.Course.GetById.Response>>, ContentManagement.Application.UseCases.Course.GetById.Handler>();
+
             services.AddScoped<IRequestHandler<ContentManagement.Application.UseCases.Course.GetAll.Query, Result<ContentManagement.Application.UseCases.Course.GetAll.Response>>, ContentManagement.Application.UseCases.Course.GetAll.Handler>();
+
+            services.AddScoped<IRequestHandler<ContentManagement.Application.UseCases.Lesson.GetAll.Query, Result<ContentManagement.Application.UseCases.Lesson.GetAll.Response>>, ContentManagement.Application.UseCases.Lesson.GetAll.Handler>();
+
+            services.AddScoped<IRequestHandler<ContentManagement.Application.UseCases.Lesson.Create.Command, Result<ContentManagement.Application.UseCases.Lesson.Create.Response>>, ContentManagement.Application.UseCases.Lesson.Create.Handler>();
 
             return services;
         }

@@ -12,7 +12,8 @@ namespace Peo.Core.Infra.Data.Configurations.Base
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.Property(e => e.Id)
-                .IsRequired();
+                .IsRequired()
+                .ValueGeneratedNever();
 
             builder.Property(e => e.CreatedAt)
                 .IsRequired()
