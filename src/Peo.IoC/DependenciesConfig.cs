@@ -10,8 +10,9 @@ namespace Peo.IoC
         public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
             services.AddDataDependencies(configuration, hostEnvironment)
-                .AddIdentity()
-                ;
+                    .AddIdentity()
+                    .AddRepositories()
+                    .AddMediator();
 
             return services;
         }

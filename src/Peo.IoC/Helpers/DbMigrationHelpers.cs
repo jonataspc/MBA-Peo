@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Peo.ContentManagement.Infra.Data.Helpers;
 using Peo.Identity.Infra.Data.Helpers;
 
 namespace Peo.IoC.Helpers
@@ -7,8 +8,8 @@ namespace Peo.IoC.Helpers
     {
         public static async Task UseDbMigrationHelperAsync(this WebApplication app)
         {
-            // Identity
             await app.UseIdentityDbMigrationHelperAsync();
+            await app.UseContentManagementDbMigrationHelperAsync();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Peo.Identity.Infra.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.FixPrecionDecimalDataTypes()
+            builder.FixPrecisionForDecimalDataTypes()
                    .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())
                    .RemovePluralizingTableNameConvention();
 
@@ -50,9 +50,9 @@ namespace Peo.Identity.Infra.Data.Contexts
             }
         }
 
-        public Task<int> CommitAsync()
+        public Task<int> CommitAsync(CancellationToken cancellationToken)
         {
-            return this.SaveChangesAsync();
+            return this.SaveChangesAsync(cancellationToken);
         }
     }
 }

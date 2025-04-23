@@ -18,7 +18,7 @@ namespace Peo.ContentManagement.Infra.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.FixPrecionDecimalDataTypes()
+            modelBuilder.FixPrecisionForDecimalDataTypes()
                    .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())
                    .RemovePluralizingTableNameConvention();
 

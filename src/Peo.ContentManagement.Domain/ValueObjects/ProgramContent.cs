@@ -2,6 +2,11 @@
 {
     public class ProgramContent
     {
-        public string? Content { get; set; }
+        public string? Content { get; private set; }
+
+        public ProgramContent(string? content)
+        {
+            Content = content;
+        }
     }
 }

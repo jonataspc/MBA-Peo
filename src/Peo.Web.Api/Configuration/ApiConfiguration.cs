@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Peo.Core.DomainObjects;
+using System.Text.Json.Serialization;
 
 namespace Peo.Web.Api.Configuration
 {
@@ -30,6 +31,16 @@ namespace Peo.Web.Api.Configuration
                 options.LowercaseUrls = true;
                 options.LowercaseQueryStrings = true;
             });
+
+            return services;
+        }
+
+        public static IServiceCollection AddPolicies(this IServiceCollection services)
+        {
+            services.AddAuthorizationBuilder()
+                    .AddPolicy(AccessRoles.Admin, policy =>
+                        policy.RequireRole(AccessRoles.Admin)
+                        );
 
             return services;
         }

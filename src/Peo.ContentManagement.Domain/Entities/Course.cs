@@ -7,16 +7,16 @@ namespace Peo.ContentManagement.Domain.Entities
 {
     public class Course : EntityBase, IAggregateRoot
     {
-        public required string Title { get; set; }
-        public string? Description { get; set; }
-        public virtual User? Instructor { get; set; }
-        public required Guid InstructorId { get; set; }
-        public virtual ProgramContent? ProgramContent { get; set; }
-        public decimal Price { get; set; }
-        public bool IsPublished { get; set; }
-        public DateTime? PublishedAt { get; set; }
-        public virtual List<string> Tags { get; set; } = [];
-        public virtual List<Lesson> Lessons { get; set; } = [];
+        public string Title { get; private set; } = null!;
+        public string? Description { get; private set; }
+        public virtual User? Instructor { get; private set; }
+        public Guid InstructorId { get; private set; }
+        public virtual ProgramContent? ProgramContent { get; private set; }
+        public decimal Price { get; private set; }
+        public bool IsPublished { get; private set; }
+        public DateTime? PublishedAt { get; private set; }
+        public virtual List<string> Tags { get; private set; } = [];
+        public virtual List<Lesson> Lessons { get; private set; } = [];
 
         public Course()
         {

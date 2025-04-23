@@ -23,9 +23,9 @@ namespace Peo.Core.Infra.Data.Contexts.Base
             return base.SaveChanges();
         }
 
-        public async Task<int> CommitAsync()
+        public async Task<int> CommitAsync(CancellationToken cancellationToken)
         {
-            return await SaveChangesAsync().ConfigureAwait(false);
+            return await SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         private void UpdateModifiedAt()

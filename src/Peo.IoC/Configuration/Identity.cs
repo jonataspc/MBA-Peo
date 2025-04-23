@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Peo.ContentManagement.Application.Extensions;
 using Peo.Identity.Application.Extensions;
 using Peo.Identity.Application.Services;
 using Peo.Identity.Domain.Interfaces.Data;
@@ -40,6 +41,7 @@ namespace Peo.IoC.Configuration
         public static WebApplication MapEndpoints(this WebApplication app)
         {
             app.MapIdentityEndpoints();
+            app.MapContentManagementEndpoints();
             return app;
         }
     }

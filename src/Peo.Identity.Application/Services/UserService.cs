@@ -9,7 +9,7 @@ namespace Peo.Identity.Application.Services
         public async Task AddAsync(User user)
         {
             repository.Insert(user);
-            await repository.UnitOfWork.CommitAsync();
+            await repository.UnitOfWork.CommitAsync(CancellationToken.None);
         }
     }
 }

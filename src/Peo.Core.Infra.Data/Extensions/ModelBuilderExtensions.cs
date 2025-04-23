@@ -14,7 +14,7 @@ namespace Peo.Core.Infra.Data.Extensions
             return modelBuilder;
         }
 
-        public static ModelBuilder FixPrecionDecimalDataTypes(this ModelBuilder builder)
+        public static ModelBuilder FixPrecisionForDecimalDataTypes(this ModelBuilder builder)
         {
             foreach (var property in builder.Model.GetEntityTypes()
                 .SelectMany(t => t.GetProperties())

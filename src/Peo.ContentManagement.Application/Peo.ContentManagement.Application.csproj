@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="mapster" Version="7.4.0" />
+    <PackageReference Include="MediaTr" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Peo.ContentManagement.Domain\Peo.ContentManagement.Domain.csproj" />
+    <ProjectReference Include="..\Peo.Core.Web\Peo.Core.Web.csproj" />
+    <ProjectReference Include="..\Peo.Core\Peo.Core.csproj" />
+  </ItemGroup>
+
 </Project>
