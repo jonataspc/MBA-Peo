@@ -14,11 +14,14 @@ public class CertificateConfiguration : EntityBaseConfiguration<Certificate>
         builder.Property(c => c.EnrollmentId)
             .IsRequired();
 
-        builder.Property(c => c.IssueDate)
+        builder.Property(c => c.Content)
             .IsRequired();
 
+        builder.Property(c => c.IssueDate)
+            .IsRequired(false);
+
         builder.Property(c => c.CertificateNumber)
-            .IsRequired()
+            .IsRequired(false)
             .HasMaxLength(50);
 
         // Indexes

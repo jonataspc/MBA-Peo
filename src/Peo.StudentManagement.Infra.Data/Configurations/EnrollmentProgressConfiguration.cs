@@ -20,6 +20,9 @@ public class EnrollmentProgressConfiguration : EntityBaseConfiguration<Enrollmen
         builder.Property(ep => ep.StartedAt)
             .IsRequired();
 
+        builder.Property(ep => ep.CompletedAt)
+            .IsRequired(false);
+
         builder.HasIndex(ep => new { ep.EnrollmentId, ep.LessonId })
             .IsUnique();
 

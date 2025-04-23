@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Peo.StudentManagement.Infra.Data.Contexts;
 
@@ -10,9 +11,11 @@ using Peo.StudentManagement.Infra.Data.Contexts;
 namespace Peo.StudentManagement.Infra.Data.Migrations
 {
     [DbContext(typeof(StudentManagementContext))]
-    partial class StudentManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20250423222907_FixtudentEntities")]
+    partial class FixtudentEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
