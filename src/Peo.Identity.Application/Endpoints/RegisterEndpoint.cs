@@ -13,7 +13,7 @@ namespace Peo.Identity.Application.Endpoints
         public static void Map(IEndpointRouteBuilder app)
         {
             app.MapPost("/register", HandleRegister)
-               .WithSummary("Cadastra novo usuário")
+               .WithSummary("Register a new user")
                .AllowAnonymous();
         }
 

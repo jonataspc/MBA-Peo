@@ -15,7 +15,7 @@ namespace Peo.Identity.Application.Endpoints
         public static void Map(IEndpointRouteBuilder app)
         {
             app.MapPost("/login", HandleLogin)
-               .WithSummary("Autentica usuário na API")
+               .WithSummary("Authenticate an user in the API")
                .AllowAnonymous();
         }
 

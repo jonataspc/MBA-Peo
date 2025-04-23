@@ -3,9 +3,6 @@ using Peo.Web.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-// builder.Services.AddOpenApi();
-
 builder.Services.AddDependencies(builder.Configuration, builder.Environment)
                 .AddSwagger()
                 .SetupWebApi(builder.Configuration)
@@ -13,17 +10,12 @@ builder.Services.AddDependencies(builder.Configuration, builder.Environment)
 
 var app = builder.Build();
 
-
 app.UseCustomSwagger(builder.Environment);
 app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.AddEndpoints();
-
-
-
- 
 
 await app.RunAsync();
 

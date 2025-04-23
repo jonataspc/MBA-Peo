@@ -15,7 +15,8 @@ namespace Peo.Identity.Application.Extensions
             endpoints.MapGroup("v1/identity")
             .WithTags("Identity")
             .MapEndpoint<RegisterEndpoint>()
-            .MapEndpoint<LoginEndpoint>();
+            .MapEndpoint<LoginEndpoint>()
+            .MapEndpoint<RefreshTokenEndpoint>();
 
             return app;
         }
