@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Peo.Core.DomainObjects;
 using Peo.Core.Entities.Base;
 
-namespace Peo.Identity.Infra.Data.Configurations.Base
+namespace Peo.Core.Infra.Data.Configurations.Base
 {
-    internal abstract class EntityBaseConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
+    public abstract class EntityBaseConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
             where TEntity : EntityBase
 
     {

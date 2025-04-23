@@ -1,8 +1,9 @@
-﻿using Peo.Core.Entities.Base;
+﻿using Peo.Core.DomainObjects;
+using Peo.Core.Entities.Base;
 
-namespace Peo.Identity.Domain.Entities
+namespace Peo.Core.Entities
 {
-    public class User : EntityBase
+    public class User : EntityBase, IAggregateRoot
     {
         public string FullName { get; private set; }
         public string Email { get; private set; }

@@ -1,4 +1,4 @@
-﻿using Peo.Identity.Domain.Entities;
+﻿using Peo.Core.Entities;
 
 namespace Peo.Identity.Domain.Interfaces.Services
 {

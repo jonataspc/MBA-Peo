@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Peo.Identity.Domain.Entities;
-using Peo.Identity.Infra.Data.Configurations.Base;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Peo.Core.Entities;
+using Peo.Core.Infra.Data.Configurations.Base;
 
 namespace Peo.Identity.Infra.Data.Configurations
 {
-    internal class UserEntityConfiguration : EntityBaseConfiguration<User>, IEntityTypeConfiguration<User>
+    internal class UserEntityConfiguration : EntityBaseConfiguration<User>
     {
         public override void Configure(EntityTypeBuilder<User> builder)
         {

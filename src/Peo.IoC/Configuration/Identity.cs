@@ -27,11 +27,8 @@ namespace Peo.IoC.Configuration
                 options.Password.RequiredUniqueChars = 1;
             })
                      .AddRoles<IdentityRole>()
-                     .AddUserManager<UserManagerExtended>()
                      .AddEntityFrameworkStores<IdentityContext>()
                      .AddApiEndpoints();
-
-            //services.MapEndpoints();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();

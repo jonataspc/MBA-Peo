@@ -31,6 +31,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Identity.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Core.Web", "src\Peo.Core.Web\Peo.Core.Web.csproj", "{A632C1F6-BB9B-4AD4-89EB-C6C275649FBE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContentManagement", "ContentManagement", "{38B2A1AF-152F-4267-8C79-8EE03343FB96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BCs", "BCs", "{7E612033-D7CE-4A9F-BD8A-4086911E865B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.ContentManagement.Domain", "src\Peo.ContentManagement.Domain\Peo.ContentManagement.Domain.csproj", "{CE05B9E6-9743-4795-94DE-16410428DF6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.ContentManagement.Application", "src\Peo.ContentManagement.Application\Peo.ContentManagement.Application.csproj", "{6B13F2D6-0515-441D-8010-A1FD1F80387D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.ContentManagement.Infra.Data", "src\Peo.ContentManagement.Infra.Data\Peo.ContentManagement.Infra.Data.csproj", "{69BB8792-F843-4837-B6E7-E03831EC7D4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +79,18 @@ Global
 		{A632C1F6-BB9B-4AD4-89EB-C6C275649FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A632C1F6-BB9B-4AD4-89EB-C6C275649FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A632C1F6-BB9B-4AD4-89EB-C6C275649FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE05B9E6-9743-4795-94DE-16410428DF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE05B9E6-9743-4795-94DE-16410428DF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE05B9E6-9743-4795-94DE-16410428DF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE05B9E6-9743-4795-94DE-16410428DF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B13F2D6-0515-441D-8010-A1FD1F80387D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B13F2D6-0515-441D-8010-A1FD1F80387D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B13F2D6-0515-441D-8010-A1FD1F80387D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B13F2D6-0515-441D-8010-A1FD1F80387D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69BB8792-F843-4837-B6E7-E03831EC7D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69BB8792-F843-4837-B6E7-E03831EC7D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69BB8792-F843-4837-B6E7-E03831EC7D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69BB8792-F843-4837-B6E7-E03831EC7D4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +104,10 @@ Global
 		{A6D86B25-AF5B-4985-81C5-CF7F5ACD3C65} = {A8C0840D-E2E4-40F1-9436-648EFC6FC9F8}
 		{7D69AD3E-8376-4F06-9DE9-96FC69ABBF98} = {A8C0840D-E2E4-40F1-9436-648EFC6FC9F8}
 		{A632C1F6-BB9B-4AD4-89EB-C6C275649FBE} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{38B2A1AF-152F-4267-8C79-8EE03343FB96} = {7E612033-D7CE-4A9F-BD8A-4086911E865B}
+		{CE05B9E6-9743-4795-94DE-16410428DF6C} = {38B2A1AF-152F-4267-8C79-8EE03343FB96}
+		{6B13F2D6-0515-441D-8010-A1FD1F80387D} = {38B2A1AF-152F-4267-8C79-8EE03343FB96}
+		{69BB8792-F843-4837-B6E7-E03831EC7D4D} = {38B2A1AF-152F-4267-8C79-8EE03343FB96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50FD39FF-49FD-45CD-AE3A-176FC71D660F}

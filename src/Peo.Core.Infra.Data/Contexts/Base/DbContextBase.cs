@@ -4,10 +4,13 @@ using Peo.Core.Interfaces.Data;
 
 namespace Peo.Core.Infra.Data.Contexts.Base
 {
-    //TODO: requerida mesmo?
     public abstract class DbContextBase : DbContext, IUnitOfWork
 
     {
+        protected DbContextBase(DbContextOptions options) : base(options)
+        {
+        }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             UpdateModifiedAt();

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Peo.ContentManagement.Infra.Data.Contexts;
 using Peo.Identity.Infra.Data.Contexts;
 
 namespace Peo.IoC.Configuration
@@ -41,6 +42,32 @@ namespace Peo.IoC.Configuration
                     options.EnableSensitiveDataLogging();
                 }
             });
+
+            // BCs:
+            // ContentManagement
+            services.AddDbContext<ContentManagementContext>(options =>
+            {
+                if (hostEnvironment.IsDevelopment())
+                {
+                    options.UseSqlite(connectionString);
+                }
+                else
+                {
+                    options.UseSqlServer(connectionString);
+                }
+
+                options.UseLazyLoadingProxies();
+
+                if (hostEnvironment.IsDevelopment())
+                {
+                    options.EnableDetailedErrors();
+                    options.EnableSensitiveDataLogging();
+                }
+            });
+
+
+
+
 
             if (hostEnvironment.IsDevelopment())
             {

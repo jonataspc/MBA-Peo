@@ -1,5 +1,5 @@
-﻿using Peo.Core.Interfaces.Data;
-using Peo.Identity.Domain.Entities;
+﻿using Peo.Core.Entities;
+using Peo.Core.Interfaces.Data;
 
 namespace Peo.Identity.Domain.Interfaces.Data
 {

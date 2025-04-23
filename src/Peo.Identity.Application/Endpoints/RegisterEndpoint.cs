@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using MiniValidation;
+using Peo.Core.DomainObjects;
+using Peo.Core.Entities;
 using Peo.Core.Web.Api;
 using Peo.Identity.Application.Endpoints.Requests;
+using Peo.Identity.Domain.Interfaces.Services;
 
 namespace Peo.Identity.Application.Endpoints
 {
@@ -17,7 +20,10 @@ namespace Peo.Identity.Application.Endpoints
                .AllowAnonymous();
         }
 
-        private static async Task<IResult> HandleRegister(RegisterRequest request, UserManager<IdentityUser> userManager)
+        private static async Task<IResult> HandleRegister(
+            RegisterRequest request,
+            UserManager<IdentityUser> userManager,
+            IUserService userService)
         {
             if (!MiniValidator.TryValidate(request, out var errors))
             {
@@ -26,7 +32,7 @@ namespace Peo.Identity.Application.Endpoints
 
             var user = new IdentityUser
             {
-                UserName = request.Name,
+                UserName = request.Email,
                 Email = request.Email,
             };
 
@@ -35,6 +41,18 @@ namespace Peo.Identity.Application.Endpoints
             if (result.Succeeded)
             {
                 await userManager.ConfirmEmailAsync(user, await userManager.GenerateEmailConfirmationTokenAsync(user));
+
+                // Add user to Student role
+                var roleResult = await userManager.AddToRoleAsync(user, AccessRoles.Student);
+                if (!roleResult.Succeeded)
+                {
+                    return Results.BadRequest(new { Description = "Failed to assign role", Content = roleResult.Errors });
+                }
+
+                await userService.AddAsync(
+                new User(Guid.Parse(user.Id), request.Name, user.Email!)
+                );
+
                 return TypedResults.NoContent();
             }
 

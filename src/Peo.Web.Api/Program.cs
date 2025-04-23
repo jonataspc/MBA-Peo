@@ -1,4 +1,5 @@
 using Peo.IoC;
+using Peo.IoC.Helpers;
 using Peo.Web.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.AddEndpoints();
 
+await app.UseDbMigrationHelperAsync();
 await app.RunAsync();
 
 //TODO: error handling via middleware

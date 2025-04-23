@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Peo.Core.Entities;
 using Peo.Core.Entities.Base;
 using Peo.Core.Infra.Data.Extensions;
 using Peo.Core.Interfaces.Data;
-using Peo.Identity.Domain.Entities;
 using System.Reflection;
 
 namespace Peo.Identity.Infra.Data.Contexts
@@ -19,17 +19,9 @@ namespace Peo.Identity.Infra.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // fix precision for decimal data types
-            foreach (var property in builder.Model.GetEntityTypes()
-                .SelectMany(t => t.GetProperties())
-                .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
-            {
-                property.SetColumnType("decimal(12, 2)");
-            }
-
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-            builder.RemovePluralizingTableNameConvention();
+            builder.FixPrecionDecimalDataTypes()
+                   .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())
+                   .RemovePluralizingTableNameConvention();
 
             base.OnModelCreating(builder);
         }
