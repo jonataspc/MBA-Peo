@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Peo.ContentManagement.Infra.Data.Helpers;
 using Peo.Identity.Infra.Data.Helpers;
+using Peo.StudentManagement.Infra.Data.Helpers;
 
 namespace Peo.IoC.Helpers
 {
@@ -10,6 +11,7 @@ namespace Peo.IoC.Helpers
         {
             await app.UseIdentityDbMigrationHelperAsync();
             await app.UseContentManagementDbMigrationHelperAsync();
+            await app.UseStudentManagementDbMigrationHelperAsync();
         }
     }
 }

@@ -63,7 +63,7 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
 
                     b.HasIndex("InstructorId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.Lesson", b =>
@@ -103,7 +103,7 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Lesson");
+                    b.ToTable("Lesson", (string)null);
                 });
 
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.LessonFile", b =>
@@ -136,7 +136,7 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
 
                     b.HasIndex("LessonId");
 
-                    b.ToTable("LessonFile");
+                    b.ToTable("LessonFile", (string)null);
                 });
 
             modelBuilder.Entity("Peo.Core.Entities.User", b =>
@@ -161,7 +161,7 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Peo.ContentManagement.Domain.Entities.Course", b =>
@@ -183,7 +183,7 @@ namespace Peo.ContentManagement.Infra.Data.Migrations
 
                             b1.HasKey("CourseId");
 
-                            b1.ToTable("ProgramContent");
+                            b1.ToTable("ProgramContent", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("CourseId");
