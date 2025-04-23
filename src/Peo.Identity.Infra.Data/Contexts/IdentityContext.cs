@@ -13,7 +13,7 @@ namespace Peo.Identity.Infra.Data.Contexts
     {
         public DbSet<User> ApplicationUsers { get; set; }
 
-        public IdentityContext(DbContextOptions options) : base(options)
+        public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
         }
 

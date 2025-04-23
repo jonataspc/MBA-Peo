@@ -12,7 +12,7 @@ namespace Peo.ContentManagement.Infra.Data.Contexts
 
         public DbSet<Lesson> Lessons { get; set; }
 
-        public ContentManagementContext(DbContextOptions options) : base(options)
+        public ContentManagementContext(DbContextOptions<ContentManagementContext> options) : base(options)
         {
         }
 
