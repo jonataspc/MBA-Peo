@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Peo.Core.Infra.Data\Peo.Core.Infra.Data.csproj" />
-    <ProjectReference Include="..\Peo.StudentManagement.Domain\Peo.StudentManagement.Domain.csproj" />
+    <ProjectReference Include="..\Peo.Billing.Domain\Peo.Billing.Domain.csproj" />
+    
+    
   </ItemGroup>
 
   
-</Project>
+</Project> 

@@ -1,5 +1,4 @@
 using Peo.StudentManagement.Domain.Entities;
-using Peo.StudentManagement.Domain.Enums;
 using Peo.StudentManagement.Domain.Interfaces;
 
 namespace Peo.StudentManagement.Application.Services;
@@ -32,4 +31,4 @@ public class StudentService
         await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);
         return enrollment;
     }
-} 
+}

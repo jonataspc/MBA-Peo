@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Peo.Billing.Infra.Data.Contexts;
 using Peo.ContentManagement.Infra.Data.Contexts;
 using Peo.Identity.Infra.Data.Contexts;
 using Peo.StudentManagement.Infra.Data.Contexts;
@@ -87,6 +88,26 @@ namespace Peo.IoC.Configuration
                 }
             });
 
+            // Billing
+            services.AddDbContext<BillingContext>(options =>
+            {
+                if (hostEnvironment.IsDevelopment())
+                {
+                    options.UseSqlite(connectionString);
+                }
+                else
+                {
+                    options.UseSqlServer(connectionString);
+                }
+
+                options.UseLazyLoadingProxies();
+
+                if (hostEnvironment.IsDevelopment())
+                {
+                    options.EnableDetailedErrors();
+                    options.EnableSensitiveDataLogging();
+                }
+            });
 
             if (hostEnvironment.IsDevelopment())
             {

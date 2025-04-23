@@ -1,5 +1,5 @@
 using Peo.Core.Entities.Base;
-using Peo.StudentManagement.Domain.Enums;
+using Peo.StudentManagement.Domain.ValueObjects;
 
 namespace Peo.StudentManagement.Domain.Entities;
 

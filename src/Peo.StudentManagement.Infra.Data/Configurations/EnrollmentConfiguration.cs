@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Peo.Core.Infra.Data.Configurations.Base;
 using Peo.StudentManagement.Domain.Entities;
-using Peo.StudentManagement.Domain.Enums;
+using Peo.StudentManagement.Domain.ValueObjects;
 
 namespace Peo.StudentManagement.Infra.Data.Configurations;
 

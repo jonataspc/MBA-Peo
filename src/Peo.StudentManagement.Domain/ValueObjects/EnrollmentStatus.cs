@@ -1,4 +1,4 @@
-namespace Peo.StudentManagement.Domain.Enums;
+namespace Peo.StudentManagement.Domain.ValueObjects;
 
 public enum EnrollmentStatus
 {
