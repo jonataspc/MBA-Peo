@@ -9,7 +9,7 @@ namespace Peo.ContentManagement.Domain.Entities
     {
         public string Title { get; private set; } = null!;
         public string? Description { get; private set; }
-        public virtual User? Instructor { get; private set; }
+        public virtual User? Instructor { get; }
         public Guid InstructorId { get; private set; }
         public virtual ProgramContent? ProgramContent { get; private set; }
         public decimal Price { get; private set; }

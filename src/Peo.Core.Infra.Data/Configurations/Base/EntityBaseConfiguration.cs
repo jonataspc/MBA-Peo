@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Peo.Core.DomainObjects;
 using Peo.Core.Entities.Base;
 
 namespace Peo.Core.Infra.Data.Configurations.Base

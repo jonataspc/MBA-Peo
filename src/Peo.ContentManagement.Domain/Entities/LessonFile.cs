@@ -7,9 +7,8 @@ namespace Peo.ContentManagement.Domain.Entities
         public string Title { get; private set; } = null!;
         public string Url { get; private set; } = null!;
 
-        public virtual Lesson? Lesson { get; private set; } 
+        public virtual Lesson? Lesson { get; }
         public Guid LessonId { get; private set; }
-        
 
         public LessonFile()
         {

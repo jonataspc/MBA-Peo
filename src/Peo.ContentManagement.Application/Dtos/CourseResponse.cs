@@ -13,6 +13,5 @@ namespace Peo.ContentManagement.Application.Dtos
         public bool IsPublished { get; set; }
         public DateTime? PublishedAt { get; set; }
         public IEnumerable<string> Tags { get; set; } = [];
-        //public IEnumerable<LessonResponse> Lessons { get; set; } = [];
     }
 }

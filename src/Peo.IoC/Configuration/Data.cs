@@ -65,10 +65,6 @@ namespace Peo.IoC.Configuration
                 }
             });
 
-
-
-
-
             if (hostEnvironment.IsDevelopment())
             {
                 services.AddDatabaseDeveloperPageExceptionFilter();

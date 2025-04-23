@@ -1,6 +1,5 @@
 using MediatR;
 using Peo.ContentManagement.Application.Dtos;
-using Peo.ContentManagement.Domain.Entities;
 using Peo.Core.DomainObjects.Result;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

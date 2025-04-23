@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Vernou.Swashbuckle.HttpResultsAdapter;
 
 namespace Peo.Web.Api.Configuration

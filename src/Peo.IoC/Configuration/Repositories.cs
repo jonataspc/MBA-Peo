@@ -1,6 +1,4 @@
-﻿using Castle.Core.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Peo.ContentManagement.Domain.Entities;
 using Peo.ContentManagement.Infra.Data.Repositories;
 using Peo.Core.Interfaces.Data;

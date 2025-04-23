@@ -9,7 +9,5 @@ namespace Peo.ContentManagement.Infra.Data.Repositories
         public CourseRepository(ContentManagementContext dbContext) : base(dbContext)
         {
         }
-
-
     }
 }

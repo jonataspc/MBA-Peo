@@ -12,7 +12,6 @@ namespace Peo.ContentManagement.Domain.Entities
 
         public virtual Course Course { get; private set; } = null!;
         public Guid CourseId { get; private set; }
-                
 
         public Lesson()
         {

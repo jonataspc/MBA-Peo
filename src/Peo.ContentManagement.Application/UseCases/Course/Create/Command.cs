@@ -6,7 +6,6 @@ namespace Peo.ContentManagement.Application.UseCases.Course.Create;
 
 public sealed record Command(
 
-
     [Required]
     string Title,
 
