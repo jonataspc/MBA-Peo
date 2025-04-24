@@ -82,6 +82,18 @@ A estrutura do projeto é organizada da seguinte forma:
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em https://localhost:7113/swagger
 
+
+## **Code coverage e CI**
+A cobertura de código pode ser gerada manualmente/localmente através do script `\scripts\run-tests-with-coverage.ps1` (que utiliza dotCover) e pode ser visualizada no caminho `\scripts\report.html`. 
+
+No repositório GitHub a action de compilação executa a compilação e os testes, além de gerar o relatório de cobertura de código e armazena-lo como artefato, que pode ser obtido: 
+- Acesse a aba "Actions" do repositório.
+- Na seção Artifacts, baixar o arquivo ZIP, contendo o relatório em HTML.
+ 
+
+
+
+
 ## **Avaliação**
 
 - Este projeto é parte de um curso acadêmico e não aceita contribuições externas. 
