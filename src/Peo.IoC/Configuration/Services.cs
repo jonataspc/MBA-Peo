@@ -9,7 +9,7 @@ using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Services.Acls;
 using Peo.Identity.Application.Services;
 using Peo.StudentManagement.Application.Commands.CourseEnrollment;
-using Peo.StudentManagement.Application.Commands.ProcessEnrollmentPayment;
+using Peo.StudentManagement.Application.Commands.EnrollmentPayment;
 using Peo.StudentManagement.Application.Dtos.Responses;
 using Peo.StudentManagement.Application.Services;
 using Peo.StudentManagement.Domain.Interfaces;

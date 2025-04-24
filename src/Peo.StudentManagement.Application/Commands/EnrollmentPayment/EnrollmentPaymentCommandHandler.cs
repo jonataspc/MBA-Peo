@@ -6,7 +6,7 @@ using Peo.StudentManagement.Application.Dtos.Responses;
 using Peo.StudentManagement.Domain.Interfaces;
 using Peo.StudentManagement.Domain.ValueObjects;
 
-namespace Peo.StudentManagement.Application.Commands.ProcessEnrollmentPayment;
+namespace Peo.StudentManagement.Application.Commands.EnrollmentPayment;
 
 public class EnrollmentPaymentCommandHandler : IRequestHandler<EnrollmentPaymentCommand, Result<EnrollmentPaymentResponse>>
 {

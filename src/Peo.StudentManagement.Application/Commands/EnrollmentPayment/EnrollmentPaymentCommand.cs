@@ -3,7 +3,7 @@ using Peo.Core.DomainObjects.Result;
 using Peo.StudentManagement.Application.Dtos.Requests;
 using Peo.StudentManagement.Application.Dtos.Responses;
 
-namespace Peo.StudentManagement.Application.Commands.ProcessEnrollmentPayment;
+namespace Peo.StudentManagement.Application.Commands.EnrollmentPayment;
 
 public class EnrollmentPaymentCommand : IRequest<Result<EnrollmentPaymentResponse>>
 {
