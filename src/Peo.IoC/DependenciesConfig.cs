@@ -11,6 +11,7 @@ namespace Peo.IoC
         {
             services.AddDataDependencies(configuration, hostEnvironment)
                     .AddIdentity()
+                    .AddAppSettings(configuration)
                     .AddRepositories()
                     .AddServices()
                     .AddMediator()

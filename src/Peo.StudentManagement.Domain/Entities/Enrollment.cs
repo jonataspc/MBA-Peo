@@ -11,7 +11,7 @@ public class Enrollment : EntityBase
     public DateTime? CompletionDate { get; private set; }
     public EnrollmentStatus Status { get; private set; }
     public int ProgressPercentage { get; private set; }
-    public virtual Student? Student { get; private set; }
+    public virtual Student? Student { get; set; }
 
 
 

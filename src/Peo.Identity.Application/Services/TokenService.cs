@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Peo.Core.Dtos;
 using Peo.Identity.Domain.Interfaces.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,7 +10,7 @@ using System.Text;
 
 namespace Peo.Identity.Application.Services
 {
-    public class TokenService(IConfiguration configuration) : ITokenService
+    public class TokenService(IOptions<JwtSettings> jwtSettings, IConfiguration configuration) : ITokenService
     {
         public string CreateToken(IdentityUser user, IEnumerable<string> roles)
         {
@@ -19,8 +21,8 @@ namespace Peo.Identity.Application.Services
 
         private JwtSecurityToken CreateJwtToken(IEnumerable<Claim> claims, SigningCredentials credentials) =>
             new(
-                configuration.GetValue<string>("Jwt:Issuer"),
-                configuration.GetValue<string>("Jwt:Audience"),
+                jwtSettings.Value.Issuer,
+                jwtSettings.Value.Audience,
                 claims,
                 expires: DateTime.UtcNow.AddMinutes(int.Parse(configuration["Authentication:ExpirationInMinutes"]!)),
                 signingCredentials: credentials
@@ -49,7 +51,7 @@ namespace Peo.Identity.Application.Services
         {
             return new SigningCredentials(
             new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:Key")!)
+                    Encoding.UTF8.GetBytes(jwtSettings.Value.Key)
                 ),
                 SecurityAlgorithms.HmacSha256
             );

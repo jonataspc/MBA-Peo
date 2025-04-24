@@ -1,43 +1,38 @@
-using Microsoft.EntityFrameworkCore;
-using Peo.ContentManagement.Infra.Data.Contexts;
+using Peo.Core.Interfaces.Data;
 using Peo.Core.Interfaces.Services.Acls;
+using Peo.ContentManagement.Domain.Entities;
 
 namespace Peo.ContentManagement.Application.Services;
 
 public class CourseLessonService : ICourseLessonService
 {
-    private readonly ContentManagementContext _context;
+    private readonly IRepository<Course> _courseRepository;
 
-    public CourseLessonService(ContentManagementContext context)
+    public CourseLessonService(IRepository<Course> courseRepository)
     {
-        _context = context;
+        _courseRepository = courseRepository;
     }
 
-    public Task<bool> CheckIfCourseExistsAsync(Guid courseId)
+    public async Task<bool> CheckIfCourseExistsAsync(Guid courseId)
     {
-        return _context.Courses
-            .AnyAsync(c => c.Id == courseId);
+        return await _courseRepository.AnyAsync(c => c.Id == courseId);
     }
 
     public async Task<decimal> GetCoursePriceAsync(Guid courseId)
     {
-        return await _context.Courses
-            .Where(c => c.Id == courseId)
-            .Select(c => c.Price)
-            .FirstOrDefaultAsync();
+        var course = await _courseRepository.GetAsync(courseId);
+        return course?.Price ?? 0;
     }
 
     public async Task<string?> GetCourseTitleAsync(Guid courseId)
     {
-        return await _context.Courses
-            .Where(c => c.Id == courseId)
-            .Select(c => c.Title)
-            .FirstOrDefaultAsync();
+        var course = await _courseRepository.GetAsync(courseId);
+        return course?.Title;
     }
 
     public async Task<int> GetTotalLessonsInCourseAsync(Guid courseId)
     {
-        return await _context.Lessons
-            .CountAsync(l => l.CourseId == courseId);
+        var course = await _courseRepository.GetAsync(courseId);
+        return course?.Lessons.Count ?? 0;
     }
 }

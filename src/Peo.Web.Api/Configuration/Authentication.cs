@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Peo.Core.Dtos;
 using System.Text;
 
 namespace Peo.Web.Api.Configuration
@@ -16,15 +17,19 @@ namespace Peo.Web.Api.Configuration
                     })
                     .AddJwtBearer(options =>
                     {
+
+                        var jwtSettings = configuration.GetSection(JwtSettings.Position).Get<JwtSettings>()!;
+
+
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuer = true,
                             ValidateAudience = true,
                             ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
-                            ValidIssuer = configuration.GetValue<string>("Jwt:Issuer"),
-                            ValidAudience = configuration.GetValue<string>("Jwt:Audience"),
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:Key")!))
+                            ValidIssuer = jwtSettings.Issuer,
+                            ValidAudience = jwtSettings.Audience,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
                         };
                     });
 

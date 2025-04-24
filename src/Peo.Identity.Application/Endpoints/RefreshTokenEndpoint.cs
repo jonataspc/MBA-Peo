@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MiniValidation;
+using Peo.Core.Dtos;
 using Peo.Core.Web.Api;
 using Peo.Identity.Application.Endpoints.Requests;
 using Peo.Identity.Application.Endpoints.Responses;
@@ -27,8 +29,8 @@ namespace Peo.Identity.Application.Endpoints
 
         private static async Task<IResult> HandleRefreshToken(
             RefreshTokenRequest request,
-            IConfiguration configuration,
             UserManager<IdentityUser> userManager,
+            IOptions<JwtSettings> jwtSettings,
             ITokenService tokenService,
             ILogger<RefreshTokenEndpoint> logger)
         {
@@ -38,7 +40,7 @@ namespace Peo.Identity.Application.Endpoints
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:Key")!);
+            var key = Encoding.UTF8.GetBytes(jwtSettings.Value.Key);
 
             try
             {
@@ -47,9 +49,9 @@ namespace Peo.Identity.Application.Endpoints
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
-                    ValidIssuer = configuration.GetValue<string>("Jwt:Issuer"),
+                    ValidIssuer = jwtSettings.Value.Issuer  ,
                     ValidateAudience = true,
-                    ValidAudience = configuration.GetValue<string>("Jwt:Audience"),
+                    ValidAudience = jwtSettings.Value.Audience ,
                     ValidateLifetime = true
                 };
 
@@ -70,9 +72,9 @@ namespace Peo.Identity.Application.Endpoints
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
-                    ValidIssuer = configuration.GetValue<string>("Jwt:Issuer"),
+                    ValidIssuer = jwtSettings.Value.Issuer ,
                     ValidateAudience = true,
-                    ValidAudience = configuration.GetValue<string>("Jwt:Audience"),
+                    ValidAudience = jwtSettings.Value.Audience ,
                     ValidateLifetime = false
                 };
 
