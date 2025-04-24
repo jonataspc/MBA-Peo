@@ -32,7 +32,7 @@ public class GetAllQueryHandlerTests
             new(
                 title: "Test Course 1",
                 description: "Test Description 1",
-                instructorId: Guid.NewGuid(),
+                instructorId: Guid.CreateVersion7(),
                 programContent: new ProgramContent("Test Program Content 1"),
                 price: 99.99m,
                 isPublished: true,
@@ -43,7 +43,7 @@ public class GetAllQueryHandlerTests
             new(
                 title: "Test Course 2",
                 description: "Test Description 2",
-                instructorId: Guid.NewGuid(),
+                instructorId: Guid.CreateVersion7(),
                 programContent: new ProgramContent("Test Program Content 2"),
                 price: 199.99m,
                 isPublished: true,

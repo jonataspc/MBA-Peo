@@ -40,7 +40,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
     {
         // Arrange
         var request = new RegisterRequest(
-            Email: $"{Guid.NewGuid()}@example.com",
+            Email: $"{Guid.CreateVersion7()}@example.com",
             Password: "Test123!",
             Name: "Test User"
         );
@@ -81,7 +81,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
     public async Task Login_WithValidCredentials_ShouldReturnToken()
     {
         // Arrange
-        var email = $"{Guid.NewGuid()}@example.com";
+        var email = $"{Guid.CreateVersion7()}@example.com";
         var password = "Test123!";
 
         var user = new IdentityUser

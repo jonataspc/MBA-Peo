@@ -38,7 +38,7 @@ public class StudentServiceTests
     public async Task CreateStudentAsync_ShouldCreateAndReturnNewStudent()
     {
         // Arrange
-        var userId = Guid.NewGuid();
+        var userId = Guid.CreateVersion7();
         var expectedStudent = new Student(userId);
         _studentRepositoryMock.Setup(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(1);
@@ -57,9 +57,9 @@ public class StudentServiceTests
     public async Task EnrollStudentAsync_ShouldCreateEnrollmentWhenValid()
     {
         // Arrange
-        var studentId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
-        var student = new Student(Guid.NewGuid());
+        var studentId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
+        var student = new Student(Guid.CreateVersion7());
         var expectedEnrollment = new Enrollment(studentId, courseId);
 
         _studentRepositoryMock.Setup(x => x.GetByIdAsync(studentId))
@@ -86,8 +86,8 @@ public class StudentServiceTests
     public async Task EnrollStudentAsync_ShouldThrowWhenStudentNotFound()
     {
         // Arrange
-        var studentId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
+        var studentId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
         _studentRepositoryMock.Setup(x => x.GetByIdAsync(studentId))
             .ReturnsAsync((Student?)null);
 
@@ -99,9 +99,9 @@ public class StudentServiceTests
     public async Task EnrollStudentAsync_ShouldThrowWhenCourseNotFound()
     {
         // Arrange
-        var studentId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
-        var student = new Student(Guid.NewGuid());
+        var studentId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
+        var student = new Student(Guid.CreateVersion7());
 
         _studentRepositoryMock.Setup(x => x.GetByIdAsync(studentId))
             .ReturnsAsync(student);
@@ -116,11 +116,11 @@ public class StudentServiceTests
     public async Task StartLessonAsync_ShouldCreateProgressWhenValid()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var lessonId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var currentUserId = Guid.NewGuid();
-        var enrollment = new Enrollment(studentId, Guid.NewGuid());
+        var enrollmentId = Guid.CreateVersion7();
+        var lessonId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var currentUserId = Guid.CreateVersion7();
+        var enrollment = new Enrollment(studentId, Guid.CreateVersion7());
         var student = new Student(currentUserId) { Id = studentId }; // Set the student's ID to match enrollment's StudentId
 
         enrollment.PaymentDone();
@@ -152,11 +152,11 @@ public class StudentServiceTests
     public async Task EndLessonAsync_ShouldUpdateProgressWhenValid()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var lessonId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var currentUserId = Guid.NewGuid();
-        var enrollment = new Enrollment(studentId, Guid.NewGuid());
+        var enrollmentId = Guid.CreateVersion7();
+        var lessonId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var currentUserId = Guid.CreateVersion7();
+        var enrollment = new Enrollment(studentId, Guid.CreateVersion7());
         var progress = new EnrollmentProgress(enrollmentId, lessonId);
         var student = new Student(currentUserId) { Id = studentId }; // Set the student's ID to match enrollment's StudentId
 
@@ -192,12 +192,12 @@ public class StudentServiceTests
     public async Task EndLessonAsync_ShouldThrowWhenCurrentUserIsNotTheEnrollmentStudent()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var lessonId = Guid.NewGuid();
-        var enrollmentStudentId = Guid.NewGuid();
-        var currentUserId = Guid.NewGuid();
-        var differentStudentId = Guid.NewGuid();
-        var enrollment = new Enrollment(enrollmentStudentId, Guid.NewGuid());
+        var enrollmentId = Guid.CreateVersion7();
+        var lessonId = Guid.CreateVersion7();
+        var enrollmentStudentId = Guid.CreateVersion7();
+        var currentUserId = Guid.CreateVersion7();
+        var differentStudentId = Guid.CreateVersion7();
+        var enrollment = new Enrollment(enrollmentStudentId, Guid.CreateVersion7());
         var student = new Student(currentUserId) { Id = differentStudentId }; // Different student ID than enrollment's
 
         _studentRepositoryMock.Setup(x => x.GetEnrollmentByIdAsync(enrollmentId))
@@ -215,12 +215,12 @@ public class StudentServiceTests
     public async Task StartLessonAsync_ShouldThrowWhenCurrentUserIsNotTheEnrollmentStudent()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var lessonId = Guid.NewGuid();
-        var enrollmentStudentId = Guid.NewGuid();
-        var currentUserId = Guid.NewGuid();
-        var differentStudentId = Guid.NewGuid();
-        var enrollment = new Enrollment(enrollmentStudentId, Guid.NewGuid());
+        var enrollmentId = Guid.CreateVersion7();
+        var lessonId = Guid.CreateVersion7();
+        var enrollmentStudentId = Guid.CreateVersion7();
+        var currentUserId = Guid.CreateVersion7();
+        var differentStudentId = Guid.CreateVersion7();
+        var enrollment = new Enrollment(enrollmentStudentId, Guid.CreateVersion7());
         var student = new Student(currentUserId) { Id = differentStudentId }; // Different student ID than enrollment's
 
         _studentRepositoryMock.Setup(x => x.GetEnrollmentByIdAsync(enrollmentId))
@@ -238,9 +238,9 @@ public class StudentServiceTests
     public async Task EnrollStudentWithUserIdAsync_ShouldCreateStudentAndEnrollWhenValid()
     {
         // Arrange
-        var userId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
+        var userId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
         var student = new Student(userId) { Id = studentId };
         var expectedEnrollment = new Enrollment(studentId, courseId);
 
@@ -287,10 +287,10 @@ public class StudentServiceTests
     public async Task GetCourseOverallProgress_ShouldReturnProgressPercentage()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var currentUserId = Guid.NewGuid();
-        var enrollment = new Enrollment(studentId, Guid.NewGuid());
+        var enrollmentId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var currentUserId = Guid.CreateVersion7();
+        var enrollment = new Enrollment(studentId, Guid.CreateVersion7());
         var student = new Student(currentUserId) { Id = studentId };
         enrollment.UpdateProgress(75);
 
@@ -312,10 +312,10 @@ public class StudentServiceTests
     public async Task CompleteEnrollmentAsync_ShouldCompleteEnrollmentAndGenerateCertificate()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var currentUserId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var currentUserId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
         var student = new Student(currentUserId) { Id = studentId };
         var enrollment = new Enrollment(studentId, courseId);
         enrollment.PaymentDone();
@@ -364,10 +364,10 @@ public class StudentServiceTests
     public async Task CompleteEnrollmentAsync_ShouldThrowWhenNotAllLessonsCompleted()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var currentUserId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var currentUserId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
         var enrollment = new Enrollment(studentId, courseId);
         var student = new Student(currentUserId) { Id = studentId };
         enrollment.PaymentDone();
@@ -391,8 +391,8 @@ public class StudentServiceTests
     public async Task GetStudentCertificatesAsync_ShouldReturnCertificates()
     {
         // Arrange
-        var studentId = Guid.NewGuid();
-        var enrollmentId = Guid.NewGuid();
+        var studentId = Guid.CreateVersion7();
+        var enrollmentId = Guid.CreateVersion7();
         var certificates = new List<Certificate>
         {
             new Certificate(enrollmentId, "Certificate 1", DateTime.Now, "CERT-001"),
@@ -400,7 +400,7 @@ public class StudentServiceTests
         };
 
         _studentRepositoryMock.Setup(x => x.GetByIdAsync(studentId))
-            .ReturnsAsync(new Student(Guid.NewGuid()));
+            .ReturnsAsync(new Student(Guid.CreateVersion7()));
         _studentRepositoryMock.Setup(x => x.GetCertificatesByStudentIdAsync(studentId))
             .ReturnsAsync(certificates);
 
@@ -417,7 +417,7 @@ public class StudentServiceTests
     public async Task GetStudentCertificatesAsync_ShouldThrowWhenStudentNotFound()
     {
         // Arrange
-        var studentId = Guid.NewGuid();
+        var studentId = Guid.CreateVersion7();
         _studentRepositoryMock.Setup(x => x.GetByIdAsync(studentId))
             .ReturnsAsync((Student?)null);
 

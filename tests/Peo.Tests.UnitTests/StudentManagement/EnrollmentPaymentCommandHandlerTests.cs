@@ -40,14 +40,14 @@ public class EnrollmentPaymentCommandHandlerTests
     public async Task Handle_ShouldReturnPayment_WhenValid()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
         var enrollment = new Enrollment(studentId, courseId);
         var amount = 99.99m;
         var creditCard = new CreditCard("1234567890123456", "Test User", "12/25", "123");
         var payment = new Payment(enrollmentId, amount);
-        payment.ProcessPayment(Guid.NewGuid().ToString());
+        payment.ProcessPayment(Guid.CreateVersion7().ToString());
         payment.ConfirmPayment(new CreditCardData { Hash = "hash-123" });
 
         _studentRepositoryMock.Setup(x => x.GetEnrollmentByIdAsync(enrollmentId))
@@ -78,9 +78,9 @@ public class EnrollmentPaymentCommandHandlerTests
     public async Task Handle_ShouldReturnFailure_WhenErrorOccurs()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
         var enrollment = new Enrollment(studentId, courseId);
         var amount = 99.99m;
         var creditCard = new CreditCard("1234567890123456", "Test User", "12/25", "123");

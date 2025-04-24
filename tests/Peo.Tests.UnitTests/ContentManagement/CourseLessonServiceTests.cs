@@ -22,8 +22,8 @@ public class CourseLessonServiceTests
     public async Task CheckIfCourseExistsAsync_ShouldReturnTrueWhenCourseExists()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
-        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.NewGuid(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
+        var courseId = Guid.CreateVersion7();
+        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
         
         _courseRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Course, bool>>>()))
             .ReturnsAsync(true);
@@ -40,7 +40,7 @@ public class CourseLessonServiceTests
     public async Task CheckIfCourseExistsAsync_ShouldReturnFalseWhenCourseDoesNotExist()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         
         _courseRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Course, bool>>>()))
             .ReturnsAsync(false);
@@ -57,9 +57,9 @@ public class CourseLessonServiceTests
     public async Task GetCoursePriceAsync_ShouldReturnCoursePrice()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         var expectedPrice = 99.99m;
-        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.NewGuid(), null, expectedPrice, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
+        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.CreateVersion7(), null, expectedPrice, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
         
         _courseRepositoryMock.Setup(x => x.GetAsync(courseId))
             .ReturnsAsync(course);
@@ -76,9 +76,9 @@ public class CourseLessonServiceTests
     public async Task GetCourseTitleAsync_ShouldReturnCourseTitle()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         var expectedTitle = "Test Course";
-        var course = new Peo.ContentManagement.Domain.Entities.Course(expectedTitle, "Description", Guid.NewGuid(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
+        var course = new Peo.ContentManagement.Domain.Entities.Course(expectedTitle, "Description", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
         
         _courseRepositoryMock.Setup(x => x.GetAsync(courseId))
             .ReturnsAsync(course);
@@ -95,12 +95,12 @@ public class CourseLessonServiceTests
     public async Task GetTotalLessonsInCourseAsync_ShouldReturnLessonCount()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         var expectedCount = 10;
         var lessons = Enumerable.Range(0, expectedCount)
             .Select(_ => new Peo.ContentManagement.Domain.Entities.Lesson("Test Lesson", "Description", "video-url", TimeSpan.FromMinutes(30), new List<Peo.ContentManagement.Domain.Entities.LessonFile>(), courseId))
             .ToList();
-        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.NewGuid(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), lessons);
+        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), lessons);
         
         _courseRepositoryMock.Setup(x => x.GetAsync(courseId))
             .ReturnsAsync(course);
@@ -117,8 +117,8 @@ public class CourseLessonServiceTests
     public async Task GetTotalLessonsInCourseAsync_ShouldReturnZeroWhenNoLessons()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
-        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.NewGuid(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
+        var courseId = Guid.CreateVersion7();
+        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
         
         _courseRepositoryMock.Setup(x => x.GetAsync(courseId))
             .ReturnsAsync(course);

@@ -29,8 +29,8 @@ public class StartLessonCommandHandlerTests
     public async Task Handle_ShouldReturnProgress_WhenValid()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var lessonId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
+        var lessonId = Guid.CreateVersion7();
         var progress = new EnrollmentProgress(enrollmentId, lessonId);
 
         _studentServiceMock.Setup(x => x.StartLessonAsync(enrollmentId, lessonId, It.IsAny<CancellationToken>()))
@@ -63,8 +63,8 @@ public class StartLessonCommandHandlerTests
     public async Task Handle_ShouldReturnFailure_WhenErrorOccurs()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var lessonId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
+        var lessonId = Guid.CreateVersion7();
         var errorMessage = "An error occurred";
 
         _studentServiceMock.Setup(x => x.StartLessonAsync(enrollmentId, lessonId, It.IsAny<CancellationToken>()))

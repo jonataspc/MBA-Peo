@@ -27,7 +27,7 @@ public class GetAllQueryHandlerTests
     public async Task Handle_ShouldReturnAllLessons_WhenCourseExists()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         var lessons = new List<Peo.ContentManagement.Domain.Entities.Lesson>
         {
             new(
@@ -51,7 +51,7 @@ public class GetAllQueryHandlerTests
         var course = new Peo.ContentManagement.Domain.Entities.Course(
             title: "Test Course",
             description: "Test Description",
-            instructorId: Guid.NewGuid(),
+            instructorId: Guid.CreateVersion7(),
             programContent: new ProgramContent("Test Program Content"),
             price: 99.99m,
             isPublished: true,
@@ -80,7 +80,7 @@ public class GetAllQueryHandlerTests
     public async Task Handle_ShouldReturnFailure_WhenCourseNotFound()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         _repositoryMock.Setup(x => x.GetAsync(courseId))
             .ReturnsAsync((Peo.ContentManagement.Domain.Entities.Course?)null);
 
@@ -99,11 +99,11 @@ public class GetAllQueryHandlerTests
     public async Task Handle_ShouldReturnEmptyList_WhenCourseHasNoLessons()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         var course = new Peo.ContentManagement.Domain.Entities.Course(
             title: "Test Course",
             description: "Test Description",
-            instructorId: Guid.NewGuid(),
+            instructorId: Guid.CreateVersion7(),
             programContent: new ProgramContent("Test Program Content"),
             price: 99.99m,
             isPublished: true,

@@ -22,7 +22,7 @@ public class UserServiceTests
     public async Task AddAsync_ShouldAddUserAndCommitChanges()
     {
         // Arrange
-        var user = new User(Guid.NewGuid(), "Test User", "test@example.com");
+        var user = new User(Guid.CreateVersion7(), "Test User", "test@example.com");
         _userRepositoryMock.Setup(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(1);
 
@@ -38,7 +38,7 @@ public class UserServiceTests
     public async Task GetUserByIdAsync_ShouldReturnUserWhenFound()
     {
         // Arrange
-        var userId = Guid.NewGuid();
+        var userId = Guid.CreateVersion7();
         var expectedUser = new User(userId, "Test User", "test@example.com");
         _userRepositoryMock.Setup(x => x.GetByIdAsync(userId))
             .ReturnsAsync(expectedUser);
@@ -55,7 +55,7 @@ public class UserServiceTests
     public async Task GetUserByIdAsync_ShouldReturnNullWhenUserNotFound()
     {
         // Arrange
-        var userId = Guid.NewGuid();
+        var userId = Guid.CreateVersion7();
         _userRepositoryMock.Setup(x => x.GetByIdAsync(userId))
             .ReturnsAsync((User?)null);
 

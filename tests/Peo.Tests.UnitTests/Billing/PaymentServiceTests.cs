@@ -38,10 +38,10 @@ public class PaymentServiceTests
     public async Task ProcessEnrollmentPaymentAsync_ShouldProcessPaymentSuccessfully()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
         var amount = 99.99m;
         var creditCard = new CreditCard("1234567890123456", "Test User", "12/25", "123");
-        var enrollment = new Enrollment(Guid.NewGuid(), Guid.NewGuid());
+        var enrollment = new Enrollment(Guid.CreateVersion7(), Guid.CreateVersion7());
         var payment = new Payment(enrollmentId, amount);
         var brokerResult = new PaymentBrokerResult(true, null, "hash-123");
         var studentUnitOfWorkMock = new Mock<IUnitOfWork>();
@@ -82,10 +82,10 @@ public class PaymentServiceTests
     public async Task ProcessEnrollmentPaymentAsync_ShouldHandleFailedPayment()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
         var amount = 99.99m;
         var creditCard = new CreditCard("1234567890123456", "Test User", "12/25", "123");
-        var enrollment = new Enrollment(Guid.NewGuid(), Guid.NewGuid());
+        var enrollment = new Enrollment(Guid.CreateVersion7(), Guid.CreateVersion7());
         var brokerResult = new PaymentBrokerResult(false, "Insufficient funds", null);
         var payment = new Payment(enrollmentId, amount);
         var studentUnitOfWorkMock = new Mock<IUnitOfWork>();
@@ -122,7 +122,7 @@ public class PaymentServiceTests
     public async Task ProcessEnrollmentPaymentAsync_ShouldThrowWhenEnrollmentNotFound()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
         var amount = 99.99m;
         var creditCard = new CreditCard("1234567890123456", "Test User", "12/25", "123");
 
@@ -142,8 +142,8 @@ public class PaymentServiceTests
     public async Task RefundPaymentAsync_ShouldRefundPaymentSuccessfully()
     {
         // Arrange
-        var paymentId = Guid.NewGuid();
-        var payment = new Payment(Guid.NewGuid(), 99.99m);
+        var paymentId = Guid.CreateVersion7();
+        var payment = new Payment(Guid.CreateVersion7(), 99.99m);
         payment.ProcessPayment("transaction-123");
         payment.ConfirmPayment(new CreditCardData { Hash = "hash-123" });
 
@@ -166,7 +166,7 @@ public class PaymentServiceTests
     public async Task RefundPaymentAsync_ShouldThrowWhenPaymentNotFound()
     {
         // Arrange
-        var paymentId = Guid.NewGuid();
+        var paymentId = Guid.CreateVersion7();
         _paymentRepositoryMock.Setup(x => x.WithTracking().GetAsync(paymentId))
             .ReturnsAsync((Payment?)null);
 
@@ -182,8 +182,8 @@ public class PaymentServiceTests
     public async Task CancelPaymentAsync_ShouldCancelPaymentSuccessfully()
     {
         // Arrange
-        var paymentId = Guid.NewGuid();
-        var enrollmentId = Guid.NewGuid();
+        var paymentId = Guid.CreateVersion7();
+        var enrollmentId = Guid.CreateVersion7();
         var payment = new Payment(enrollmentId, 99.99m);
         // Payment starts in Pending status, which is the correct state for cancellation
 
@@ -206,7 +206,7 @@ public class PaymentServiceTests
     public async Task CancelPaymentAsync_ShouldThrowWhenPaymentNotFound()
     {
         // Arrange
-        var paymentId = Guid.NewGuid();
+        var paymentId = Guid.CreateVersion7();
         _paymentRepositoryMock.Setup(x => x.WithTracking().GetAsync(paymentId))
             .ReturnsAsync((Payment?)null);
 
@@ -222,8 +222,8 @@ public class PaymentServiceTests
     public async Task GetPaymentByIdAsync_ShouldReturnPaymentWhenFound()
     {
         // Arrange
-        var paymentId = Guid.NewGuid();
-        var expectedPayment = new Payment(Guid.NewGuid(), 99.99m);
+        var paymentId = Guid.CreateVersion7();
+        var expectedPayment = new Payment(Guid.CreateVersion7(), 99.99m);
         _paymentRepositoryMock.Setup(x => x.WithTracking().GetAsync(paymentId))
             .ReturnsAsync(expectedPayment);
 
@@ -239,7 +239,7 @@ public class PaymentServiceTests
     public async Task GetPaymentByIdAsync_ShouldReturnNullWhenPaymentNotFound()
     {
         // Arrange
-        var paymentId = Guid.NewGuid();
+        var paymentId = Guid.CreateVersion7();
         _paymentRepositoryMock.Setup(x => x.WithTracking().GetAsync(paymentId))
             .ReturnsAsync((Payment?)null);
 
@@ -254,7 +254,7 @@ public class PaymentServiceTests
     public async Task GetPaymentsByEnrollmentIdAsync_ShouldReturnPaymentsWhenFound()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
         var expectedPayments = new List<Payment>
         {
             new Payment(enrollmentId, 99.99m),
@@ -275,7 +275,7 @@ public class PaymentServiceTests
     public async Task GetPaymentsByEnrollmentIdAsync_ShouldReturnEmptyListWhenNoPaymentsFound()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
         _paymentRepositoryMock.Setup(x => x.WithTracking().GetAsync(It.IsAny<Expression<Func<Payment, bool>>>()))
             .ReturnsAsync(Enumerable.Empty<Payment>());
 

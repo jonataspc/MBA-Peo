@@ -181,7 +181,7 @@ public class StudentService(
 
     private static string GenerateCertificateNumber()
     {
-        return $"CERT-{DateTime.Now:yyyyMMdd}-{Guid.NewGuid().ToString("N").Substring(0, 8)}";
+        return $"CERT-{DateTime.Now:yyyyMMdd}-{Guid.CreateVersion7().ToString("N").Substring(0, 8)}";
     }
 
     public async Task<IEnumerable<Certificate>> GetStudentCertificatesAsync(Guid studentId, CancellationToken cancellationToken)

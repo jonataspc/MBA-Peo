@@ -84,7 +84,7 @@ public class PaymentService : IPaymentService
 
         // Create and process the payment
         var payment = await CreatePaymentAsync(enrollmentId, amount);
-        var transactionid = Guid.NewGuid().ToString();
+        var transactionid = Guid.CreateVersion7().ToString();
         payment = await ProcessPaymentAsync(payment.Id, transactionid);
 
         // call external broker service

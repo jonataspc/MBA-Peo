@@ -18,7 +18,7 @@ public class TestDatabaseSetup
     private readonly IServiceScope _scope;
 
     internal readonly string UserTestPassword = "Test123!";
-    internal readonly string UserTestEmail = $"{Guid.NewGuid()}@example.com";
+    internal readonly string UserTestEmail = $"{Guid.CreateVersion7()}@example.com";
 
     public TestDatabaseSetup(IServiceProvider serviceProvider)
     {
@@ -101,7 +101,7 @@ public class TestDatabaseSetup
 
     public async Task<Certificate> CreateTestCertificateAsync(Guid enrollmentId, string content)
     {
-        var certificate = new Certificate(enrollmentId, content, DateTime.UtcNow, $"CERT-{Guid.NewGuid():N}");
+        var certificate = new Certificate(enrollmentId, content, DateTime.UtcNow, $"CERT-{Guid.CreateVersion7():N}");
         await _studentRepository.AddCertificateAsync(certificate);
         await _studentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return certificate;
@@ -114,7 +114,7 @@ public class TestDatabaseSetup
         decimal price = 99.99m,
         bool isPublished = true)
     {
-        instructorId ??= Guid.NewGuid();
+        instructorId ??= Guid.CreateVersion7();
 
         var course = new Course(
             title,

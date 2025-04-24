@@ -21,11 +21,11 @@ public class CreateCommandHandlerTests
     public async Task Handle_ShouldCreateLesson_WhenValid()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         var course = new Peo.ContentManagement.Domain.Entities.Course(
             title: "Test Course",
             description: "Test Description",
-            instructorId: Guid.NewGuid(),
+            instructorId: Guid.CreateVersion7(),
             programContent: new ProgramContent("Test Program Content"),
             price: 99.99m,
             isPublished: true,
@@ -65,7 +65,7 @@ public class CreateCommandHandlerTests
     public async Task Handle_ShouldReturnFailure_WhenCourseNotFound()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
         var command = new Command
         {
             CourseId = courseId,

@@ -33,7 +33,7 @@ namespace Peo.Identity.Application.Services
             var claims = new List<Claim>
                 {
                     new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                    new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new(JwtRegisteredClaimNames.Jti, Guid.CreateVersion7().ToString()),
                     new(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()),
                     new(ClaimTypes.NameIdentifier, user.UserName!),
                     new(ClaimTypes.Name, user.UserName!)

@@ -23,7 +23,7 @@ public class CreateCommandHandlerTests
         var command = new Command(
             Title: "Test Course",
             Description: "Test Description",
-            InstructorId: Guid.NewGuid(),
+            InstructorId: Guid.CreateVersion7(),
             ProgramContent: "Test Program Content",
             Price: 99.99m,
             Tags: ["test", "course"]

@@ -30,9 +30,9 @@ public class CompleteEnrollmentCommandHandlerTests
     public async Task Handle_ShouldReturnEnrollment_WhenValid()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
         var enrollment = new Enrollment(studentId, courseId);
         enrollment.PaymentDone();
         enrollment.Complete();
@@ -61,7 +61,7 @@ public class CompleteEnrollmentCommandHandlerTests
     public async Task Handle_ShouldReturnFailure_WhenErrorOccurs()
     {
         // Arrange
-        var enrollmentId = Guid.NewGuid();
+        var enrollmentId = Guid.CreateVersion7();
         var errorMessage = "An error occurred";
 
         _studentServiceMock.Setup(x => x.CompleteEnrollmentAsync(enrollmentId, It.IsAny<CancellationToken>()))

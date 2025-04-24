@@ -34,10 +34,10 @@ public class CourseEnrollmentCommandHandlerTests
     public async Task Handle_ShouldReturnEnrollmentId_WhenValid()
     {
         // Arrange
-        var userId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
-        var enrollmentId = Guid.NewGuid();
-        var enrollment = new Enrollment(Guid.NewGuid(), courseId) { Id = enrollmentId };
+        var userId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
+        var enrollmentId = Guid.CreateVersion7();
+        var enrollment = new Enrollment(Guid.CreateVersion7(), courseId) { Id = enrollmentId };
 
         _appIdentityUserMock.Setup(x => x.GetUserId())
             .Returns(userId);
@@ -60,8 +60,8 @@ public class CourseEnrollmentCommandHandlerTests
     public async Task Handle_ShouldReturnFailure_WhenErrorOccurs()
     {
         // Arrange
-        var userId = Guid.NewGuid();
-        var courseId = Guid.NewGuid();
+        var userId = Guid.CreateVersion7();
+        var courseId = Guid.CreateVersion7();
         var errorMessage = "An error occurred";
 
         _appIdentityUserMock.Setup(x => x.GetUserId())

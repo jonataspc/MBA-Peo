@@ -33,9 +33,9 @@ public class GetStudentCertificatesQueryHandlerTests
     public async Task Handle_ShouldReturnCertificates_WhenValid()
     {
         // Arrange
-        var userId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
-        var enrollmentId = Guid.NewGuid();
+        var userId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
+        var enrollmentId = Guid.CreateVersion7();
         var student = new Student(userId) { Id = studentId };
         var certificates = new List<Certificate>
         {
@@ -70,7 +70,7 @@ public class GetStudentCertificatesQueryHandlerTests
     public async Task Handle_ShouldReturnFailure_WhenStudentNotFound()
     {
         // Arrange
-        var userId = Guid.NewGuid();
+        var userId = Guid.CreateVersion7();
         var errorMessage = "Student not found";
 
         _appIdentityUserMock.Setup(x => x.GetUserId())
@@ -91,8 +91,8 @@ public class GetStudentCertificatesQueryHandlerTests
     public async Task Handle_ShouldReturnFailure_WhenErrorOccurs()
     {
         // Arrange
-        var userId = Guid.NewGuid();
-        var studentId = Guid.NewGuid();
+        var userId = Guid.CreateVersion7();
+        var studentId = Guid.CreateVersion7();
         var student = new Student(userId) { Id = studentId };
         var errorMessage = "An unexpected error occurred";
 

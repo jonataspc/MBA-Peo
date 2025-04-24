@@ -24,7 +24,7 @@ public class ContentManagementEndpointsTests : IClassFixture<WebApplicationFacto
     private readonly WebApplicationFactory<Program> _factory;
     private readonly HttpClient _client;
     private readonly TestDatabaseSetup _testDb;
-    private Guid _testUserId = Guid.NewGuid();
+    private Guid _testUserId = Guid.CreateVersion7();
     private Course? _testCourse;
 
     public ContentManagementEndpointsTests(WebApplicationFactory<Program> factory)
@@ -139,7 +139,7 @@ public class ContentManagementEndpointsTests : IClassFixture<WebApplicationFacto
     public async Task GetCourseById_WithInvalidId_ShouldReturnNotFound()
     {
         // Arrange
-        var courseId = Guid.NewGuid();
+        var courseId = Guid.CreateVersion7();
 
         // Act
         var response = await _client.GetAsync($"/v1/content/course/{courseId}");

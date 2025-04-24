@@ -82,7 +82,7 @@ public class LoginEndpointTests
     public async Task HandleLogin_ShouldReturnUnauthorized_WhenPasswordIsInvalid()
     {
         // Arrange
-        var user = new IdentityUser { Id = Guid.NewGuid().ToString() };
+        var user = new IdentityUser { Id = Guid.CreateVersion7().ToString() };
         var userManager = _signInManagerMock.Object.UserManager;
 
         Mock.Get(userManager).Setup(x => x.FindByEmailAsync(_validRequest.Email))
@@ -105,7 +105,7 @@ public class LoginEndpointTests
     public async Task HandleLogin_ShouldReturnOk_WhenLoginSucceeds()
     {
         // Arrange
-        var user = new IdentityUser { Id = Guid.NewGuid().ToString() };
+        var user = new IdentityUser { Id = Guid.CreateVersion7().ToString() };
         var roles = new[] { "Student" };
         var token = "test-token";
 

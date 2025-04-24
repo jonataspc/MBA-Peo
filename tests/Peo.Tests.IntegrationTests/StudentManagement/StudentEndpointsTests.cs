@@ -20,7 +20,7 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
     private readonly WebApplicationFactory<Program> _factory;
     private readonly HttpClient _client;
     private readonly TestDatabaseSetup _testDb;
-    private Guid _testUserId = Guid.NewGuid();
+    private Guid _testUserId = Guid.CreateVersion7();
     private Course _testCourse = null!;
     private Course _testCourseNotEnrolled = null!;
     private Student? _testStudent;
@@ -129,7 +129,7 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
     public async Task EndLesson_WithValidRequest_ShouldEndLesson()
     {
         // Arrange
-        var lessonId = Guid.NewGuid();
+        var lessonId = Guid.CreateVersion7();
         await _testDb.CreateTestLessonProgressAsync(_testEnrollment!.Id, lessonId);
 
         var request = new EndLessonRequest
@@ -254,7 +254,7 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
     {
         // Arrange
         var request = new EnrollmentPaymentRequest(
-            Guid.NewGuid(), // Non-existent enrollment ID
+            Guid.CreateVersion7(), // Non-existent enrollment ID
             new CreditCard(
                 "4111111111111111",
                 "12/25",
