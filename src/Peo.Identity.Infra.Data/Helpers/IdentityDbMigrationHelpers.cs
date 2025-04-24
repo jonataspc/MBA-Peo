@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Peo.Core.DomainObjects;
 using Peo.Identity.Infra.Data.Contexts;
+using System.Diagnostics;
 
 namespace Peo.Identity.Infra.Data.Helpers
 {
@@ -40,14 +41,21 @@ namespace Peo.Identity.Infra.Data.Helpers
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            if (!await roleManager.RoleExistsAsync(AccessRoles.Admin))
+            try
             {
-                await roleManager.CreateAsync(new IdentityRole(AccessRoles.Admin));
-            }
+                if (!await roleManager.RoleExistsAsync(AccessRoles.Admin))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(AccessRoles.Admin));
+                }
 
-            if (!await roleManager.RoleExistsAsync(AccessRoles.Student))
+                if (!await roleManager.RoleExistsAsync(AccessRoles.Student))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(AccessRoles.Student));
+                }
+            }
+            catch (Exception e)
             {
-                await roleManager.CreateAsync(new IdentityRole(AccessRoles.Student));
+                Debug.WriteLine(e);
             }
         }
     }
