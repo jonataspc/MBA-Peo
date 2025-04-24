@@ -1,7 +1,7 @@
+using Peo.Core.Interfaces.Services.Acls;
 using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
 using Peo.StudentManagement.Domain.ValueObjects;
-using Peo.Core.Interfaces.Services.Acls;
 
 namespace Peo.StudentManagement.Application.Services;
 
@@ -87,5 +87,27 @@ public class StudentService : IStudentService
         await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);
 
         return progress;
+    }
+
+    public async Task<Enrollment> CompleteEnrollmentAsync(Guid enrollmentId, CancellationToken cancellationToken = default)
+    {
+        var enrollment = await _studentRepository.GetEnrollmentByIdAsync(enrollmentId)
+            ?? throw new ArgumentException("Enrollment not found", nameof(enrollmentId));
+
+        if (enrollment.Status != EnrollmentStatus.Active)
+            throw new InvalidOperationException($"Cannot conclude enrollment in {enrollment.Status} status");
+
+        // Check if all lessons are completed
+        var totalLessons = await _courseLessonService.GetTotalLessonsInCourseAsync(enrollment.CourseId);
+        var completedLessons = await _studentRepository.GetCompletedLessonsCountAsync(enrollmentId);
+
+        if (completedLessons < totalLessons)
+            throw new InvalidOperationException($"Cannot conclude enrollment. {completedLessons} of {totalLessons} lessons completed.");
+
+        enrollment.Complete();
+        await _studentRepository.UpdateEnrollmentAsync(enrollment);
+        await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);
+
+        return enrollment;
     }
 }
