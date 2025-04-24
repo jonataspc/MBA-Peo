@@ -27,7 +27,7 @@ namespace Peo.Identity.Application.Endpoints
                .AllowAnonymous();
         }
 
-        private static async Task<IResult> HandleRefreshToken(
+        public static async Task<IResult> HandleRefreshToken(
             RefreshTokenRequest request,
             UserManager<IdentityUser> userManager,
             IOptions<JwtSettings> jwtSettings,

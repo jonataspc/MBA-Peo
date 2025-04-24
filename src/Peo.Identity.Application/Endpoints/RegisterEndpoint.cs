@@ -20,7 +20,7 @@ namespace Peo.Identity.Application.Endpoints
                .AllowAnonymous();
         }
 
-        private static async Task<IResult> HandleRegister(
+        public static async Task<IResult> HandleRegister(
             RegisterRequest request,
             UserManager<IdentityUser> userManager,
             IUserService userService)

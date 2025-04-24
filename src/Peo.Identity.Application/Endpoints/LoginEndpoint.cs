@@ -19,7 +19,7 @@ namespace Peo.Identity.Application.Endpoints
                .AllowAnonymous();
         }
 
-        private static async Task<IResult> HandleLogin(LoginRequest loginRequest, SignInManager<IdentityUser> signInManager, ITokenService tokenService)
+        public static async Task<IResult> HandleLogin(LoginRequest loginRequest, SignInManager<IdentityUser> signInManager, ITokenService tokenService)
         {
             if (!MiniValidator.TryValidate(loginRequest, out var errors))
             {
