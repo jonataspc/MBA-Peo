@@ -5,7 +5,6 @@ using Peo.Billing.Domain.Interfaces.Services;
 using Peo.Billing.Domain.ValueObjects;
 using Peo.Core.DomainObjects;
 using Peo.Core.Interfaces.Data;
-using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
 
 namespace Peo.Billing.Application.Services;
@@ -42,27 +41,27 @@ public class PaymentService : IPaymentService
         return payment;
     }
 
-    private async Task<Payment> ConfirmPaymentAsync(Guid paymentId, CreditCardData creditCardData)
-    {
-        var payment = await GetPaymentByIdAsync(paymentId)
-            ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
+    //private async Task<Payment> ConfirmPaymentAsync(Guid paymentId, CreditCardData creditCardData)
+    //{
+    //    var payment = await GetPaymentByIdAsync(paymentId)
+    //        ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
 
-        payment.ConfirmPayment(creditCardData);
-        _paymentRepository.Update(payment);
-        await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-        return payment;
-    }
+    //    payment.ConfirmPayment(creditCardData);
+    //    _paymentRepository.Update(payment);
+    //    await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+    //    return payment;
+    //}
 
-    private async Task<Payment> MarkPaymentAsFailedAsync(Guid paymentId, string? details)
-    {
-        var payment = await GetPaymentByIdAsync(paymentId)
-            ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
+    //private async Task<Payment> MarkPaymentAsFailedAsync(Guid paymentId, string? details)
+    //{
+    //    var payment = await GetPaymentByIdAsync(paymentId)
+    //        ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
 
-        payment.MarkAsFailed(details);
-        _paymentRepository.Update(payment);
-        await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-        return payment;
-    }
+    //    payment.MarkAsFailed(details);
+    //    _paymentRepository.Update(payment);
+    //    await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+    //    return payment;
+    //}
 
     public async Task<Payment> RefundPaymentAsync(Guid paymentId)
     {
@@ -106,8 +105,8 @@ public class PaymentService : IPaymentService
 
         // Create and process the payment
         var payment = await CreatePaymentAsync(enrollmentId, amount);
-        payment = await ProcessPaymentAsync(payment.Id, default!);
-
+        var transactionid = Guid.NewGuid().ToString();
+        payment = await ProcessPaymentAsync(payment.Id, transactionid);
 
         // call external broker service
         PaymentBrokerResult result;
@@ -121,7 +120,6 @@ public class PaymentService : IPaymentService
             throw new DomainException(e.Message);
         }
 
-
         if (result.Success)
         {
             payment.ConfirmPayment(new CreditCardData() { Hash = result.Hash });
@@ -131,13 +129,11 @@ public class PaymentService : IPaymentService
             payment.MarkAsFailed(result.Details);
         }
 
-
-
         // If payment is successful, update enrollment status
         if (payment.Status == PaymentStatus.Paid)
         {
             enrollment.PaymentDone();
-            await _studentRepository.UpdateEnrollmentAsync(enrollment);            
+            await _studentRepository.UpdateEnrollmentAsync(enrollment);
         }
 
         await _studentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
