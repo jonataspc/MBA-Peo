@@ -1,15 +1,19 @@
 using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
+using Peo.StudentManagement.Domain.ValueObjects;
+using Peo.Core.Interfaces.Services.Acls;
 
 namespace Peo.StudentManagement.Application.Services;
 
-public class StudentService
+public class StudentService : IStudentService
 {
     private readonly IStudentRepository _studentRepository;
+    private readonly ICourseLessonService _courseLessonService;
 
-    public StudentService(IStudentRepository studentRepository)
+    public StudentService(IStudentRepository studentRepository, ICourseLessonService courseLessonService)
     {
         _studentRepository = studentRepository;
+        _courseLessonService = courseLessonService;
     }
 
     public async Task<Student> CreateStudentAsync(Guid userId, CancellationToken cancellationToken = default)
@@ -30,5 +34,58 @@ public class StudentService
         await _studentRepository.AddEnrollmentAsync(enrollment);
         await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);
         return enrollment;
+    }
+
+    public async Task<EnrollmentProgress> StartLessonAsync(Guid enrollmentId, Guid lessonId, CancellationToken cancellationToken = default)
+    {
+        var enrollment = await _studentRepository.GetEnrollmentByIdAsync(enrollmentId)
+            ?? throw new ArgumentException("Enrollment not found", nameof(enrollmentId));
+
+        if (enrollment.Status != EnrollmentStatus.Active)
+            throw new InvalidOperationException("Cannot start lesson for inactive enrollment");
+
+        var existingProgress = await _studentRepository.GetEnrollmentProgressAsync(enrollmentId, lessonId);
+        if (existingProgress != null)
+            throw new InvalidOperationException("Lesson already started");
+
+        var progress = new EnrollmentProgress(enrollmentId, lessonId);
+        await _studentRepository.AddEnrollmentProgressAsync(progress);
+        await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);
+
+        return progress;
+    }
+
+    public async Task<EnrollmentProgress> EndLessonAsync(Guid enrollmentId, Guid lessonId, CancellationToken cancellationToken = default)
+    {
+        var enrollment = await _studentRepository.GetEnrollmentByIdAsync(enrollmentId)
+            ?? throw new ArgumentException("Enrollment not found", nameof(enrollmentId));
+
+        var progress = await _studentRepository.GetEnrollmentProgressAsync(enrollmentId, lessonId)
+            ?? throw new ArgumentException("Lesson not started", nameof(lessonId));
+
+        if (progress.IsCompleted)
+            throw new InvalidOperationException("Lesson already completed");
+
+        // Mark lesson as completed
+        progress.MarkAsCompleted();
+        await _studentRepository.UpdateEnrollmentProgressAsync(progress);
+
+        // Calculate and update overall progress
+        var totalLessons = await _courseLessonService.GetTotalLessonsInCourseAsync(enrollment.CourseId);
+        var completedLessons = await _studentRepository.GetCompletedLessonsCountAsync(enrollmentId);
+
+        var newProgressPercentage = (int)((completedLessons * 100.0) / totalLessons);
+        enrollment.UpdateProgress(newProgressPercentage);
+
+        // If all lessons are completed, mark enrollment as completed
+        if (newProgressPercentage == 100)
+        {
+            enrollment.Complete();
+        }
+
+        await _studentRepository.UpdateEnrollmentAsync(enrollment);
+        await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);
+
+        return progress;
     }
 }

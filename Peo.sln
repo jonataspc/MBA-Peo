@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Billing.Domain", "src\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Billing.Infra.Data", "src\Peo.Billing.Infra.Data\Peo.Billing.Infra.Data.csproj", "{B310468C-81E3-849E-C0DF-94F80E46BF39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Billing.Integrations.Paypal", "src\Peo.Billing.Integrations.Paypal\Peo.Billing.Integrations.Paypal.csproj", "{2AEE3C2D-4DAE-4F99-8D92-5F05A0203917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,10 @@ Global
 		{B310468C-81E3-849E-C0DF-94F80E46BF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B310468C-81E3-849E-C0DF-94F80E46BF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B310468C-81E3-849E-C0DF-94F80E46BF39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AEE3C2D-4DAE-4F99-8D92-5F05A0203917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AEE3C2D-4DAE-4F99-8D92-5F05A0203917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AEE3C2D-4DAE-4F99-8D92-5F05A0203917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AEE3C2D-4DAE-4F99-8D92-5F05A0203917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -156,6 +162,7 @@ Global
 		{F135A34E-F49E-5A31-EC38-8CEB9969E679} = {397FB400-6213-45BA-BBC5-26DF4EB49D6E}
 		{75AABF76-F196-33C0-0D28-F6C988C92776} = {397FB400-6213-45BA-BBC5-26DF4EB49D6E}
 		{B310468C-81E3-849E-C0DF-94F80E46BF39} = {397FB400-6213-45BA-BBC5-26DF4EB49D6E}
+		{2AEE3C2D-4DAE-4F99-8D92-5F05A0203917} = {397FB400-6213-45BA-BBC5-26DF4EB49D6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50FD39FF-49FD-45CD-AE3A-176FC71D660F}

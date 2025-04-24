@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Peo.Billing.Infra.Data\Peo.Billing.Infra.Data.csproj" />
+    <ProjectReference Include="..\Peo.Billing.Integrations.Paypal\Peo.Billing.Integrations.Paypal.csproj" />
     <ProjectReference Include="..\Peo.ContentManagement.Application\Peo.ContentManagement.Application.csproj" />
     <ProjectReference Include="..\Peo.ContentManagement.Infra.Data\Peo.ContentManagement.Infra.Data.csproj" />
     <ProjectReference Include="..\Peo.Identity.Application\Peo.Identity.Application.csproj" />

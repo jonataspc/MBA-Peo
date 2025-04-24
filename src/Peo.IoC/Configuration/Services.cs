@@ -1,6 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Peo.Billing.Domain.Interfaces.Brokers;
+using Peo.Billing.Integrations.Paypal.Services;
+using Peo.ContentManagement.Application.Services;
 using Peo.Core.DomainObjects.Result;
+using Peo.Core.Interfaces.Services.Acls;
 
 namespace Peo.IoC.Configuration
 {
@@ -24,6 +28,19 @@ namespace Peo.IoC.Configuration
 
             services.AddScoped<IRequestHandler<ContentManagement.Application.UseCases.Lesson.Create.Command, Result<ContentManagement.Application.UseCases.Lesson.Create.Response>>, ContentManagement.Application.UseCases.Lesson.Create.Handler>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddExternalServices(this IServiceCollection services)
+        {
+            services.AddScoped<IPaymentBrokerService, PaypalBrokerService>();
+            return services;
+        }
+
+        public static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            // Anti-corruption layers
+            services.AddScoped<ICourseLessonService, CourseLessonService>();
             return services;
         }
     }

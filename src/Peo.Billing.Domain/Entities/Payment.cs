@@ -11,6 +11,7 @@ public class Payment : EntityBase, IAggregateRoot
     public DateTime? PaymentDate { get; private set; }
     public PaymentStatus Status { get; private set; }
     public string? TransactionId { get; private set; }
+    public string? Details { get; private set; }
     public CreditCardData? CreditCardData { get; private set; }
 
     protected Payment()
@@ -23,30 +24,31 @@ public class Payment : EntityBase, IAggregateRoot
         Status = PaymentStatus.Pending;
     }
 
-    public void ProcessPayment(string transactionId, CreditCardData creditCardData)
+    public void ProcessPayment(string transactionId)
     {
         if (Status != PaymentStatus.Pending)
             throw new InvalidOperationException("Payment can only be processed when in Pending status");
 
         TransactionId = transactionId;
-        CreditCardData = creditCardData;
         Status = PaymentStatus.Processing;
     }
 
-    public void ConfirmPayment()
+    public void ConfirmPayment(CreditCardData creditCardData)
     {
         if (Status != PaymentStatus.Processing)
             throw new InvalidOperationException("Payment can only be confirmed when in Processing status");
 
+        CreditCardData = creditCardData;
         PaymentDate = DateTime.Now;
         Status = PaymentStatus.Paid;
     }
 
-    public void MarkAsFailed()
+    public void MarkAsFailed(string? details)
     {
         if (Status != PaymentStatus.Processing)
             throw new InvalidOperationException("Payment can only be marked as failed when in Processing status");
 
+        Details = details;
         Status = PaymentStatus.Failed;
     }
 

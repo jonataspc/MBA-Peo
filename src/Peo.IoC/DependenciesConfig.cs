@@ -12,7 +12,9 @@ namespace Peo.IoC
             services.AddDataDependencies(configuration, hostEnvironment)
                     .AddIdentity()
                     .AddRepositories()
-                    .AddMediator();
+                    .AddServices()
+                    .AddMediator()
+                    .AddExternalServices();
 
             return services;
         }

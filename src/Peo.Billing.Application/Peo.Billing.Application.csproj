@@ -10,6 +10,7 @@
     <ProjectReference Include="..\Peo.Core.Web\Peo.Core.Web.csproj" />
     <ProjectReference Include="..\Peo.Core\Peo.Core.csproj" />
     <ProjectReference Include="..\Peo.Billing.Domain\Peo.Billing.Domain.csproj" />
+    <ProjectReference Include="..\Peo.StudentManagement.Domain\Peo.StudentManagement.Domain.csproj" />
   </ItemGroup>
 
 </Project> 

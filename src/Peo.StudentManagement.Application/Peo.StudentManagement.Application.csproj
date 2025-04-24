@@ -7,10 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Peo.Core.Web\Peo.Core.Web.csproj" />
     <ProjectReference Include="..\Peo.Core\Peo.Core.csproj" />
     <ProjectReference Include="..\Peo.StudentManagement.Domain\Peo.StudentManagement.Domain.csproj" />
+    <ProjectReference Include="..\Peo.Shared.Interfaces\Peo.Shared.Interfaces.csproj" />
   </ItemGroup>
-
 
 </Project>

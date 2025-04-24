@@ -19,6 +19,10 @@ public class PaymentConfiguration : EntityBaseConfiguration<Payment>
             .IsRequired()
             .HasPrecision(18, 2);
 
+        builder.Property(p => p.Details)
+            .IsRequired(false)
+            .HasMaxLength(500);
+
         builder.Property(p => p.PaymentDate)
             .IsRequired(false);
 
