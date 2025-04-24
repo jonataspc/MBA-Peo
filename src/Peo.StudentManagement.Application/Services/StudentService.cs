@@ -112,6 +112,15 @@ public class StudentService : IStudentService
         return progress;
     }
 
+    public async Task<int> GetCourseOverallProgress(Guid enrollmentId, CancellationToken cancellationToken = default)
+    {
+        var enrollment = await _studentRepository.GetEnrollmentByIdAsync(enrollmentId)
+            ?? throw new ArgumentException("Enrollment not found", nameof(enrollmentId));
+        
+        return enrollment.ProgressPercentage;
+
+    }
+
     public async Task<Enrollment> CompleteEnrollmentAsync(Guid enrollmentId, CancellationToken cancellationToken = default)
     {
         var enrollment = await _studentRepository.GetEnrollmentByIdAsync(enrollmentId)

@@ -14,5 +14,6 @@ namespace Peo.StudentManagement.Domain.Interfaces
 
         Task<Enrollment> CompleteEnrollmentAsync(Guid enrollmentId, CancellationToken cancellationToken = default);
         Task<Enrollment> EnrollStudentWithUserIdAsync(Guid userId, Guid courseId, CancellationToken cancellationToken = default);
+        Task<int> GetCourseOverallProgress(Guid enrollmentId, CancellationToken cancellationToken = default);
     }
 }

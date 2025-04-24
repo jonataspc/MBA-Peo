@@ -31,7 +31,10 @@ public class Result
 
     public static Result Failure(Error error) => new(false, error);
 
+    public static Result Failure(string errorMessage) => new(false, new Error(errorMessage));
+
     public static Result<T> Failure<T>(Error error) => new(default, false, error);
+    public static Result<T> Failure<T>(string errorMessage) => new(default, false, new Error(errorMessage));
 
     public static Result<T> Create<T>(T? value) =>
         value is not null ? Success(value) : Failure<T>(Error.NullValue);

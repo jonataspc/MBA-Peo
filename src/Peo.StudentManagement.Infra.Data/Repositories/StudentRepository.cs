@@ -58,7 +58,7 @@ public class StudentRepository : GenericRepository<Student, StudentManagementCon
     public async Task<int> GetCompletedLessonsCountAsync(Guid enrollmentId)
     {
         return await _dbContext.EnrollmentProgresses
-            .CountAsync(ep => ep.EnrollmentId == enrollmentId && ep.IsCompleted);
+            .CountAsync(ep => ep.EnrollmentId == enrollmentId && ep.CompletedAt.HasValue);
     }
 
     public async Task AddCertificateAsync(Certificate certificate)

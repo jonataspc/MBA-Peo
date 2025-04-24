@@ -1,13 +1,11 @@
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
 using MiniValidation;
 using Peo.Core.DomainObjects;
-using Peo.Core.DomainObjects.Result;
 using Peo.Core.Web.Api;
-using Peo.StudentManagement.Application.Commands.ProcessEnrollmentPayment;
+using Peo.StudentManagement.Application.Commands.EnrollmentPayment;
 using Peo.StudentManagement.Application.Dtos.Requests;
 using Peo.StudentManagement.Application.Dtos.Responses;
 
