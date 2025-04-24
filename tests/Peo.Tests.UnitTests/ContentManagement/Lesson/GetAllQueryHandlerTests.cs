@@ -72,6 +72,7 @@ public class GetAllQueryHandlerTests
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().NotBeNull();
         result.Value.Lessons.Should().NotBeNull();
+        result.Value.Lessons.First().Files.Should().NotBeNull();
         result.Value.Lessons.Should().HaveCount(2);
         result.Value.Lessons.Should().BeEquivalentTo(lessons.Adapt<IEnumerable<LessonResponse>>());
     }

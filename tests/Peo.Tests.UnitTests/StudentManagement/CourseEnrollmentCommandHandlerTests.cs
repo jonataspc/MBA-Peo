@@ -41,6 +41,25 @@ public class CourseEnrollmentCommandHandlerTests
 
         _appIdentityUserMock.Setup(x => x.GetUserId())
             .Returns(userId);
+
+        _appIdentityUserMock.Setup(x => x.GetUsername())
+            .Returns("John Doe");
+
+        _appIdentityUserMock.Setup(x => x.IsAuthenticated())
+            .Returns(true);
+
+        _appIdentityUserMock.Setup(x => x.IsInRole(It.IsAny<string>()))
+            .Returns(true);
+
+        _appIdentityUserMock.Setup(x => x.IsAdmin())
+            .Returns(true);
+
+        _appIdentityUserMock.Setup(x => x.GetLocalIpAddress())
+            .Returns("127.0.0.1");
+
+        _appIdentityUserMock.Setup(x => x.GetRemoteIpAddress())
+            .Returns("127.0.0.1");
+
         _studentServiceMock.Setup(x => x.EnrollStudentWithUserIdAsync(userId, courseId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(enrollment);
 

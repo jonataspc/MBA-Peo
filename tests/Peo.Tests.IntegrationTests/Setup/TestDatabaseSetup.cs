@@ -127,7 +127,12 @@ public class TestDatabaseSetup
             new List<string> { "test", "integration" },
             new List<Lesson>
             {
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Lesson("", "", "", TimeSpan.FromSeconds(10), new List<LessonFile>
+                {
+                    new LessonFile( "", "", Guid.Empty),
+                    new LessonFile( "", "", Guid.Empty),
+                    new LessonFile( "", "", Guid.Empty)
+                }, Guid.Empty),
                 new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
                 new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
                 new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
