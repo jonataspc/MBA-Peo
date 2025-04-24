@@ -40,28 +40,7 @@ public class PaymentService : IPaymentService
         await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return payment;
     }
-
-    //private async Task<Payment> ConfirmPaymentAsync(Guid paymentId, CreditCardData creditCardData)
-    //{
-    //    var payment = await GetPaymentByIdAsync(paymentId)
-    //        ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
-
-    //    payment.ConfirmPayment(creditCardData);
-    //    _paymentRepository.Update(payment);
-    //    await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-    //    return payment;
-    //}
-
-    //private async Task<Payment> MarkPaymentAsFailedAsync(Guid paymentId, string? details)
-    //{
-    //    var payment = await GetPaymentByIdAsync(paymentId)
-    //        ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
-
-    //    payment.MarkAsFailed(details);
-    //    _paymentRepository.Update(payment);
-    //    await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-    //    return payment;
-    //}
+     
 
     public async Task<Payment> RefundPaymentAsync(Guid paymentId)
     {

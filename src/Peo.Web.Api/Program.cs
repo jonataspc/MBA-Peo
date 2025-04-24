@@ -22,5 +22,3 @@ app.AddEndpoints();
 
 await app.UseDbMigrationHelperAsync();
 await app.RunAsync();
-
-//TODO: error handling via middleware

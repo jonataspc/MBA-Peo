@@ -1,13 +1,11 @@
-using System.Net;
-using System.Net.Http.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Peo.Core.Dtos;
 using Peo.Identity.Application.Endpoints.Requests;
 using Peo.Identity.Application.Endpoints.Responses;
-using Xunit;
+using System.Net;
+using System.Net.Http.Json;
 
 namespace Peo.Tests.IntegrationTests.Identity;
 
@@ -26,14 +24,9 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
         _userManager = _scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
     }
 
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
-        //// Clean up any existing test data
-        //var users = _userManager.Users.ToList();
-        //foreach (var user in users)
-        //{
-        //    await _userManager.DeleteAsync(user);
-        //}
+        return Task.CompletedTask;
     }
 
     public Task DisposeAsync()
@@ -57,12 +50,12 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
-        
+
         var user = await _userManager.FindByEmailAsync(request.Email);
         user.Should().NotBeNull();
         user!.Email.Should().Be(request.Email);
         user.UserName.Should().Be(request.Email);
-        
+
         var isInRole = await _userManager.IsInRoleAsync(user, "Student");
         isInRole.Should().BeTrue();
     }
@@ -90,14 +83,14 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
         // Arrange
         var email = $"{Guid.NewGuid()}@example.com";
         var password = "Test123!";
-        
+
         var user = new IdentityUser
         {
             UserName = email,
             Email = email,
             EmailConfirmed = true
         };
-        
+
         await _userManager.CreateAsync(user, password);
         await _userManager.AddToRoleAsync(user, "Student");
 
@@ -127,45 +120,6 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
-    //[Fact]
-    //public async Task RefreshToken_WithValidToken_ShouldReturnNewToken()
-    //{
-    //    // Arrange
-    //    var email = "test@example.com";
-    //    var password = "Test123!";
-        
-    //    var user = new IdentityUser
-    //    {
-    //        UserName = email,
-    //        Email = email,
-    //        EmailConfirmed = true
-    //    };
-        
-    //    await _userManager.CreateAsync(user, password);
-    //    await _userManager.AddToRoleAsync(user, "Student");
-
-    //    // Get initial token
-    //    var loginRequest = new LoginRequest(email, password);
-    //    var loginResponse = await _client.PostAsJsonAsync("/v1/identity/login", loginRequest);
-    //    var loginResult = await loginResponse.Content.ReadFromJsonAsync<LoginResponse>();
-
-    //    // Wait for token to expire
-    //    await Task.Delay(TimeSpan.FromMinutes(1));
-
-    //    var refreshRequest = new RefreshTokenRequest(loginResult!.Token);
-
-    //    // Act
-    //    var response = await _client.PostAsJsonAsync("/v1/identity/refresh-token", refreshRequest);
-
-    //    // Assert
-    //    response.StatusCode.Should().Be(HttpStatusCode.OK);
-    //    var result = await response.Content.ReadFromJsonAsync<RefreshTokenResponse>();
-    //    result.Should().NotBeNull();
-    //    result!.Token.Should().NotBeNullOrEmpty();
-    //    result.Token.Should().NotBe(loginResult.Token);
-    //    result.UserId.Should().Be(Guid.Parse(user.Id));
-    //}
-
     [Fact]
     public async Task RefreshToken_WithInvalidToken_ShouldReturnUnauthorized()
     {
@@ -178,4 +132,4 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
-} 
+}

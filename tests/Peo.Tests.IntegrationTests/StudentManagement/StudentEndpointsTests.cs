@@ -21,8 +21,8 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
     private readonly HttpClient _client;
     private readonly TestDatabaseSetup _testDb;
     private Guid _testUserId = Guid.NewGuid();
-    private Course _testCourse;
-    private Course _testCourseNotEnrolled;
+    private Course _testCourse = null!;
+    private Course _testCourseNotEnrolled = null!;
     private Student? _testStudent;
     private Enrollment? _testEnrollment;
     private Enrollment? _testEnrollmentNotPaid;
@@ -89,7 +89,7 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
     public async Task GetStudentCertificates_ShouldReturnCertificates()
     {
         // Arrange
-        var certificate = await _testDb.CreateTestCertificateAsync(
+        await _testDb.CreateTestCertificateAsync(
             _testEnrollment!.Id,
             "Test Certificate Content");
 
@@ -130,7 +130,7 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
     {
         // Arrange
         var lessonId = Guid.NewGuid();
-        var progress = await _testDb.CreateTestLessonProgressAsync(_testEnrollment!.Id, lessonId);
+        await _testDb.CreateTestLessonProgressAsync(_testEnrollment!.Id, lessonId);
 
         var request = new EndLessonRequest
         {

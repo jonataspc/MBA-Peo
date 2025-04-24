@@ -22,7 +22,7 @@ public class LoginEndpointTests
     {
         var userManagerMock = new Mock<UserManager<IdentityUser>>(
             Mock.Of<IUserStore<IdentityUser>>(),
-            null, null, null, null, null, null, null, null);
+            null!, null!, null!, null!, null!, null!, null!, null!);
 
         // Configure UserManager behavior
         userManagerMock.Setup(x => x.FindByEmailAsync(It.IsAny<string>()))
@@ -35,7 +35,7 @@ public class LoginEndpointTests
             userManagerMock.Object,
             Mock.Of<IHttpContextAccessor>(),
             Mock.Of<IUserClaimsPrincipalFactory<IdentityUser>>(),
-            null, null, null, null);
+            null!, null!, null!, null!);
 
         _tokenServiceMock = new Mock<ITokenService>();
         _validRequest = new LoginRequest(
@@ -134,7 +134,7 @@ public class LoginEndpointTests
 
         var response = ((Ok<LoginResponse>)result).Value;
         response.Should().NotBeNull();
-        response.Token.Should().Be(token);
-        response.UserId.Should().Be(Guid.Parse(user.Id));
+        response!.Token.Should().Be(token);
+        response!.UserId.Should().Be(Guid.Parse(user.Id));
     }
 } 

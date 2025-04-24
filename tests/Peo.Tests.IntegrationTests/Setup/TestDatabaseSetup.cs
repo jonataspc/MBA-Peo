@@ -14,7 +14,7 @@ public class TestDatabaseSetup
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IRepository<Course> _courseRepository;
-    private readonly IServiceProvider _serviceProvider;
+
     private readonly IServiceScope _scope;
 
     internal readonly string UserTestPassword = "Test123!";
@@ -22,8 +22,6 @@ public class TestDatabaseSetup
 
     public TestDatabaseSetup(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
-
         _scope = serviceProvider.CreateScope();
 
         _studentRepository = _scope.ServiceProvider.GetRequiredService<IStudentRepository>();
@@ -129,12 +127,12 @@ public class TestDatabaseSetup
             new List<string> { "test", "integration" },
             new List<Lesson>
             {
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, default!),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, default!),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, default!),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, default!),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, default!),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, default!)
+                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty)
             }
         );
 
