@@ -17,9 +17,5 @@
 		<ProjectReference Include="..\Peo.Core\Peo.Core.csproj" />
 		<ProjectReference Include="..\Peo.StudentManagement.Domain\Peo.StudentManagement.Domain.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Queries\" />
-	</ItemGroup>
-
+	
 </Project>
