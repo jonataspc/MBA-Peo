@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Peo.StudentManagement.Infra.Data.Contexts;
 
@@ -10,9 +11,11 @@ using Peo.StudentManagement.Infra.Data.Contexts;
 namespace Peo.StudentManagement.Infra.Data.Migrations
 {
     [DbContext(typeof(StudentManagementContext))]
-    partial class StudentManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20250424052826_ChangesToCertificate")]
+    partial class ChangesToCertificate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.Certificate", b =>
@@ -81,7 +84,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
 
                     b.HasIndex("EnrollmentId");
 
-                    b.ToTable("Certificate", (string)null);
+                    b.ToTable("Certificate");
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.Enrollment", b =>
@@ -125,7 +128,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
                     b.HasIndex("StudentId", "CourseId")
                         .IsUnique();
 
-                    b.ToTable("Enrollment", (string)null);
+                    b.ToTable("Enrollment");
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.EnrollmentProgress", b =>
@@ -158,7 +161,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
                     b.HasIndex("EnrollmentId", "LessonId")
                         .IsUnique();
 
-                    b.ToTable("EnrollmentProgress", (string)null);
+                    b.ToTable("EnrollmentProgress");
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.Student", b =>
@@ -187,7 +190,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Student", (string)null);
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.Certificate", b =>

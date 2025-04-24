@@ -16,4 +16,5 @@ public interface IStudentRepository : IRepository<Student>
     Task UpdateEnrollmentProgressAsync(EnrollmentProgress progress);
     Task<int> GetCompletedLessonsCountAsync(Guid enrollmentId);
     Task AddCertificateAsync(Certificate certificate);
+    Task<IEnumerable<Certificate>> GetCertificatesByStudentIdAsync(Guid studentId);
 } 

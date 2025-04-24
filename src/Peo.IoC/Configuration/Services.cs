@@ -13,6 +13,7 @@ using Peo.StudentManagement.Application.Commands.Enrollment;
 using Peo.StudentManagement.Application.Commands.EnrollmentPayment;
 using Peo.StudentManagement.Application.Commands.Lesson;
 using Peo.StudentManagement.Application.Dtos.Responses;
+using Peo.StudentManagement.Application.Queries.GetStudentCertificates;
 using Peo.StudentManagement.Application.Services;
 using Peo.StudentManagement.Domain.Interfaces;
 
@@ -46,7 +47,7 @@ namespace Peo.IoC.Configuration
             services.AddScoped<IRequestHandler<EnrollmentPaymentCommand, Result<EnrollmentPaymentResponse>>, EnrollmentPaymentCommandHandler>();
             services.AddScoped<IRequestHandler<StartLessonCommand, Result<LessonProgressResponse>>, StartLessonCommandHandler>();
             services.AddScoped<IRequestHandler<EndLessonCommand, Result<LessonProgressResponse>>, EndLessonCommandHandler>();
-
+            services.AddScoped<IRequestHandler<GetStudentCertificatesQuery, Result<IEnumerable<StudentCertificateResponse>>>, GetStudentCertificatesQueryHandler>();
 
             return services;
         }

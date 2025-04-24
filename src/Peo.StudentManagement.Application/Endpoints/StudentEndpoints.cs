@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Routing;
 using Peo.Core.Web.Extensions;
 using Peo.StudentManagement.Application.Endpoints.Enrollment;
 using Peo.StudentManagement.Application.Endpoints.Lesson;
+using Peo.StudentManagement.Application.Endpoints.Student;
 
 namespace Peo.StudentManagement.Application.Endpoints
 {
@@ -19,6 +20,7 @@ namespace Peo.StudentManagement.Application.Endpoints
             .MapEndpoint<CourseEnrollmentEndpoint>()
             .MapEndpoint<EnrollmentPaymentEndpoint>()
             .MapEndpoint<CompleteEnrollmentEndpoint>()
+            .MapEndpoint<GetStudentCertificatesEndpoint>()
             .MapEndpoint<LessonEndpoints>()
             ;
         }

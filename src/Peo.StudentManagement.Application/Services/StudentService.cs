@@ -52,15 +52,24 @@ public class StudentService : IStudentService
 
     public async Task<Enrollment> EnrollStudentWithUserIdAsync(Guid userId, Guid courseId, CancellationToken cancellationToken = default)
     {
-        var student = await _studentRepository.GetByUserIdAsync(userId);
-
-        student ??= await CreateStudentAsync(userId, cancellationToken);
+        Student student = await GetStudentByUserId(userId, cancellationToken);
 
         return await EnrollStudentAsync(student.Id, courseId, cancellationToken);
     }
 
+    public async Task<Student> GetStudentByUserId(Guid userId, CancellationToken cancellationToken)
+    {
+        var student = await _studentRepository.GetByUserIdAsync(userId);
+
+        student ??= await CreateStudentAsync(userId, cancellationToken);
+        return student;
+    }
+
     public async Task<EnrollmentProgress> StartLessonAsync(Guid enrollmentId, Guid lessonId, CancellationToken cancellationToken = default)
     {
+
+        // TODO: check if the logged UserId is the same of the Student.UserId
+
         var enrollment = await _studentRepository.GetEnrollmentByIdAsync(enrollmentId)
             ?? throw new ArgumentException("Enrollment not found", nameof(enrollmentId));
 
@@ -80,6 +89,9 @@ public class StudentService : IStudentService
 
     public async Task<EnrollmentProgress> EndLessonAsync(Guid enrollmentId, Guid lessonId, CancellationToken cancellationToken = default)
     {
+
+        // TODO: check if the logged UserId is the same of the Student.UserId
+
         var enrollment = await _studentRepository.GetEnrollmentByIdAsync(enrollmentId)
             ?? throw new ArgumentException("Enrollment not found", nameof(enrollmentId));
 
@@ -123,6 +135,9 @@ public class StudentService : IStudentService
 
     public async Task<Enrollment> CompleteEnrollmentAsync(Guid enrollmentId, CancellationToken cancellationToken = default)
     {
+
+        // TODO: check if the logged UserId is the same of the Student.UserId
+
         var enrollment = await _studentRepository.GetEnrollmentByIdAsync(enrollmentId)
             ?? throw new ArgumentException("Enrollment not found", nameof(enrollmentId));
 
@@ -156,7 +171,7 @@ public class StudentService : IStudentService
 
     private async Task<string> GenerateCertificateContentAsync(Enrollment enrollment, string certNumber)
     {
-        var studentUser = (await _userDetailsService.GetUserByIdAsync(enrollment.StudentId)) ?? throw new InvalidOperationException($"Student {enrollment.StudentId} not found!");
+        var studentUser = (await _userDetailsService.GetUserByIdAsync(enrollment.Student.UserId)) ?? throw new InvalidOperationException($"Student {enrollment.StudentId} not found!");
         var courseTitle = await _courseLessonService.GetCourseTitleAsync(enrollment.CourseId);
         return $"Certificate of Completion\nEnrollment ID: {enrollment.Id}\nIssued on: {DateTime.Now:yyyy-MM-dd}\nNumber: {certNumber}\nCourse: {courseTitle}\nStudent name: {studentUser!.FullName}";
     }
@@ -164,5 +179,15 @@ public class StudentService : IStudentService
     private static string GenerateCertificateNumber()
     {
         return $"CERT-{DateTime.Now:yyyyMMdd}-{Guid.NewGuid().ToString("N").Substring(0, 8)}";
+    }
+
+    public async Task<IEnumerable<Certificate>> GetStudentCertificatesAsync(Guid studentId, CancellationToken cancellationToken)
+    {
+        var student = await _studentRepository.GetByIdAsync(studentId);
+        if (student == null)
+            throw new ArgumentException("Student not found", nameof(studentId));
+
+        var certificates = await _studentRepository.GetCertificatesByStudentIdAsync(studentId);
+        return certificates;
     }
 }

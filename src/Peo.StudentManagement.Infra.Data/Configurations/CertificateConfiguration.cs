@@ -15,26 +15,22 @@ public class CertificateConfiguration : EntityBaseConfiguration<Certificate>
             .IsRequired();
 
         builder.Property(c => c.Content)
-            .IsRequired();
-
-        builder.Property(c => c.IssueDate)
-            .IsRequired(false);
+            .IsRequired()
+            .HasMaxLength(4000);
 
         builder.Property(c => c.CertificateNumber)
             .IsRequired(false)
             .HasMaxLength(50);
 
-        // Indexes
-        builder.HasIndex(c => c.EnrollmentId)
-            .IsUnique();
+        // Relationships
+        builder.HasOne(c => c.Enrollment)
+            .WithMany()
+            .HasForeignKey(c => c.EnrollmentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
+        // Indexes
+        builder.HasIndex(c => c.EnrollmentId);
         builder.HasIndex(c => c.CertificateNumber)
             .IsUnique();
-
-        // Relationships
-        builder.HasOne<Enrollment>()
-            .WithOne()
-            .HasForeignKey<Certificate>(c => c.EnrollmentId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }
