@@ -14,7 +14,7 @@ public class Handler(IRepository<Domain.Entities.Course> repository) : IRequestH
 
         if (course is null)
         {
-            return Result.Failure<Response>(new Error(default, "Course not found"));
+            return Result.Failure<Response>(new Error("Course not found"));
         }
 
         var lesson = request.Adapt<Domain.Entities.Lesson>();

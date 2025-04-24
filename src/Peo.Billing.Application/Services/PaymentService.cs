@@ -88,12 +88,13 @@ public class PaymentService : IPaymentService
 
     public async Task<Payment?> GetPaymentByIdAsync(Guid paymentId)
     {
-        return await _paymentRepository.GetAsync(paymentId);
+        return await _paymentRepository.WithTracking()
+                                       .GetAsync(paymentId);
     }
 
     public async Task<IEnumerable<Payment>> GetPaymentsByEnrollmentIdAsync(Guid enrollmentId)
     {
-        return await _paymentRepository.GetAsync(p => p.EnrollmentId == enrollmentId)
+        return await _paymentRepository.WithTracking().GetAsync(p => p.EnrollmentId == enrollmentId)
             ?? Enumerable.Empty<Payment>();
     }
 

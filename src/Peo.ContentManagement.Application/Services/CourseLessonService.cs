@@ -19,6 +19,14 @@ public class CourseLessonService : ICourseLessonService
             .AnyAsync(c => c.Id == courseId);
     }
 
+    public async Task<decimal> GetCoursePriceAsync(Guid courseId)
+    {
+        return await _context.Courses
+            .Where(c => c.Id == courseId)
+            .Select(c => c.Price)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<string?> GetCourseTitleAsync(Guid courseId)
     {
         return await _context.Courses
@@ -32,4 +40,4 @@ public class CourseLessonService : ICourseLessonService
         return await _context.Lessons
             .CountAsync(l => l.CourseId == courseId);
     }
-} 
+}

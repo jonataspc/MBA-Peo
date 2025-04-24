@@ -37,6 +37,13 @@ public class StudentService : IStudentService
         if (!courseExists)
             throw new ArgumentException("Course not found", nameof(courseId));
 
+        var courseExistsForStudent = await _studentRepository.AnyAsync(s => s.Id == studentId && s.Enrollments.Any(e => e.CourseId == courseId));
+
+        if (courseExistsForStudent)
+        {
+            throw new ArgumentException("Student is alread enrolled in this course", nameof(courseId));
+        }
+
         var enrollment = new Enrollment(studentId, courseId);
         await _studentRepository.AddEnrollmentAsync(enrollment);
         await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);

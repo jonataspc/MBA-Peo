@@ -2,7 +2,7 @@
 
 namespace Peo.StudentManagement.Application.Dtos.Requests
 {
-    public record EnrollmentRequest(
+    public record CourseEnrollmentRequest(
         [Required]
         Guid CourseId
         );

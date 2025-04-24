@@ -9,6 +9,9 @@ public class Student : EntityBase, IAggregateRoot
 
     public bool IsActive { get; private set; }
 
+    public virtual ICollection<Enrollment> Enrollments { get; private set; } = [];
+
+
     public Student()
     {
     }

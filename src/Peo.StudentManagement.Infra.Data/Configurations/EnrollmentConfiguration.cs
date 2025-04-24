@@ -38,7 +38,7 @@ public class EnrollmentConfiguration : EntityBaseConfiguration<Enrollment>
 
         // Relationships
         builder.HasOne<Student>()
-            .WithMany()
+            .WithMany(e => e.Enrollments)
             .HasForeignKey(e => e.StudentId)
             .OnDelete(DeleteBehavior.Restrict);
     }

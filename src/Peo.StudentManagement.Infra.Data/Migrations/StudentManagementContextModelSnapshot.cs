@@ -43,7 +43,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.Certificate", b =>
@@ -81,7 +81,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
                     b.HasIndex("EnrollmentId")
                         .IsUnique();
 
-                    b.ToTable("Certificate");
+                    b.ToTable("Certificate", (string)null);
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.Enrollment", b =>
@@ -125,7 +125,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
                     b.HasIndex("StudentId", "CourseId")
                         .IsUnique();
 
-                    b.ToTable("Enrollment");
+                    b.ToTable("Enrollment", (string)null);
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.EnrollmentProgress", b =>
@@ -158,7 +158,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
                     b.HasIndex("EnrollmentId", "LessonId")
                         .IsUnique();
 
-                    b.ToTable("EnrollmentProgress");
+                    b.ToTable("EnrollmentProgress", (string)null);
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.Student", b =>
@@ -187,7 +187,7 @@ namespace Peo.StudentManagement.Infra.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Student");
+                    b.ToTable("Student", (string)null);
                 });
 
             modelBuilder.Entity("Peo.StudentManagement.Domain.Entities.Certificate", b =>
