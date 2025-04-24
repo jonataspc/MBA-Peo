@@ -487,4 +487,5 @@ $RECYCLE.BIN/
 *.db-shm
 *.db-wal
 
-scripts/report/
+/scripts/report/
+/scripts/report.html

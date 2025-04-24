@@ -24,5 +24,7 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --no-restore -WarnAsError
-    - name: Test
-      run: dotnet test --no-build --verbosity normal --environment=Development
+    - name: Install dotCover
+      run: dotnet tool install --global JetBrains.dotCover.CommandLineTools
+    - name: Test + code coverage
+      run: dotCover cover-dotnet --output report.html --ReportType HTML --Filters="+:module=Peo.*" -- test 

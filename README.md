@@ -1,3 +1,5 @@
+[![.NET](https://github.com/jonataspc/MBA-Peo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/jonataspc/MBA-Peo/actions/workflows/dotnet.yml)
+
 # **PEO - Plataforma de Educação Online**
 
 ## **Apresentação**
