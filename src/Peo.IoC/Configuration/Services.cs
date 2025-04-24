@@ -9,6 +9,7 @@ using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Services.Acls;
 using Peo.Identity.Application.Services;
 using Peo.StudentManagement.Application.Commands.CourseEnrollment;
+using Peo.StudentManagement.Application.Commands.Enrollment;
 using Peo.StudentManagement.Application.Commands.EnrollmentPayment;
 using Peo.StudentManagement.Application.Commands.Lesson;
 using Peo.StudentManagement.Application.Dtos.Responses;
@@ -41,6 +42,7 @@ namespace Peo.IoC.Configuration
 
             // Students
             services.AddScoped<IRequestHandler<CourseEnrollmentCommand, Result<CourseEnrollmentResponse>>, CourseEnrollmentCommandHandler>();
+            services.AddScoped<IRequestHandler<CompleteEnrollmentCommand, Result<CompleteEnrollmentResponse>>, CompleteEnrollmentCommandHandler>();
             services.AddScoped<IRequestHandler<EnrollmentPaymentCommand, Result<EnrollmentPaymentResponse>>, EnrollmentPaymentCommandHandler>();
             services.AddScoped<IRequestHandler<StartLessonCommand, Result<LessonProgressResponse>>, StartLessonCommandHandler>();
             services.AddScoped<IRequestHandler<EndLessonCommand, Result<LessonProgressResponse>>, EndLessonCommandHandler>();

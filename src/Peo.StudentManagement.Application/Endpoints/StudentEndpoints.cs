@@ -18,6 +18,7 @@ namespace Peo.StudentManagement.Application.Endpoints
             .WithTags("Student")
             .MapEndpoint<CourseEnrollmentEndpoint>()
             .MapEndpoint<EnrollmentPaymentEndpoint>()
+            .MapEndpoint<CompleteEnrollmentEndpoint>()
             .MapEndpoint<LessonEndpoints>()
             ;
         }
