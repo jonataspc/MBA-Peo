@@ -31,34 +31,34 @@ public class PaymentService : IPaymentService
         return payment;
     }
 
-    private async Task<Payment> ProcessPaymentAsync(Guid paymentId, string transactionId, CreditCardData creditCardData)
+    private async Task<Payment> ProcessPaymentAsync(Guid paymentId, string transactionId)
     {
         var payment = await GetPaymentByIdAsync(paymentId)
             ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
 
-        payment.ProcessPayment(transactionId, creditCardData);
+        payment.ProcessPayment(transactionId);
         _paymentRepository.Update(payment);
         await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return payment;
     }
 
-    private async Task<Payment> ConfirmPaymentAsync(Guid paymentId)
+    private async Task<Payment> ConfirmPaymentAsync(Guid paymentId, CreditCardData creditCardData)
     {
         var payment = await GetPaymentByIdAsync(paymentId)
             ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
 
-        payment.ConfirmPayment();
+        payment.ConfirmPayment(creditCardData);
         _paymentRepository.Update(payment);
         await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return payment;
     }
 
-    private async Task<Payment> MarkPaymentAsFailedAsync(Guid paymentId)
+    private async Task<Payment> MarkPaymentAsFailedAsync(Guid paymentId, string? details)
     {
         var payment = await GetPaymentByIdAsync(paymentId)
             ?? throw new InvalidOperationException($"Payment with ID {paymentId} not found");
 
-        payment.MarkAsFailed();
+        payment.MarkAsFailed(details);
         _paymentRepository.Update(payment);
         await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return payment;
@@ -105,7 +105,7 @@ public class PaymentService : IPaymentService
 
         // Create and process the payment
         var payment = await CreatePaymentAsync(enrollmentId, amount);
-        payment = await ProcessPaymentAsync(payment.Id, default!, default!);
+        payment = await ProcessPaymentAsync(payment.Id, default!);
 
 
         // call external broker service
