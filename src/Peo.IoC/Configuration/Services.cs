@@ -5,6 +5,7 @@ using Peo.Billing.Integrations.Paypal.Services;
 using Peo.ContentManagement.Application.Services;
 using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Services.Acls;
+using Peo.Identity.Application.Services;
 
 namespace Peo.IoC.Configuration
 {
@@ -41,6 +42,7 @@ namespace Peo.IoC.Configuration
         {
             // Anti-corruption layers
             services.AddScoped<ICourseLessonService, CourseLessonService>();
+            services.AddScoped<IUserDetailsService, UserService>();
             return services;
         }
     }

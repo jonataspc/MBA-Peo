@@ -9,11 +9,13 @@ public class StudentService : IStudentService
 {
     private readonly IStudentRepository _studentRepository;
     private readonly ICourseLessonService _courseLessonService;
+    private readonly IUserDetailsService _userDetailsService;
 
-    public StudentService(IStudentRepository studentRepository, ICourseLessonService courseLessonService)
+    public StudentService(IStudentRepository studentRepository, ICourseLessonService courseLessonService, IUserDetailsService userDetailsService)
     {
         _studentRepository = studentRepository;
         _courseLessonService = courseLessonService;
+        _userDetailsService = userDetailsService;
     }
 
     public async Task<Student> CreateStudentAsync(Guid userId, CancellationToken cancellationToken = default)
@@ -106,8 +108,31 @@ public class StudentService : IStudentService
 
         enrollment.Complete();
         await _studentRepository.UpdateEnrollmentAsync(enrollment);
+
+        var certNumber = GenerateCertificateNumber();
+
+        var certificate = new Certificate(
+            enrollmentId: enrollment.Id,
+            content: await GenerateCertificateContentAsync(enrollment, certNumber),
+            issueDate: DateTime.Now,
+            certificateNumber: certNumber
+        );
+        await _studentRepository.AddCertificateAsync(certificate);
+
         await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);
 
         return enrollment;
+    }
+
+    private async Task<string> GenerateCertificateContentAsync(Enrollment enrollment, string certNumber)
+    {
+        var studentUser = (await _userDetailsService.GetUserByIdAsync(enrollment.StudentId)) ?? throw new InvalidOperationException($"Student {enrollment.StudentId} not found!");
+        var courseTitle = await _courseLessonService.GetCourseTitleAsync(enrollment.CourseId);
+        return $"Certificate of Completion\nEnrollment ID: {enrollment.Id}\nIssued on: {DateTime.Now:yyyy-MM-dd}\nNumber: {certNumber}\nCourse: {courseTitle}\nStudent name: {studentUser!.FullName}";
+    }
+
+    private static string GenerateCertificateNumber()
+    {
+        return $"CERT-{DateTime.Now:yyyyMMdd}-{Guid.NewGuid().ToString("N").Substring(0, 8)}";
     }
 }

@@ -60,4 +60,9 @@ public class StudentRepository : GenericRepository<Student, StudentManagementCon
         return await _dbContext.EnrollmentProgresses
             .CountAsync(ep => ep.EnrollmentId == enrollmentId && ep.IsCompleted);
     }
+
+    public async Task AddCertificateAsync(Certificate certificate)
+    {
+        await _dbContext.Certificates.AddAsync(certificate);
+    }
 }

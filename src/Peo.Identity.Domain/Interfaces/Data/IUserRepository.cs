@@ -7,6 +7,8 @@ namespace Peo.Identity.Domain.Interfaces.Data
     {
         IUnitOfWork UnitOfWork { get; }
 
+        Task<User?> GetByIdAsync(Guid userId);
+
         void Insert(User user);
     }
 }

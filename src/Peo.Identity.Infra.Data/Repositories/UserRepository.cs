@@ -9,6 +9,11 @@ namespace Peo.Identity.Infra.Data.Repositories
     {
         public IUnitOfWork UnitOfWork => context;
 
+        public async Task<User?> GetByIdAsync(Guid userId)
+        {
+            return await context.ApplicationUsers.FindAsync(userId);
+        }
+
         public void Insert(User user)
         {
             context.ApplicationUsers.Add(user);
