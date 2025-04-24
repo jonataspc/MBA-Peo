@@ -2,7 +2,6 @@
 TODO:
 
 Adicionar tratamento de erro global.
-Replace PCF, MyBlog, etc
 
 
 ## EF Core: Geração das migrations 
