@@ -51,10 +51,15 @@ public class EnrollmentPaymentCommandHandler : IRequestHandler<EnrollmentPayment
             PaymentId = payment.Id,
             EnrollmentId = payment.EnrollmentId,
             Amount = payment.Amount,
-            Status = payment.Status.ToString(),
+            Status = payment.Status,
             PaymentDate = payment.PaymentDate,
             TransactionId = payment.TransactionId
         };
+
+        if (payment.Status == Billing.Domain.ValueObjects.PaymentStatus.Failed)
+        {
+            return Result.Failure<EnrollmentPaymentResponse>(new Error($"Payment failed: {payment.Details}"));
+        }
 
         return Result.Success(response);
     }

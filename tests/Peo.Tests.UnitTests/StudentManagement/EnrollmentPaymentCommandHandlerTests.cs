@@ -69,7 +69,7 @@ public class EnrollmentPaymentCommandHandlerTests
         result.Value.PaymentId.Should().Be(payment.Id);
         result.Value.EnrollmentId.Should().Be(enrollmentId);
         result.Value.Amount.Should().Be(amount);
-        result.Value.Status.Should().Be(PaymentStatus.Paid.ToString());
+        result.Value.Status.Should().Be(PaymentStatus.Paid);
         result.Value.PaymentDate.Should().Be(payment.PaymentDate);
         result.Value.TransactionId.Should().Be(payment.TransactionId);
     }
