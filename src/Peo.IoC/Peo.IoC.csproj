@@ -17,6 +17,7 @@
     <ProjectReference Include="..\Peo.ContentManagement.Infra.Data\Peo.ContentManagement.Infra.Data.csproj" />
     <ProjectReference Include="..\Peo.Identity.Application\Peo.Identity.Application.csproj" />
     <ProjectReference Include="..\Peo.Identity.Infra.Data\Peo.Identity.Infra.Data.csproj" />
+    <ProjectReference Include="..\Peo.StudentManagement.Application\Peo.StudentManagement.Application.csproj" />
     <ProjectReference Include="..\Peo.StudentManagement.Infra.Data\Peo.StudentManagement.Infra.Data.csproj" />
   </ItemGroup>
 

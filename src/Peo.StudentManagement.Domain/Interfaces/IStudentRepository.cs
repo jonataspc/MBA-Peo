@@ -5,6 +5,7 @@ namespace Peo.StudentManagement.Domain.Interfaces;
 
 public interface IStudentRepository : IRepository<Student>
 {
+    Task<Student?> GetByUserIdAsync(Guid id);
     Task<Student?> GetByIdAsync(Guid id);
     Task AddAsync(Student student);
     Task AddEnrollmentAsync(Enrollment enrollment);

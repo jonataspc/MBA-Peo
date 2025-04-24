@@ -2,6 +2,8 @@
 using Peo.ContentManagement.Domain.Entities;
 using Peo.ContentManagement.Infra.Data.Repositories;
 using Peo.Core.Interfaces.Data;
+using Peo.StudentManagement.Domain.Interfaces;
+using Peo.StudentManagement.Infra.Data.Repositories;
 
 namespace Peo.IoC.Configuration
 {
@@ -11,6 +13,9 @@ namespace Peo.IoC.Configuration
         {
             // ContentManagement
             services.AddScoped<IRepository<Course>, CourseRepository>();
+
+            // StudentManagement
+            services.AddScoped<IStudentRepository, StudentRepository>();
             return services;
         }
     }

@@ -6,6 +6,8 @@ using Peo.ContentManagement.Application.Services;
 using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Services.Acls;
 using Peo.Identity.Application.Services;
+using Peo.StudentManagement.Application.Services;
+using Peo.StudentManagement.Domain.Interfaces;
 
 namespace Peo.IoC.Configuration
 {
@@ -40,6 +42,9 @@ namespace Peo.IoC.Configuration
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
+            // Application services
+            services.AddScoped<IStudentService, StudentService>();
+
             // Anti-corruption layers
             services.AddScoped<ICourseLessonService, CourseLessonService>();
             services.AddScoped<IUserDetailsService, UserService>();

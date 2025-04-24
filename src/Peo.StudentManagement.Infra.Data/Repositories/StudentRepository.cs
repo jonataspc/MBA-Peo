@@ -65,4 +65,11 @@ public class StudentRepository : GenericRepository<Student, StudentManagementCon
     {
         await _dbContext.Certificates.AddAsync(certificate);
     }
+
+    public async Task<Student?> GetByUserIdAsync(Guid id)
+    {
+        return await _dbContext.Students.Where(s => s.UserId == id)
+                                        .AsNoTracking()
+                                        .FirstOrDefaultAsync();
+    }
 }

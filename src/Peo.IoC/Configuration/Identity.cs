@@ -8,6 +8,7 @@ using Peo.Identity.Domain.Interfaces.Data;
 using Peo.Identity.Domain.Interfaces.Services;
 using Peo.Identity.Infra.Data.Contexts;
 using Peo.Identity.Infra.Data.Repositories;
+using Peo.StudentManagement.Application.Endpoints;
 
 namespace Peo.IoC.Configuration
 {
@@ -42,6 +43,7 @@ namespace Peo.IoC.Configuration
         {
             app.MapIdentityEndpoints();
             app.MapCourseEndpoints();
+            app.MapStudentEndpoints();
             return app;
         }
     }

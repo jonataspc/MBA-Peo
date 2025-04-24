@@ -40,6 +40,9 @@ namespace Peo.Web.Api.Configuration
             services.AddAuthorizationBuilder()
                     .AddPolicy(AccessRoles.Admin, policy =>
                         policy.RequireRole(AccessRoles.Admin)
+                        )
+                    .AddPolicy(AccessRoles.Student, policy =>
+                        policy.RequireRole(AccessRoles.Student)
                         );
 
             return services;

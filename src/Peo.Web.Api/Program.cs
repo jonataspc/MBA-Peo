@@ -5,6 +5,7 @@ using Peo.Web.Api.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDependencies(builder.Configuration, builder.Environment)
+                .AddApiServices()
                 .AddSwagger()
                 .SetupWebApi(builder.Configuration)
                 .AddPolicies()

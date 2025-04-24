@@ -13,6 +13,12 @@ public class CourseLessonService : ICourseLessonService
         _context = context;
     }
 
+    public Task<bool> CheckIfCourseExistsAsync(Guid courseId)
+    {
+        return _context.Courses
+            .AnyAsync(c => c.Id == courseId);
+    }
+
     public async Task<string?> GetCourseTitleAsync(Guid courseId)
     {
         return await _context.Courses

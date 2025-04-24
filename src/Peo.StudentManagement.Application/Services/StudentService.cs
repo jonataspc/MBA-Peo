@@ -32,10 +32,24 @@ public class StudentService : IStudentService
         if (student == null)
             throw new ArgumentException("Student not found", nameof(studentId));
 
+        var courseExists = await _courseLessonService.CheckIfCourseExistsAsync(courseId);
+
+        if (!courseExists)
+            throw new ArgumentException("Course not found", nameof(courseId));
+
         var enrollment = new Enrollment(studentId, courseId);
         await _studentRepository.AddEnrollmentAsync(enrollment);
         await _studentRepository.UnitOfWork.CommitAsync(cancellationToken);
         return enrollment;
+    }
+
+    public async Task<Enrollment> EnrollStudentWithUserIdAsync(Guid userId, Guid courseId, CancellationToken cancellationToken = default)
+    {
+        var student = await _studentRepository.GetByUserIdAsync(userId);
+
+        student ??= await CreateStudentAsync(userId, cancellationToken);
+
+        return await EnrollStudentAsync(student.Id, courseId, cancellationToken);
     }
 
     public async Task<EnrollmentProgress> StartLessonAsync(Guid enrollmentId, Guid lessonId, CancellationToken cancellationToken = default)
