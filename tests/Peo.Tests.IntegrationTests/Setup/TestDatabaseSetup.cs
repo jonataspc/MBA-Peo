@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Peo.ContentManagement.Domain.Entities;
+using Peo.Core.DomainObjects;
 using Peo.Core.Entities;
 using Peo.Core.Interfaces.Data;
 using Peo.Identity.Domain.Interfaces.Data;
@@ -31,23 +32,13 @@ public class TestDatabaseSetup
 
     public async Task<Student> CreateTestStudentAsync(Guid userId)
     {
-
-        //// Remove all users from aspnetuser
         var userManager = _scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-        //var users = await userManager.Users.ToListAsync();
-        //foreach (var userx in users)
-        //{
-        //    await userManager.DeleteAsync(userx);
-        //}
-
-
 
         var user = new User(userId, "John Conor", UserTestEmail);
 
         IUserRepository userRepo = _scope.ServiceProvider.GetRequiredService<IUserRepository>();
         userRepo.Insert(user);
         await userRepo.UnitOfWork.CommitAsync(default);
-
 
         //  add user to Identity
         var identityUser = new IdentityUser
@@ -58,12 +49,8 @@ public class TestDatabaseSetup
             EmailConfirmed = true
         };
 
-
         await userManager.CreateAsync(identityUser, UserTestPassword);
-        await userManager.AddToRoleAsync(identityUser, "Student");
-
-
-
+        await userManager.AddToRoleAsync(identityUser, AccessRoles.Student);
 
         var student = new Student(userId);
         await _studentRepository.AddAsync(student);
@@ -71,10 +58,33 @@ public class TestDatabaseSetup
         return student;
     }
 
+    public async Task CreateAdminUser(Guid userId)
+    {
+        var userManager = _scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+        var user = new User(userId, "Sara Conor", UserTestEmail);
+
+        IUserRepository userRepo = _scope.ServiceProvider.GetRequiredService<IUserRepository>();
+        userRepo.Insert(user);
+        await userRepo.UnitOfWork.CommitAsync(default);
+
+        //  add user to Identity
+        var identityUser = new IdentityUser
+        {
+            Id = userId.ToString(),
+            UserName = user.Email,
+            Email = user.Email,
+            EmailConfirmed = true
+        };
+
+        await userManager.CreateAsync(identityUser, UserTestPassword);
+        await userManager.AddToRoleAsync(identityUser, AccessRoles.Admin);
+    }
+
     public async Task<Enrollment> CreateTestEnrollmentAsync(Guid studentId, Guid courseId, bool makePaymentDone)
     {
         var enrollment = new Enrollment(studentId, courseId);
-        
+
         if (makePaymentDone)
             enrollment.PaymentDone();
 

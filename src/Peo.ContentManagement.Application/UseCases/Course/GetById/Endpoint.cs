@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using Peo.ContentManagement.Application.Dtos;
 using Peo.Core.DomainObjects;
 using Peo.Core.DomainObjects.Result;
 using Peo.Core.Web.Api;
@@ -19,7 +20,7 @@ namespace Peo.ContentManagement.Application.UseCases.Course.GetById
              .RequireAuthorization(AccessRoles.Admin);
         }
 
-        private static async Task<Results<Ok<Response>, NotFound, ValidationProblem, BadRequest, BadRequest<Error>>> HandleGetById(Guid id, IMediator mediator, ILogger<Endpoint> logger)
+        private static async Task<Results<Ok<CourseResponse>, NotFound, ValidationProblem, BadRequest, BadRequest<Error>>> HandleGetById(Guid id, IMediator mediator, ILogger<Endpoint> logger)
         {
             var query = new Query(id);
 
@@ -40,12 +41,12 @@ namespace Peo.ContentManagement.Application.UseCases.Course.GetById
                 return TypedResults.BadRequest(result.Error);
             }
 
-            if (result.Value is null)
+            if (result.Value.Course is null)
             {
                 return TypedResults.NotFound();
             }
 
-            return TypedResults.Ok(result.Value);
+            return TypedResults.Ok(result.Value.Course);
         }
     }
 }
