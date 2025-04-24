@@ -70,7 +70,7 @@ public class PaymentServiceTests
         result.TransactionId.Should().NotBeNull();
         result.PaymentDate.Should().NotBeNull();
         result.CreditCardData.Should().NotBeNull();
-        result.CreditCardData.Hash.Should().Be("hash-123");
+        result!.CreditCardData!.Hash.Should().Be("hash-123");
         _paymentRepositoryMock.Verify(x => x.Insert(It.Is<Payment>(p => p.EnrollmentId == enrollmentId && p.Amount == amount)), Times.Once);
         _paymentRepositoryMock.Verify(x => x.Update(It.Is<Payment>(p => p.Status == PaymentStatus.Paid)), Times.Once);
         _paymentRepositoryMock.Verify(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()), Times.Exactly(3));

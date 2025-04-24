@@ -44,7 +44,7 @@ public class CreateCommandHandlerTests
             c.Title == command.Title &&
             c.Description == command.Description &&
             c.InstructorId == command.InstructorId &&
-            c.ProgramContent.Content == command.ProgramContent &&
+            c.ProgramContent!.Content == command.ProgramContent &&
             c.Price == command.Price &&
             c.Tags.SequenceEqual(command.Tags!)
         )), Times.Once);
