@@ -17,7 +17,7 @@ public class TestDatabaseSetup
 
     private readonly IServiceScope _scope;
 
-    internal readonly string UserTestPassword = "Test123!";
+    internal readonly string UserTestPassword = "Test123!91726312389831625192JHTBADPDJANDHJPXASDO";
     internal readonly string UserTestEmail = $"{Guid.CreateVersion7()}@example.com";
 
     public TestDatabaseSetup(IServiceProvider serviceProvider)
@@ -32,7 +32,7 @@ public class TestDatabaseSetup
     {
         var userManager = _scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-        var user = new User(userId, "John Conor", UserTestEmail);
+        var user = new User(userId, $"John Conor {Random.Shared.NextDouble()}", UserTestEmail);
 
         IUserRepository userRepo = _scope.ServiceProvider.GetRequiredService<IUserRepository>();
         userRepo.Insert(user);
@@ -60,7 +60,7 @@ public class TestDatabaseSetup
     {
         var userManager = _scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-        var user = new User(userId, "Sara Conor", UserTestEmail);
+        var user = new User(userId, $"Sara Conor {Random.Shared.NextDouble()}", UserTestEmail);
 
         IUserRepository userRepo = _scope.ServiceProvider.GetRequiredService<IUserRepository>();
         userRepo.Insert(user);

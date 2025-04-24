@@ -41,7 +41,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
         // Arrange
         var request = new RegisterRequest(
             Email: $"{Guid.CreateVersion7()}@example.com",
-            Password: "Test123!",
+            Password: "Test123!91726312389831625192JHTBADPDJANDHJPXASDO",
             Name: "Test User"
         );
 
@@ -66,7 +66,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
         // Arrange
         var request = new RegisterRequest(
             Email: "invalid-email",
-            Password: "Test123!",
+            Password: "Test123!91726312389831625192JHTBADPDJANDHJPXASDO",
             Name: "Test User"
         );
 
@@ -82,7 +82,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
     {
         // Arrange
         var email = $"{Guid.CreateVersion7()}@example.com";
-        var password = "Test123!";
+        var password = "Test123!91726312389831625192JHTBADPDJANDHJPXASDO";
 
         var user = new IdentityUser
         {
