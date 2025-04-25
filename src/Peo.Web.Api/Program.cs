@@ -19,6 +19,7 @@ app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.AddEndpoints();
+app.UseExceptionHandler();
 
 await app.UseDbMigrationHelperAsync();
 await app.RunAsync();

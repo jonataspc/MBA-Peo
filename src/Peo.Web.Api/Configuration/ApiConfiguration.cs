@@ -1,4 +1,5 @@
 ﻿using Peo.Core.DomainObjects;
+using Peo.Web.Api.MIddlewares;
 using System.Text.Json.Serialization;
 
 namespace Peo.Web.Api.Configuration
@@ -31,6 +32,10 @@ namespace Peo.Web.Api.Configuration
                 options.LowercaseUrls = true;
                 options.LowercaseQueryStrings = true;
             });
+
+            // Middlares
+            services.AddExceptionHandler<GlobalExceptionHandler>();
+            services.AddProblemDetails();
 
             return services;
         }
