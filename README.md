@@ -88,6 +88,7 @@ A cobertura de código pode ser gerada manualmente/localmente através do script `
 
 No repositório GitHub a action de compilação executa a compilação e os testes, além de gerar o relatório de cobertura de código e armazena-lo como artefato, que pode ser obtido: 
 - Acesse a aba "Actions" do repositório.
+- Escolha o último workflow executado.
 - Na seção Artifacts, baixar o arquivo ZIP, contendo o relatório em HTML.
  
 
