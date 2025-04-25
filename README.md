@@ -9,7 +9,7 @@ Bem-vindo ao repositório do projeto **Peo**. Este projeto é uma entrega do MBA D
 O objetivo principal é desenvolver uma plataforma educacional online com múltiplos bounded contexts (BC), aplicando DDD, TDD, CQRS e padrões arquiteturais para gestão eficiente de conteúdos educacionais, alunos e processos financeiros. 
 
 
-### **Autor(es)**
+### **Autor**
 - Jonatas Cruz
 
 
@@ -40,10 +40,11 @@ A estrutura do projeto é organizada da seguinte forma:
 
 - src: códigos-fonte da solução  
 - tests: testes de integração e de unidade.
-- docs: documentação do projeto
+- docs: [documentação do projeto](./docs/README.md) e requisitos
 	
 - README.md: Arquivo de Documentação do Projeto
 - FEEDBACK.md: Arquivo para Consolidação dos Feedbacks
+- DEVELOPMENT.md: Notas de apoio para o desenvolvimento
 - .gitignore: Arquivo de Ignoração do Git
 - .gitattributes: Atributos do Git
 - .editorconfig: Preferências de Estilo de Código
@@ -81,6 +82,9 @@ A estrutura do projeto é organizada da seguinte forma:
 ## **Documentação da API**
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em https://localhost:7113/
+
+## **Documentação do projeto**
+Uma documentação extensiva pode ser obtida [aqui](./docs/README.md).
 
 
 ## **Code coverage e CI**

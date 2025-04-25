@@ -22,10 +22,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{A8C0840D-E2E4-40F1-9436-648EFC6FC9F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
-	ProjectSection(SolutionItems) = preProject
-		DEVELOPMENT.md = DEVELOPMENT.md
-		README.md = README.md
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Identity.Application", "src\Peo.Identity.Application\Peo.Identity.Application.csproj", "{7D69AD3E-8376-4F06-9DE9-96FC69ABBF98}"
 EndProject
@@ -70,6 +66,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D7AA213A-D0A9-447E-87CE-B3D49AE8DE41}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\run-tests-with-coverage.ps1 = scripts\run-tests-with-coverage.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7454D576-14B3-4D11-B744-0D2B3B1A8E51}"
+	ProjectSection(SolutionItems) = preProject
+		DEVELOPMENT.md = DEVELOPMENT.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -193,6 +195,7 @@ Global
 		{DE38A6DC-A778-4593-997E-558D563D9BCD} = {6176EAD5-BAC5-431A-A3CF-BF02E3F059D0}
 		{E9C561FF-259F-4197-A8CA-FDCFB7C6B70C} = {6176EAD5-BAC5-431A-A3CF-BF02E3F059D0}
 		{D7AA213A-D0A9-447E-87CE-B3D49AE8DE41} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
+		{7454D576-14B3-4D11-B744-0D2B3B1A8E51} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50FD39FF-49FD-45CD-AE3A-176FC71D660F}
