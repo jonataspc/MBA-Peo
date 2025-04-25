@@ -16,6 +16,11 @@ Este documento descreve a estratégia de testes da plataforma, incluindo tipos d
 - **Ferramentas**: xUnit, TestServer
 - **Cobertura**: Todos os casos de uso críticos
 
+### 3. Testes de Arquitetura
+- **Objetivo**: Garantir a conformidade com os princípios arquiteturais
+- **Escopo**: Estrutura do projeto, dependências e padrões
+- **Ferramentas**: NetArchTest
+
 ## Cobertura de Código
 - Cobertura mínima de 80%
 
@@ -24,5 +29,6 @@ Este documento descreve a estratégia de testes da plataforma, incluindo tipos d
 - Moq
 - FluentAssertions
 - TestServer
-- dotCover 
+- dotCover
+- NetArchTest
 - GitHub Actions (CI)
