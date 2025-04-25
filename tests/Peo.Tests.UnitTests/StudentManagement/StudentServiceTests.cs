@@ -9,7 +9,6 @@ using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
 using Peo.StudentManagement.Domain.ValueObjects;
 using System.Linq.Expressions;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.StudentManagement;
 
@@ -244,31 +243,24 @@ public class StudentServiceTests
         var student = new Student(userId) { Id = studentId };
         var expectedEnrollment = new Enrollment(studentId, courseId);
 
-        // Set up the repository to return null for GetByUserIdAsync (student doesn't exist)
         _studentRepositoryMock.Setup(x => x.GetByUserIdAsync(userId))
             .ReturnsAsync((Student?)null);
 
-        // Set up the repository to return the student when GetByIdAsync is called
         _studentRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>()))
             .ReturnsAsync(student);
 
-        // Set up the repository to handle student creation
         _studentRepositoryMock.Setup(x => x.AddAsync(It.Is<Student>(s => s.UserId == userId)))
             .Returns(Task.CompletedTask);
 
-        // Set up the course service to return true for course existence
         _courseLessonServiceMock.Setup(x => x.CheckIfCourseExistsAsync(courseId))
             .ReturnsAsync(true);
 
-        // Set up the repository to return false for AnyAsync (student not enrolled in course)
         _studentRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<Expression<Func<Student, bool>>>()))
             .ReturnsAsync(false);
 
-        // Set up the repository to handle enrollment creation
         _studentRepositoryMock.Setup(x => x.AddEnrollmentAsync(It.IsAny<Enrollment>()))
             .Returns(Task.CompletedTask);
 
-        // Set up the repository to handle commit
         _studentRepositoryMock.Setup(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(1);
 
@@ -321,7 +313,6 @@ public class StudentServiceTests
         enrollment.PaymentDone();
         enrollment.Student = student;
 
-        // Set up the repository to return the enrollment with the student
         _studentRepositoryMock.Setup(x => x.GetEnrollmentByIdAsync(enrollmentId))
             .ReturnsAsync(enrollment);
         _appIdentityUserMock.Setup(x => x.GetUserId())
@@ -343,7 +334,6 @@ public class StudentServiceTests
         _studentRepositoryMock.Setup(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(1);
 
-        // Set up the student repository to return the student when GetByIdAsync is called
         _studentRepositoryMock.Setup(x => x.GetByIdAsync(studentId))
             .ReturnsAsync(student);
 
@@ -424,4 +414,4 @@ public class StudentServiceTests
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => _studentService.GetStudentCertificatesAsync(studentId, CancellationToken.None));
     }
-} 
+}

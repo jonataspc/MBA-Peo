@@ -1,5 +1,3 @@
-using MediatR;
-using Peo.Core.DomainObjects.Result;
 using Peo.StudentManagement.Application.Dtos.Requests;
 using Peo.StudentManagement.Application.Dtos.Responses;
 

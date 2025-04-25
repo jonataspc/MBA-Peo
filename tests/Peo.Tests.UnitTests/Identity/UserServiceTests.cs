@@ -3,7 +3,6 @@ using Moq;
 using Peo.Core.Entities;
 using Peo.Identity.Application.Services;
 using Peo.Identity.Domain.Interfaces.Data;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.Identity;
 
@@ -65,4 +64,4 @@ public class UserServiceTests
         // Assert
         result.Should().BeNull();
     }
-} 
+}

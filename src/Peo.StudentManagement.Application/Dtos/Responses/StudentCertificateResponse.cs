@@ -5,4 +5,4 @@ public record StudentCertificateResponse(
     Guid EnrollmentId,
     string Content,
     DateTime? IssueDate,
-    string? CertificateNumber); 
+    string? CertificateNumber);

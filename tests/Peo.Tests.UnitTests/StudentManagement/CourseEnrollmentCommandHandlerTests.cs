@@ -1,14 +1,11 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Peo.Core.DomainObjects;
 using Peo.Core.Interfaces.Services;
 using Peo.StudentManagement.Application.Commands.CourseEnrollment;
 using Peo.StudentManagement.Application.Dtos.Requests;
-using Peo.StudentManagement.Application.Dtos.Responses;
 using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.StudentManagement;
 
@@ -99,4 +96,4 @@ public class CourseEnrollmentCommandHandlerTests
         result.Error.Should().NotBeNull();
         result.Error.Message.Should().Be(errorMessage);
     }
-} 
+}

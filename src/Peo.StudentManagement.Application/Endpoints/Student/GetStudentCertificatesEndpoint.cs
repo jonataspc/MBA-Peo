@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
 using Peo.Core.DomainObjects;
 using Peo.Core.Web.Api;
-using Peo.StudentManagement.Application.Queries.GetStudentCertificates;
 using Peo.StudentManagement.Application.Dtos.Responses;
+using Peo.StudentManagement.Application.Queries.GetStudentCertificates;
 
 namespace Peo.StudentManagement.Application.Endpoints.Student;
 
@@ -32,4 +32,4 @@ public class GetStudentCertificatesEndpoint : IEndpoint
 
         return TypedResults.BadRequest(response.Error);
     }
-} 
+}

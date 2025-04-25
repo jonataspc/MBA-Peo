@@ -13,10 +13,8 @@ public class Enrollment : EntityBase
     public int ProgressPercentage { get; private set; }
     public virtual Student? Student { get; set; }
 
-
-
-
-    protected Enrollment() { }
+    protected Enrollment()
+    { }
 
     public Enrollment(Guid studentId, Guid courseId)
     {

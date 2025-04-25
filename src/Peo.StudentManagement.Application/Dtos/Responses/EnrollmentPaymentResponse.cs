@@ -10,4 +10,4 @@ public class EnrollmentPaymentResponse
     public PaymentStatus Status { get; set; }
     public DateTime? PaymentDate { get; set; }
     public string? TransactionId { get; set; }
-} 
+}

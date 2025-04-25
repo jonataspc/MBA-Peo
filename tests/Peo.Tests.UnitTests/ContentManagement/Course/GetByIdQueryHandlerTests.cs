@@ -1,14 +1,10 @@
 using FluentAssertions;
 using Mapster;
-using MediatR;
 using Moq;
 using Peo.ContentManagement.Application.Dtos;
 using Peo.ContentManagement.Application.UseCases.Course.GetById;
-using Peo.ContentManagement.Domain.Entities;
 using Peo.ContentManagement.Domain.ValueObjects;
-using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Data;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.ContentManagement.Course;
 
@@ -73,4 +69,4 @@ public class GetByIdQueryHandlerTests
         result.Value.Should().NotBeNull();
         result.Value.Course.Should().BeNull();
     }
-} 
+}

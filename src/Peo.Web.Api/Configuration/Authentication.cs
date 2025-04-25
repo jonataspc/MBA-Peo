@@ -17,9 +17,7 @@ namespace Peo.Web.Api.Configuration
                     })
                     .AddJwtBearer(options =>
                     {
-
                         var jwtSettings = configuration.GetSection(JwtSettings.Position).Get<JwtSettings>()!;
-
 
                         options.TokenValidationParameters = new TokenValidationParameters
                         {

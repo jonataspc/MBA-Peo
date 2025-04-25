@@ -1,20 +1,14 @@
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Peo.Billing.Domain.Dtos;
 using Peo.Billing.Domain.Entities;
 using Peo.Billing.Domain.Interfaces.Services;
 using Peo.Billing.Domain.ValueObjects;
-using Peo.Core.DomainObjects;
 using Peo.Core.Interfaces.Services.Acls;
 using Peo.StudentManagement.Application.Commands.EnrollmentPayment;
 using Peo.StudentManagement.Application.Dtos.Requests;
-using Peo.StudentManagement.Application.Dtos.Responses;
-using Peo.StudentManagement.Application.Services;
 using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
-using Peo.StudentManagement.Domain.ValueObjects;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.StudentManagement;
 
@@ -98,6 +92,5 @@ public class EnrollmentPaymentCommandHandlerTests
 
         // Act & assert
         await Assert.ThrowsAsync<Exception>(() => _handler.Handle(command, CancellationToken.None));
-
     }
-} 
+}

@@ -3,10 +3,8 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Peo.StudentManagement.Application.Commands.Lesson;
 using Peo.StudentManagement.Application.Dtos.Requests;
-using Peo.StudentManagement.Application.Dtos.Responses;
 using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.StudentManagement;
 
@@ -88,4 +86,4 @@ public class EndLessonCommandHandlerTests
         result.Error.Should().NotBeNull();
         result.Error.Message.Should().Be(errorMessage);
     }
-} 
+}

@@ -1,18 +1,14 @@
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Peo.Billing.Application.Services;
 using Peo.Billing.Domain.Dtos;
 using Peo.Billing.Domain.Entities;
 using Peo.Billing.Domain.Interfaces.Brokers;
-using Peo.Billing.Domain.Interfaces.Services;
 using Peo.Billing.Domain.ValueObjects;
-using Peo.Core.DomainObjects;
 using Peo.Core.Interfaces.Data;
 using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
 using System.Linq.Expressions;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.Billing;
 
@@ -130,7 +126,7 @@ public class PaymentServiceTests
             .ReturnsAsync((Enrollment?)null);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => 
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
             _paymentService.ProcessEnrollmentPaymentAsync(enrollmentId, amount, creditCard));
 
         _paymentRepositoryMock.Verify(x => x.Insert(It.IsAny<Payment>()), Times.Never);
@@ -171,7 +167,7 @@ public class PaymentServiceTests
             .ReturnsAsync((Payment?)null);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => 
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
             _paymentService.RefundPaymentAsync(paymentId));
 
         _paymentRepositoryMock.Verify(x => x.Update(It.IsAny<Payment>()), Times.Never);
@@ -211,7 +207,7 @@ public class PaymentServiceTests
             .ReturnsAsync((Payment?)null);
 
         // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() => 
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
             _paymentService.CancelPaymentAsync(paymentId));
 
         _paymentRepositoryMock.Verify(x => x.Update(It.IsAny<Payment>()), Times.Never);
@@ -286,4 +282,4 @@ public class PaymentServiceTests
         result.Should().NotBeNull();
         result.Should().BeEmpty();
     }
-} 
+}

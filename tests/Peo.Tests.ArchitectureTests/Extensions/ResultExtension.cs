@@ -6,7 +6,6 @@ namespace Peo.Tests.ArchitectureTests.Extensions
     {
         public static string? GetDetails(this TestResult result)
         {
-
             if (!result.FailingTypes.Any())
             {
                 return null;

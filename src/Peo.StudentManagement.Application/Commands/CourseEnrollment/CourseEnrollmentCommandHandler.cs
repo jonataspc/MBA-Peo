@@ -1,6 +1,4 @@
-using MediatR;
 using Microsoft.Extensions.Logging;
-using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Services;
 using Peo.StudentManagement.Application.Dtos.Responses;
 using Peo.StudentManagement.Domain.Interfaces;

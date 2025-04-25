@@ -1,6 +1,4 @@
-using MediatR;
 using Peo.Billing.Domain.Interfaces.Services;
-using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Services.Acls;
 using Peo.StudentManagement.Application.Dtos.Responses;
 using Peo.StudentManagement.Domain.Interfaces;

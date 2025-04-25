@@ -67,6 +67,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Tests.IntegrationTests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Tests.ArchitectureTests", "tests\Peo.Tests.ArchitectureTests\Peo.Tests.ArchitectureTests.csproj", "{E9C561FF-259F-4197-A8CA-FDCFB7C6B70C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D7AA213A-D0A9-447E-87CE-B3D49AE8DE41}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\run-tests-with-coverage.ps1 = scripts\run-tests-with-coverage.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -187,6 +192,7 @@ Global
 		{3DB5260F-1595-4C21-AE03-E7397764C3C1} = {6176EAD5-BAC5-431A-A3CF-BF02E3F059D0}
 		{DE38A6DC-A778-4593-997E-558D563D9BCD} = {6176EAD5-BAC5-431A-A3CF-BF02E3F059D0}
 		{E9C561FF-259F-4197-A8CA-FDCFB7C6B70C} = {6176EAD5-BAC5-431A-A3CF-BF02E3F059D0}
+		{D7AA213A-D0A9-447E-87CE-B3D49AE8DE41} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50FD39FF-49FD-45CD-AE3A-176FC71D660F}

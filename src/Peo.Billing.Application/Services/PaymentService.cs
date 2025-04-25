@@ -40,7 +40,6 @@ public class PaymentService : IPaymentService
         await _paymentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return payment;
     }
-     
 
     public async Task<Payment> RefundPaymentAsync(Guid paymentId)
     {

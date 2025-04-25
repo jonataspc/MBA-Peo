@@ -16,7 +16,6 @@ namespace Peo.Identity.Application.Services
         public async Task<User?> GetUserByIdAsync(Guid userId)
         {
             return await repository.GetByIdAsync(userId);
-
         }
     }
 }

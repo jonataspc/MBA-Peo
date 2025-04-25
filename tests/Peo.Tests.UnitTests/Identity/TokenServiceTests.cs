@@ -8,7 +8,6 @@ using Peo.Identity.Application.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.Identity;
 
@@ -62,7 +61,7 @@ public class TokenServiceTests
         token.Should().NotBeNullOrEmpty();
 
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(_jwtSettings.Key );
+        var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
         var tokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
@@ -84,4 +83,4 @@ public class TokenServiceTests
         jwtToken.Claims.Should().Contain(c => c.Type == ClaimTypes.NameIdentifier && c.Value == "test@example.com");
         jwtToken.Claims.Should().Contain(c => c.Type == ClaimTypes.Role && c.Value == "Student");
     }
-} 
+}

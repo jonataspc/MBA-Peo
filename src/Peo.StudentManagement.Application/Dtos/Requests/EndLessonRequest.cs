@@ -9,4 +9,4 @@ public class EndLessonRequest
 
     [Required]
     public Guid LessonId { get; set; }
-} 
+}

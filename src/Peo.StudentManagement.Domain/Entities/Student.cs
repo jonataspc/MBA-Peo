@@ -11,7 +11,6 @@ public class Student : EntityBase, IAggregateRoot
 
     public virtual ICollection<Enrollment> Enrollments { get; private set; } = [];
 
-
     public Student()
     {
     }

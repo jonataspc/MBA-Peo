@@ -1,4 +1,3 @@
-using MediatR;
 using Peo.StudentManagement.Application.Dtos.Requests;
 using Peo.StudentManagement.Application.Dtos.Responses;
 
@@ -12,4 +11,4 @@ public class CompleteEnrollmentCommand : IRequest<Result<CompleteEnrollmentRespo
     {
         Request = request;
     }
-} 
+}

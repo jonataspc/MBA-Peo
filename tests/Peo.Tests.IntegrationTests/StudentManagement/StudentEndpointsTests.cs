@@ -1,5 +1,4 @@
 using FluentAssertions;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Peo.Billing.Domain.Dtos;
 using Peo.ContentManagement.Domain.Entities;
@@ -45,7 +44,6 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
 
         var courseTwo = await _testDb.CreateTestCourseAsync(instructorId: _testStudent.UserId);
 
-
         var courseNotEnrolled = await _testDb.CreateTestCourseAsync(instructorId: _testStudent.UserId);
         _testCourseNotEnrolled = courseNotEnrolled;
 
@@ -53,11 +51,8 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
         _testEnrollment = await _testDb.CreateTestEnrollmentAsync(_testStudent.Id, _testCourse.Id, true);
         _testEnrollmentNotPaid = await _testDb.CreateTestEnrollmentAsync(_testStudent.Id, courseTwo.Id, false);
 
-
-
         await LoginAsync();
     }
-
 
     private async Task LoginAsync()
     {
@@ -77,7 +72,6 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
 
         // Set the token in the client
         _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", result.Token);
-
     }
 
     public async Task DisposeAsync()
@@ -163,7 +157,6 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var result = await response.Content.ReadAsStringAsync();
         result.Should().Contain("Student is alread enrolled in this course");
-
     }
 
     [Fact]
@@ -181,7 +174,6 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
         result.Should().NotBeNull();
         result!.EnrollmentId.Should().NotBe(Guid.Empty);
     }
-
 
     [Fact]
     public async Task CompleteEnrollment_WithValidRequest_ShouldCompleteEnrollment()
@@ -206,7 +198,6 @@ public class StudentEndpointsTests : IClassFixture<WebApplicationFactory<Program
             };
             await _client.PostAsJsonAsync("/v1/student/enrollment/lesson/end", requestLessonEnd);
         }
-
 
         var request = new CompleteEnrollmentRequest
         {

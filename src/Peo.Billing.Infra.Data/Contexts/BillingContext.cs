@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Peo.Billing.Domain.Entities;
 using Peo.Core.Infra.Data.Contexts.Base;
 using Peo.Core.Infra.Data.Extensions;
-using Peo.Billing.Domain.Entities;
 using System.Reflection;
 
 namespace Peo.Billing.Infra.Data.Contexts;
@@ -22,4 +22,4 @@ public class BillingContext : DbContextBase
 
         base.OnModelCreating(modelBuilder);
     }
-} 
+}

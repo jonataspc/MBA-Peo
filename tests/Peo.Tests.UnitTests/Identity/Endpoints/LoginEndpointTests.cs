@@ -174,7 +174,6 @@ public class LoginEndpointTests
         _tokenServiceMock.Setup(x => x.CreateToken(user, roles))
             .Returns(token);
 
-        
         var resultToken = await LoginEndpoint.HandleLogin(
             _validRequest,
             _signInManagerMock.Object,

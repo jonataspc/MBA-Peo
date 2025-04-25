@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -49,9 +48,9 @@ namespace Peo.Identity.Application.Endpoints
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
-                    ValidIssuer = jwtSettings.Value.Issuer  ,
+                    ValidIssuer = jwtSettings.Value.Issuer,
                     ValidateAudience = true,
-                    ValidAudience = jwtSettings.Value.Audience ,
+                    ValidAudience = jwtSettings.Value.Audience,
                     ValidateLifetime = true
                 };
 
@@ -72,9 +71,9 @@ namespace Peo.Identity.Application.Endpoints
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
-                    ValidIssuer = jwtSettings.Value.Issuer ,
+                    ValidIssuer = jwtSettings.Value.Issuer,
                     ValidateAudience = true,
-                    ValidAudience = jwtSettings.Value.Audience ,
+                    ValidAudience = jwtSettings.Value.Audience,
                     ValidateLifetime = false
                 };
 

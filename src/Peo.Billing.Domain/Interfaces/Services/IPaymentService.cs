@@ -5,10 +5,6 @@ namespace Peo.Billing.Domain.Interfaces.Services;
 
 public interface IPaymentService
 {
-    //Task<Payment> CreatePaymentAsync(Guid enrollmentId, decimal amount);
-    //Task<Payment> ProcessPaymentAsync(Guid paymentId, string transactionId, CreditCardData creditCardData);
-    //Task<Payment> ConfirmPaymentAsync(Guid paymentId);
-    //Task<Payment> MarkPaymentAsFailedAsync(Guid paymentId);
     Task<Payment> RefundPaymentAsync(Guid paymentId);
 
     Task<Payment> CancelPaymentAsync(Guid paymentId);

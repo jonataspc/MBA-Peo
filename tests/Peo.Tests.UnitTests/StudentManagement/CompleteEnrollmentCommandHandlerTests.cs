@@ -3,11 +3,9 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Peo.StudentManagement.Application.Commands.Enrollment;
 using Peo.StudentManagement.Application.Dtos.Requests;
-using Peo.StudentManagement.Application.Dtos.Responses;
 using Peo.StudentManagement.Domain.Entities;
 using Peo.StudentManagement.Domain.Interfaces;
 using Peo.StudentManagement.Domain.ValueObjects;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.StudentManagement;
 
@@ -81,4 +79,4 @@ public class CompleteEnrollmentCommandHandlerTests
         result.Error.Should().NotBeNull();
         result.Error.Message.Should().Be(errorMessage);
     }
-} 
+}

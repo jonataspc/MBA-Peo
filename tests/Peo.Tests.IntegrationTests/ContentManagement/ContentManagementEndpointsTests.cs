@@ -1,21 +1,17 @@
-using System.Net;
-using System.Net.Http.Json;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using CourseCreate = Peo.ContentManagement.Application.UseCases.Course.Create;
-using CourseGetAll = Peo.ContentManagement.Application.UseCases.Course.GetAll;
-using CourseGetById = Peo.ContentManagement.Application.UseCases.Course.GetById;
-using LessonCreate = Peo.ContentManagement.Application.UseCases.Lesson.Create;
-using LessonGetAll = Peo.ContentManagement.Application.UseCases.Lesson.GetAll;
+using Peo.ContentManagement.Application.Dtos;
 using Peo.ContentManagement.Domain.Entities;
-using Peo.Core.DomainObjects.Result;
 using Peo.Identity.Application.Endpoints.Requests;
 using Peo.Identity.Application.Endpoints.Responses;
 using Peo.Tests.IntegrationTests.Setup;
-using Xunit;
-using Microsoft.AspNetCore.Http;
-using Peo.ContentManagement.Application.Dtos;
+using System.Net;
+using System.Net.Http.Json;
+using CourseCreate = Peo.ContentManagement.Application.UseCases.Course.Create;
+using CourseGetAll = Peo.ContentManagement.Application.UseCases.Course.GetAll;
+using LessonCreate = Peo.ContentManagement.Application.UseCases.Lesson.Create;
+using LessonGetAll = Peo.ContentManagement.Application.UseCases.Lesson.GetAll;
 
 namespace Peo.Tests.IntegrationTests.ContentManagement;
 
@@ -221,4 +217,4 @@ public class ContentManagementEndpointsTests : IClassFixture<WebApplicationFacto
         result!.Lessons.Should().NotBeEmpty();
         result.Lessons.Should().AllSatisfy(l => l.Id.Should().NotBe(Guid.Empty));
     }
-} 
+}

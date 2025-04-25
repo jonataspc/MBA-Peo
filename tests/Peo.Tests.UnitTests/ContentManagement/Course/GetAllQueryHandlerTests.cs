@@ -1,14 +1,10 @@
 using FluentAssertions;
 using Mapster;
-using MediatR;
 using Moq;
 using Peo.ContentManagement.Application.Dtos;
 using Peo.ContentManagement.Application.UseCases.Course.GetAll;
-using Peo.ContentManagement.Domain.Entities;
 using Peo.ContentManagement.Domain.ValueObjects;
-using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Data;
-using Xunit;
 
 namespace Peo.Tests.UnitTests.ContentManagement.Course;
 
@@ -87,4 +83,4 @@ public class GetAllQueryHandlerTests
         result.Value.Courses.Should().NotBeNull();
         result.Value.Courses.Should().BeEmpty();
     }
-} 
+}
