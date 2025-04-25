@@ -71,7 +71,7 @@ A estrutura do projeto é organizada da seguinte forma:
 3. **Executar a API:**
    - `cd src\Peo.Web.Api`
    - `dotnet run --launch-profile "https"`
-   - Acesse a documentação da API em: https://localhost:7113/swagger
+   - Acesse a documentação da API em: https://localhost:7113/
 
 ## **Instruções de Configuração**
 
@@ -80,7 +80,7 @@ A estrutura do projeto é organizada da seguinte forma:
 
 ## **Documentação da API**
 
-A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em https://localhost:7113/swagger
+A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em https://localhost:7113/
 
 
 ## **Code coverage e CI**
