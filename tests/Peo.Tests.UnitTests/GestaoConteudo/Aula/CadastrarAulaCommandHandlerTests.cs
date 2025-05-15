@@ -1,4 +1,4 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using Peo.Core.Interfaces.Data;
 using Peo.GestaoConteudo.Application.UseCases.Aula.Cadastrar;

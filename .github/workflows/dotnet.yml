@@ -11,8 +11,6 @@ on:
 
 env:
   DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: true
-  LANG: "pt_BR.UTF-8"
-  LC_ALL: "pt_BR.UTF-8"
 
 jobs:
   build:

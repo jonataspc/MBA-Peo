@@ -1,4 +1,4 @@
-using Mapster;
+﻿using Mapster;
 using MediatR;
 using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Data;
@@ -14,7 +14,7 @@ public class Handler(IRepository<Domain.Entities.Curso> repository) : IRequestHa
 
         if (curso is null)
         {
-            return Result.Failure<Response>(new Error("Curso n�o encontrado"));
+            return Result.Failure<Response>(new Error("Curso não encontrado"));
         }
 
         var aula = request.Adapt<Domain.Entities.Aula>();
