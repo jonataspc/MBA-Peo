@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Routing;
 using MiniValidation;
 using Peo.Core.DomainObjects;
 using Peo.Core.Web.Api;
+using Peo.GestaoAlunos.Application.Commands.PagamentoMatricula;
 using Peo.GestaoAlunos.Application.Dtos.Requests;
 using Peo.GestaoAlunos.Application.Dtos.Responses;
-using Peo.GestaoAlunos.Application.Commands.PagamentoMatricula;
 
 namespace Peo.GestaoAlunos.Application.Endpoints.Matricula;
 

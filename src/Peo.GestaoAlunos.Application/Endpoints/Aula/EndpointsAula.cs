@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Peo.Core.DomainObjects;
 using Peo.Core.Web.Api;
-using Peo.GestaoAlunos.Application.Dtos.Requests;
 using Peo.GestaoAlunos.Application.Commands.Aula;
+using Peo.GestaoAlunos.Application.Dtos.Requests;
 
 namespace Peo.GestaoAlunos.Application.Endpoints.Aula;
 

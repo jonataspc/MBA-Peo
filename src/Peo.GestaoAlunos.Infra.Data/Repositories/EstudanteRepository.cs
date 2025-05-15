@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Peo.Core.Infra.Data.Repositories;
-using Peo.GestaoAlunos.Infra.Data.Contexts;
 using Peo.GestaoAlunos.Domain.Entities;
 using Peo.GestaoAlunos.Domain.Interfaces;
+using Peo.GestaoAlunos.Infra.Data.Contexts;
 
 namespace Peo.GestaoAlunos.Infra.Data.Repositories;
 

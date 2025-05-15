@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Peo.GestaoConteudo.Domain.Entities;
 using Peo.Core.Infra.Data.Contexts.Base;
 using Peo.Core.Infra.Data.Extensions;
+using Peo.GestaoConteudo.Domain.Entities;
 using System.Reflection;
 
 namespace Peo.GestaoConteudo.Infra.Data.Contexts

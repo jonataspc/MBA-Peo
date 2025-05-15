@@ -23,7 +23,7 @@ public class CursoAulaServiceTests
         var cursoId = Guid.CreateVersion7();
         var curso = new Peo.GestaoConteudo.Domain.Entities.Curso("Curso Teste", "Descrição", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.GestaoConteudo.Domain.Entities.Aula>());
 
-        _cursoRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.GestaoConteudo.Domain.Entities.Curso, bool>>>() ))
+        _cursoRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.GestaoConteudo.Domain.Entities.Curso, bool>>>()))
             .ReturnsAsync(true);
 
         // Act
@@ -40,7 +40,7 @@ public class CursoAulaServiceTests
         // Arrange
         var cursoId = Guid.CreateVersion7();
 
-        _cursoRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.GestaoConteudo.Domain.Entities.Curso, bool>>>() ))
+        _cursoRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.GestaoConteudo.Domain.Entities.Curso, bool>>>()))
             .ReturnsAsync(false);
 
         // Act

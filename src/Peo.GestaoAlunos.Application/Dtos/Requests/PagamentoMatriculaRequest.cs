@@ -1,5 +1,4 @@
 using Peo.Faturamento.Domain.Dtos;
-using Peo.Faturamento.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace Peo.GestaoAlunos.Application.Dtos.Requests;

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Peo.GestaoConteudo.Domain.Entities;
 using Peo.Core.Infra.Data.Configurations.Base;
+using Peo.GestaoConteudo.Domain.Entities;
 
 namespace Peo.GestaoConteudo.Infra.Data.Configurations
 {
     internal class ArquivoAulaEntityConfiguration : EntityBaseConfiguration<ArquivoAula>
     {
-        public override void Configure(EntityTypeBuilder<ArquivoAula>  builder)
+        public override void Configure(EntityTypeBuilder<ArquivoAula> builder)
         {
             base.Configure(builder);
 

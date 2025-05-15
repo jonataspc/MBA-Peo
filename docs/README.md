@@ -21,9 +21,9 @@ Esta documentação fornece um guia abrangente para a Plataforma de Educação O
 ```
 src/
 ├── Peo.Web.Api/                 # Camada de API
-├── Peo.ContentManagement/       # BC de Gestão de Conteúdo
-├── Peo.StudentManagement/       # BC de Gestão de Alunos
-├── Peo.Billing/                 # BC de Faturamento
+├── Peo.GestaoConteudo/          # BC de Gestão de Conteúdo
+├── Peo.GestaoAlunos/            # BC de Gestão de Alunos
+├── Peo.Faturamento/             # BC de Faturamento
 ├── Peo.Identity/                # BC de Identidade
 └── Peo.Core/                    # Core Compartilhado
 ```

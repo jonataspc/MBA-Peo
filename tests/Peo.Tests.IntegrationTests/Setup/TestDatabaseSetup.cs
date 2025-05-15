@@ -1,13 +1,12 @@
-using FluentAssertions.Execution;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Peo.GestaoConteudo.Domain.Entities;
 using Peo.Core.DomainObjects;
 using Peo.Core.Entities;
 using Peo.Core.Interfaces.Data;
-using Peo.Identity.Domain.Interfaces.Data;
 using Peo.GestaoAlunos.Domain.Entities;
 using Peo.GestaoAlunos.Domain.Interfaces;
+using Peo.GestaoConteudo.Domain.Entities;
+using Peo.Identity.Domain.Interfaces.Data;
 
 namespace Peo.Tests.IntegrationTests.Setup;
 

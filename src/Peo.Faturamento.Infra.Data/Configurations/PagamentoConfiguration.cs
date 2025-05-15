@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Peo.Core.Infra.Data.Configurations.Base;
 using Peo.Faturamento.Domain.Entities;
 using Peo.Faturamento.Domain.ValueObjects;
-using Peo.Core.Infra.Data.Configurations.Base;
 
 namespace Peo.Faturamento.Infra.Data.Configurations;
 

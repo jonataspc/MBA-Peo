@@ -1,10 +1,10 @@
+using Peo.Core.DomainObjects;
+using Peo.Core.Interfaces.Data;
 using Peo.Faturamento.Domain.Dtos;
 using Peo.Faturamento.Domain.Entities;
 using Peo.Faturamento.Domain.Interfaces.Brokers;
 using Peo.Faturamento.Domain.Interfaces.Services;
 using Peo.Faturamento.Domain.ValueObjects;
-using Peo.Core.DomainObjects;
-using Peo.Core.Interfaces.Data;
 using Peo.GestaoAlunos.Domain.Interfaces;
 
 namespace Peo.Faturamento.Application.Services;
@@ -76,16 +76,14 @@ public class PagamentoService : IPagamentoService
     }
 
     public async Task<Pagamento> ProcessarPagamentoMatriculaAsync(Guid matriculaId, decimal valor, CartaoCredito cartaoCredito)
-    {        
+    {
         var matricula = await _estudanteRepository.GetMatriculaByIdAsync(matriculaId)
             ?? throw new InvalidOperationException($"Matrícula com ID {matriculaId} não encontrada");
 
-        
         var pagamento = await CriarPagamentoAsync(matriculaId, valor);
         var idTransacao = Guid.CreateVersion7().ToString();
         pagamento = await ProcessarPagamentoAsync(pagamento.Id, idTransacao);
 
-        
         PaymentBrokerResult result;
         try
         {

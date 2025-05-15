@@ -1,7 +1,7 @@
 using MediatR;
-using Peo.GestaoConteudo.Domain.ValueObjects;
 using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Data;
+using Peo.GestaoConteudo.Domain.ValueObjects;
 
 namespace Peo.GestaoConteudo.Application.UseCases.Curso.Cadastrar;
 

@@ -1,6 +1,5 @@
-using Peo.Faturamento.Domain.Dtos;
-using Peo.Faturamento.Domain.Interfaces.Services;
 using Peo.Core.Interfaces.Services.Acls;
+using Peo.Faturamento.Domain.Interfaces.Services;
 using Peo.GestaoAlunos.Application.Dtos.Responses;
 using Peo.GestaoAlunos.Domain.Interfaces;
 using Peo.GestaoAlunos.Domain.ValueObjects;
@@ -38,7 +37,7 @@ public class PagamentoMatriculaCommandHandler : IRequestHandler<PagamentoMatricu
         }
 
         var preco = await _aulaCursoService.ObterPrecoCursoAsync(matricula.CursoId);
-                
+
         var pagamento = await _pagamentoService.ProcessarPagamentoMatriculaAsync(
             matricula.Id,
             preco,

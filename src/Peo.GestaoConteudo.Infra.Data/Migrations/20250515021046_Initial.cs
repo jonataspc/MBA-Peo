@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -11,8 +10,6 @@ namespace Peo.GestaoConteudo.Infra.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
- 
-
             migrationBuilder.CreateTable(
                 name: "Curso",
                 columns: table => new
@@ -133,8 +130,6 @@ namespace Peo.GestaoConteudo.Infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Curso");
-
-            
         }
     }
 }

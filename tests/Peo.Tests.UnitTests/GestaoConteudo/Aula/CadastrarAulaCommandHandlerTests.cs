@@ -1,8 +1,8 @@
 using FluentAssertions;
 using Moq;
-using Peo.GestaoConteudo.Domain.ValueObjects;
 using Peo.Core.Interfaces.Data;
 using Peo.GestaoConteudo.Application.UseCases.Aula.Cadastrar;
+using Peo.GestaoConteudo.Domain.ValueObjects;
 
 namespace Peo.Tests.UnitTests.GestaoConteudo.Aula;
 

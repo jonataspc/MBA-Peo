@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Peo.Faturamento.Domain.Entities;
 using Peo.Core.Infra.Data.Contexts.Base;
 using Peo.Core.Infra.Data.Extensions;
+using Peo.Faturamento.Domain.Entities;
 using System.Reflection;
 
 namespace Peo.Faturamento.Infra.Data.Contexts;

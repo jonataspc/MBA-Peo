@@ -1,6 +1,8 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Peo.GestaoConteudo.Application.Dtos;
+using Peo.GestaoConteudo.Application.UseCases.Aula.Cadastrar;
 using Peo.GestaoConteudo.Domain.Entities;
 using Peo.Identity.Application.Endpoints.Requests;
 using Peo.Identity.Application.Endpoints.Responses;
@@ -8,11 +10,6 @@ using Peo.Tests.IntegrationTests.Setup;
 using System.Net;
 using System.Net.Http.Json;
 using CursoCadastrar = Peo.GestaoConteudo.Application.UseCases.Curso.Cadastrar;
-using CursoObterTodos = Peo.GestaoConteudo.Application.UseCases.Curso.ObterTodos;
-using AulaCadastrar = Peo.GestaoConteudo.Application.UseCases.Aula.Cadastrar;
-using AulaObterTodos = Peo.GestaoConteudo.Application.UseCases.Aula.ObterTodos;
-using Peo.GestaoConteudo.Application.Dtos;
-using Peo.GestaoConteudo.Application.UseCases.Aula.Cadastrar;
 
 namespace Peo.Tests.IntegrationTests.GestaoConteudo;
 

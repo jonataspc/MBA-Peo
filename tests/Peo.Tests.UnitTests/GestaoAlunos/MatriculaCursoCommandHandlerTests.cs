@@ -4,7 +4,6 @@ using Moq;
 using Peo.Core.Interfaces.Services;
 using Peo.GestaoAlunos.Application.Commands.MatriculaCurso;
 using Peo.GestaoAlunos.Application.Dtos.Requests;
-using Peo.GestaoAlunos.Application.Dtos.Responses;
 using Peo.GestaoAlunos.Domain.Entities;
 using Peo.GestaoAlunos.Domain.Interfaces;
 

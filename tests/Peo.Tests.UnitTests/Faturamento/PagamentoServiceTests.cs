@@ -1,11 +1,11 @@
 using FluentAssertions;
 using Moq;
+using Peo.Core.Interfaces.Data;
+using Peo.Faturamento.Application.Services;
 using Peo.Faturamento.Domain.Dtos;
 using Peo.Faturamento.Domain.Entities;
 using Peo.Faturamento.Domain.Interfaces.Brokers;
 using Peo.Faturamento.Domain.ValueObjects;
-using Peo.Core.Interfaces.Data;
-using Peo.Faturamento.Application.Services;
 using Peo.GestaoAlunos.Domain.Entities;
 using Peo.GestaoAlunos.Domain.Interfaces;
 using System.Linq.Expressions;
@@ -255,7 +255,7 @@ public class PagamentoServiceTests
             new Pagamento(matriculaId, 99.99m),
             new Pagamento(matriculaId, 199.99m)
         };
-        _pagamentoRepositoryMock.Setup(x => x.WithTracking().GetAsync(It.IsAny<Expression<Func<Pagamento, bool>>>() ))
+        _pagamentoRepositoryMock.Setup(x => x.WithTracking().GetAsync(It.IsAny<Expression<Func<Pagamento, bool>>>()))
             .ReturnsAsync(pagamentosEsperados);
 
         // Act
@@ -271,7 +271,7 @@ public class PagamentoServiceTests
     {
         // Arrange
         var matriculaId = Guid.CreateVersion7();
-        _pagamentoRepositoryMock.Setup(x => x.WithTracking().GetAsync(It.IsAny<Expression<Func<Pagamento, bool>>>() ))
+        _pagamentoRepositoryMock.Setup(x => x.WithTracking().GetAsync(It.IsAny<Expression<Func<Pagamento, bool>>>()))
             .ReturnsAsync(Enumerable.Empty<Pagamento>());
 
         // Act

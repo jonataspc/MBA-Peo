@@ -1,5 +1,5 @@
-﻿using Peo.GestaoConteudo.Domain.Entities;
-using Peo.Core.Infra.Data.Repositories;
+﻿using Peo.Core.Infra.Data.Repositories;
+using Peo.GestaoConteudo.Domain.Entities;
 using Peo.GestaoConteudo.Infra.Data.Contexts;
 
 namespace Peo.GestaoConteudo.Infra.Data.Repositories

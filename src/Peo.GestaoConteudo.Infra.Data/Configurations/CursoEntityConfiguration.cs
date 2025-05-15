@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Peo.GestaoConteudo.Domain.Entities;
 using Peo.Core.Infra.Data.Configurations.Base;
+using Peo.GestaoConteudo.Domain.Entities;
 
 namespace Peo.GestaoConteudo.Infra.Data.Configurations
 {

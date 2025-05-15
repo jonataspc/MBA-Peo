@@ -156,7 +156,7 @@ public class EstudanteEndpointsTests : IClassFixture<WebApplicationFactory<Progr
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var result = await response.Content.ReadAsStringAsync();
-        result.Should().Contain("Estudante j· est· matriculado neste curso");
+        result.Should().Contain("Estudante j√° est√° matriculado neste curso");
     }
 
     [Fact]
@@ -183,7 +183,6 @@ public class EstudanteEndpointsTests : IClassFixture<WebApplicationFactory<Progr
     {
         // Arrange
 
-        // End all lessons
         foreach (var aula in _testCurso.Aulas)
         {
             var requestLessonStart = new IniciarAulaRequest
@@ -266,7 +265,7 @@ public class EstudanteEndpointsTests : IClassFixture<WebApplicationFactory<Progr
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var result = await response.Content.ReadFromJsonAsync<Error>();
         result.Should().NotBeNull();
-        result!.Message.Should().Contain("MatrÌcula n„o encontrada");
+        result!.Message.Should().Contain("Matr√≠cula n√£o encontrada");
     }
 
     [Fact]

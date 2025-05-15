@@ -65,7 +65,7 @@ public class EstudanteServiceTests
             .ReturnsAsync(estudante);
         _aulaCursoServiceMock.Setup(x => x.ValidarSeCursoExisteAsync(cursoId))
             .ReturnsAsync(true);
-        _estudanteRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<Expression<Func<Estudante, bool>>>() ))
+        _estudanteRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<Expression<Func<Estudante, bool>>>()))
             .ReturnsAsync(false);
         _estudanteRepositoryMock.Setup(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(1);
@@ -253,7 +253,7 @@ public class EstudanteServiceTests
         _aulaCursoServiceMock.Setup(x => x.ValidarSeCursoExisteAsync(cursoId))
             .ReturnsAsync(true);
 
-        _estudanteRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<Expression<Func<Estudante, bool>>>() ))
+        _estudanteRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<Expression<Func<Estudante, bool>>>()))
             .ReturnsAsync(false);
 
         _estudanteRepositoryMock.Setup(x => x.AddMatriculaAsync(It.IsAny<Matricula>()))

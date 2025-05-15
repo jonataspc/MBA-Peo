@@ -1,6 +1,4 @@
-using MediatR;
 using Microsoft.Extensions.Logging;
-using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Services;
 using Peo.GestaoAlunos.Application.Dtos.Responses;
 using Peo.GestaoAlunos.Domain.Interfaces;
@@ -39,7 +37,7 @@ public class ObterCertificadosEstudanteQueryHandler : IRequestHandler<ObterCerti
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error getting certificates for student");
+            _logger.LogError(ex, "Erro ao obter certificados do estudante");
             return Result.Failure<IEnumerable<CertificadoEstudanteResponse>>(new Error(ex.Message));
         }
     }
