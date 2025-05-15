@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <CodePage>65001</CodePage>
   </PropertyGroup>
 
   <ItemGroup>
