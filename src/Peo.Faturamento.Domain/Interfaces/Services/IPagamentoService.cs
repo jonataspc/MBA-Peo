@@ -1,4 +1,4 @@
-using Peo.Faturamento.Domain.Dtos;
+using Peo.Core.Dtos;
 using Peo.Faturamento.Domain.Entities;
 
 namespace Peo.Faturamento.Domain.Interfaces.Services;

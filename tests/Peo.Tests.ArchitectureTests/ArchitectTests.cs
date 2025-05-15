@@ -1,5 +1,6 @@
 using FluentAssertions;
 using NetArchTest.Rules;
+using Peo.Core.Dtos;
 using Peo.Core.Interfaces.Data;
 using Peo.Faturamento.Application.Services;
 using Peo.Faturamento.Domain.Dtos;
@@ -61,6 +62,8 @@ public class ArchitectTests
             .OnlyHaveDependencyOn(
             "System",
             "Microsoft",
+            "MediatR",
+            "FluentValidation",
             "Peo.Identity.Domain",
             "Peo.Core",
             "Peo.Faturamento.Domain",

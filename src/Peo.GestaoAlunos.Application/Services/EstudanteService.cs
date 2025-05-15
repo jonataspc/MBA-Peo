@@ -52,7 +52,7 @@ public class EstudanteService(
         return await MatricularEstudanteAsync(estudante.Id, cursoId, cancellationToken);
     }
 
-    public async Task<Estudante> ObterEstudantePorUserIdAsync(Guid usuarioId, CancellationToken cancellationToken)
+    public async Task<Estudante> ObterEstudantePorUserIdAsync(Guid usuarioId, CancellationToken cancellationToken = default)
     {
         var estudante = await estudanteRepository.GetByUserIdAsync(usuarioId);
 
@@ -184,7 +184,7 @@ public class EstudanteService(
         return $"CERT-{DateTime.Now:yyyyMMddHHmmss}-{Guid.CreateVersion7().ToString("N").Substring(0, 8)}";
     }
 
-    public async Task<IEnumerable<Certificado>> ObterCertificadosDoEstudanteAsync(Guid estudanteId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Certificado>> ObterCertificadosDoEstudanteAsync(Guid estudanteId, CancellationToken cancellationToken = default)
     {
         var estudante = await estudanteRepository.GetByIdAsync(estudanteId);
         if (estudante == null)

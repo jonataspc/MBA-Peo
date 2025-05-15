@@ -15,7 +15,6 @@
     <ProjectReference Include="..\Peo.Core.Web\Peo.Core.Web.csproj" />
     <ProjectReference Include="..\Peo.Core\Peo.Core.csproj" />
     <ProjectReference Include="..\Peo.GestaoConteudo.Domain\Peo.GestaoConteudo.Domain.csproj" />
-    <ProjectReference Include="..\Peo.GestaoConteudo.Infra.Data\Peo.GestaoConteudo.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

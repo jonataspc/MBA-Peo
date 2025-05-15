@@ -1,32 +1,27 @@
-using Peo.Core.DomainObjects;
+using Microsoft.Extensions.Logging;
+using Peo.Core.Communication.Mediator;
+using Peo.Core.Dtos;
 using Peo.Core.Interfaces.Data;
+using Peo.Core.Messages.IntegrationEvents;
 using Peo.Faturamento.Domain.Dtos;
 using Peo.Faturamento.Domain.Entities;
 using Peo.Faturamento.Domain.Interfaces.Brokers;
 using Peo.Faturamento.Domain.Interfaces.Services;
 using Peo.Faturamento.Domain.ValueObjects;
-using Peo.GestaoAlunos.Domain.Interfaces;
 
 namespace Peo.Faturamento.Application.Services;
 
-public class PagamentoService : IPagamentoService
+public class PagamentoService(
+    IRepository<Pagamento> pagamentoRepository,
+    IBrokerPagamentoService paymentBrokerService,
+    IMediatorHandler mediatorHandler,
+    ILogger<PagamentoService> logger) : IPagamentoService
 {
-    private readonly IRepository<Pagamento> _pagamentoRepository;
-    private readonly IEstudanteRepository _estudanteRepository;
-    private readonly IBrokerPagamentoService _paymentBrokerService;
-
-    public PagamentoService(IRepository<Pagamento> pagamentoRepository, IEstudanteRepository estudanteRepository, IBrokerPagamentoService paymentBrokerService)
-    {
-        _pagamentoRepository = pagamentoRepository;
-        _estudanteRepository = estudanteRepository;
-        _paymentBrokerService = paymentBrokerService;
-    }
-
     private async Task<Pagamento> CriarPagamentoAsync(Guid matriculaId, decimal valor)
     {
         var pagamento = new Pagamento(matriculaId, valor);
-        _pagamentoRepository.Insert(pagamento);
-        await _pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        pagamentoRepository.Insert(pagamento);
+        await pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return pagamento;
     }
 
@@ -36,8 +31,8 @@ public class PagamentoService : IPagamentoService
             ?? throw new InvalidOperationException($"Pagamento com ID {pagamentoId} não encontrado");
 
         pagamento.ProcessarPagamento(idTransacao);
-        _pagamentoRepository.Update(pagamento);
-        await _pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        pagamentoRepository.Update(pagamento);
+        await pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return pagamento;
     }
 
@@ -47,8 +42,8 @@ public class PagamentoService : IPagamentoService
             ?? throw new InvalidOperationException($"Pagamento com ID {pagamentoId} não encontrado");
 
         pagamento.Estornar();
-        _pagamentoRepository.Update(pagamento);
-        await _pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        pagamentoRepository.Update(pagamento);
+        await pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return pagamento;
     }
 
@@ -58,28 +53,25 @@ public class PagamentoService : IPagamentoService
             ?? throw new InvalidOperationException($"Pagamento com ID {pagamentoId} não encontrado");
 
         pagamento.Cancelar();
-        _pagamentoRepository.Update(pagamento);
-        await _pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        pagamentoRepository.Update(pagamento);
+        await pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
         return pagamento;
     }
 
     public async Task<Pagamento?> ObterPagamentoPorIdAsync(Guid pagamentoId)
     {
-        return await _pagamentoRepository.WithTracking()
+        return await pagamentoRepository.WithTracking()
                                        .GetAsync(pagamentoId);
     }
 
     public async Task<IEnumerable<Pagamento>> ObterPagamentosPorMatriculaIdAsync(Guid matriculaId)
     {
-        return await _pagamentoRepository.WithTracking().GetAsync(p => p.MatriculaId == matriculaId)
-            ?? Enumerable.Empty<Pagamento>();
+        return await pagamentoRepository.WithTracking().GetAsync(p => p.MatriculaId == matriculaId)
+            ?? [];
     }
 
     public async Task<Pagamento> ProcessarPagamentoMatriculaAsync(Guid matriculaId, decimal valor, CartaoCredito cartaoCredito)
     {
-        var matricula = await _estudanteRepository.GetMatriculaByIdAsync(matriculaId)
-            ?? throw new InvalidOperationException($"Matrícula com ID {matriculaId} não encontrada");
-
         var pagamento = await CriarPagamentoAsync(matriculaId, valor);
         var idTransacao = Guid.CreateVersion7().ToString();
         pagamento = await ProcessarPagamentoAsync(pagamento.Id, idTransacao);
@@ -87,30 +79,34 @@ public class PagamentoService : IPagamentoService
         PaymentBrokerResult result;
         try
         {
-            result = await _paymentBrokerService.ProcessarPagamentoAsync(cartaoCredito);
+            result = await paymentBrokerService.ProcessarPagamentoAsync(cartaoCredito);
         }
         catch (Exception e)
         {
+            logger.LogError(e, e.Message);
             pagamento.MarcarComoFalha(e.Message);
-            throw new DomainException(e.Message);
+            result = new PaymentBrokerResult(false, e.Message, null);
         }
 
         if (result.Success)
         {
             pagamento.ConfirmarPagamento(new CartaoCreditoData() { Hash = result.Hash });
+
+            await mediatorHandler.PublicarEventoAsync(new PagamentoMatriculaConfirmadoEvent(
+               pagamento.MatriculaId,
+               pagamento.Valor,
+               pagamento.DataPagamento!));
         }
         else
         {
             pagamento.MarcarComoFalha(result.Details);
+
+            await mediatorHandler.PublicarEventoAsync(new PagamentoComFalhaEvent(
+               pagamento.MatriculaId,
+               result.Details));
         }
 
-        if (pagamento.Status == StatusPagamento.Pago)
-        {
-            matricula.ConfirmarPagamento();
-            await _estudanteRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-        }
-
-        await _pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        await pagamentoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
 
         return pagamento;
     }

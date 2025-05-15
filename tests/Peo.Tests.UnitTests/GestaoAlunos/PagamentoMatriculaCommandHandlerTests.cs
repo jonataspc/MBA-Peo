@@ -1,9 +1,11 @@
 using FluentAssertions;
+using MediatR;
 using Moq;
+using Peo.Core.DomainObjects.Result;
+using Peo.Core.Dtos;
 using Peo.Core.Interfaces.Services.Acls;
-using Peo.Faturamento.Domain.Dtos;
+using Peo.Core.Messages.IntegrationCommands;
 using Peo.Faturamento.Domain.Entities;
-using Peo.Faturamento.Domain.Interfaces.Services;
 using Peo.Faturamento.Domain.ValueObjects;
 using Peo.GestaoAlunos.Application.Commands.PagamentoMatricula;
 using Peo.GestaoAlunos.Application.Dtos.Requests;
@@ -15,18 +17,19 @@ namespace Peo.Tests.UnitTests.GestaoAlunos;
 public class PagamentoMatriculaCommandHandlerTests
 {
     private readonly Mock<IEstudanteRepository> _estudanteRepositoryMock;
-    private readonly Mock<IPagamentoService> _pagamentoServiceMock;
     private readonly Mock<ICursoAulaService> _courseLessonServiceMock;
     private readonly PagamentoMatriculaCommandHandler _handler;
+    private readonly Mock<IMediator> _mediator;
 
     public PagamentoMatriculaCommandHandlerTests()
     {
         _estudanteRepositoryMock = new Mock<IEstudanteRepository>();
-        _pagamentoServiceMock = new Mock<IPagamentoService>();
         _courseLessonServiceMock = new Mock<ICursoAulaService>();
+        _mediator = new Mock<IMediator>();
+
         _handler = new PagamentoMatriculaCommandHandler(
             _estudanteRepositoryMock.Object,
-            _pagamentoServiceMock.Object,
+            _mediator.Object,
             _courseLessonServiceMock.Object);
     }
 
@@ -34,10 +37,10 @@ public class PagamentoMatriculaCommandHandlerTests
     public async Task Handle_DeveRetornarPagamento_QuandoValido()
     {
         // Arrange
-        var matriculaId = Guid.CreateVersion7();
         var estudanteId = Guid.CreateVersion7();
         var cursoId = Guid.CreateVersion7();
         var matricula = new Matricula(estudanteId, cursoId);
+        var matriculaId = matricula.Id;
         var valor = 99.99m;
         var cartaoCredito = new CartaoCredito("1234567890123456", "12/25", "123", "Usuário Teste");
         var pagamento = new Pagamento(matriculaId, valor);
@@ -48,8 +51,8 @@ public class PagamentoMatriculaCommandHandlerTests
             .ReturnsAsync(matricula);
         _courseLessonServiceMock.Setup(x => x.ObterPrecoCursoAsync(cursoId))
             .ReturnsAsync(valor);
-        _pagamentoServiceMock.Setup(x => x.ProcessarPagamentoMatriculaAsync(It.IsAny<Guid>(), It.IsAny<decimal>(), It.IsAny<CartaoCredito>()))
-            .ReturnsAsync(pagamento);
+        _mediator.Setup(x => x.Send(It.IsAny<ProcessarPagamentoMatriculaCommand>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Result.Success(new ProcessarPagamentoMatriculaResponse(true, StatusPagamento.Pago.ToString())));
 
         var requisicao = new PagamentoMatriculaRequest
         {
@@ -78,14 +81,14 @@ public class PagamentoMatriculaCommandHandlerTests
         var cursoId = Guid.CreateVersion7();
         var matricula = new Matricula(estudanteId, cursoId);
         var valor = 99.99m;
-        var mensagemErro = "Falha ao processar o pagamento";
 
         _estudanteRepositoryMock.Setup(x => x.GetMatriculaByIdAsync(matriculaId))
             .ReturnsAsync(matricula);
         _courseLessonServiceMock.Setup(x => x.ObterPrecoCursoAsync(cursoId))
             .ReturnsAsync(valor);
-        _pagamentoServiceMock.Setup(x => x.ProcessarPagamentoMatriculaAsync(It.IsAny<Guid>(), It.IsAny<decimal>(), It.IsAny<CartaoCredito>()))
-            .ThrowsAsync(new Exception(mensagemErro));
+
+        _mediator.Setup(x => x.Send(It.IsAny<ProcessarPagamentoMatriculaCommand>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Result.Failure<ProcessarPagamentoMatriculaResponse>(new Error()));
 
         var requisicao = new PagamentoMatriculaRequest
         {
@@ -94,7 +97,10 @@ public class PagamentoMatriculaCommandHandlerTests
         };
         var comando = new PagamentoMatriculaCommand(requisicao);
 
-        // Act & assert
-        await Assert.ThrowsAsync<Exception>(() => _handler.Handle(comando, CancellationToken.None));
+        // Act
+        var resultado = await _handler.Handle(comando, CancellationToken.None);
+
+        // Assert
+        resultado.IsSuccess.Should().BeFalse();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Peo.Faturamento.Domain.Dtos;
+﻿using Peo.Core.Dtos;
+using Peo.Faturamento.Domain.Dtos;
 using Peo.Faturamento.Domain.Interfaces.Brokers;
 
 namespace Peo.Faturamento.Integrations.Paypal.Services
@@ -17,7 +18,7 @@ namespace Peo.Faturamento.Integrations.Paypal.Services
                 return new PaymentBrokerResult(false, "Credit card is invalid", Guid.CreateVersion7().ToString());
             }
 
-            // simulates an API call to Paypal ...
+            // Simula chamada à API do Paypal
             await Task.Delay(TimeSpan.FromSeconds(Random.Shared.Next(0, 2)));
 
             return new PaymentBrokerResult(true, default, Guid.CreateVersion7().ToString());

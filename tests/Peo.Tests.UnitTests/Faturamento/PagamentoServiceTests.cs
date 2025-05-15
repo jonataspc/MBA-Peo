@@ -1,5 +1,8 @@
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
+using Peo.Core.Communication.Mediator;
+using Peo.Core.Dtos;
 using Peo.Core.Interfaces.Data;
 using Peo.Faturamento.Application.Services;
 using Peo.Faturamento.Domain.Dtos;
@@ -18,16 +21,22 @@ public class PagamentoServiceTests
     private readonly Mock<IEstudanteRepository> _estudanteRepositoryMock;
     private readonly Mock<IBrokerPagamentoService> _paymentBrokerServiceMock;
     private readonly PagamentoService _pagamentoService;
+    private readonly Mock<ILogger<PagamentoService>> _loggerMock;
+    private readonly Mock<IMediatorHandler> _mediatorHandler;
 
     public PagamentoServiceTests()
     {
         _pagamentoRepositoryMock = new Mock<IRepository<Pagamento>>();
         _estudanteRepositoryMock = new Mock<IEstudanteRepository>();
         _paymentBrokerServiceMock = new Mock<IBrokerPagamentoService>();
+        _loggerMock = new Mock<ILogger<PagamentoService>>();
+        _mediatorHandler = new Mock<IMediatorHandler>();
+
         _pagamentoService = new PagamentoService(
             _pagamentoRepositoryMock.Object,
-            _estudanteRepositoryMock.Object,
-            _paymentBrokerServiceMock.Object);
+            _paymentBrokerServiceMock.Object,
+            _mediatorHandler.Object,
+            _loggerMock.Object);
     }
 
     [Fact]
@@ -70,7 +79,6 @@ public class PagamentoServiceTests
         _pagamentoRepositoryMock.Verify(x => x.Insert(It.Is<Pagamento>(p => p.MatriculaId == matriculaId && p.Valor == valor)), Times.Once);
         _pagamentoRepositoryMock.Verify(x => x.Update(It.Is<Pagamento>(p => p.Status == StatusPagamento.Pago)), Times.Once);
         _pagamentoRepositoryMock.Verify(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()), Times.Exactly(3));
-        _estudanteRepositoryMock.Verify(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -111,26 +119,6 @@ public class PagamentoServiceTests
         _pagamentoRepositoryMock.Verify(x => x.Update(It.Is<Pagamento>(p => p.Status == StatusPagamento.Falha && p.Detalhes == "Fundos insuficientes")), Times.Once);
         _pagamentoRepositoryMock.Verify(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()), Times.Exactly(3));
         _estudanteRepositoryMock.Verify(x => x.AtualizarMatricula(matricula), Times.Never);
-    }
-
-    [Fact]
-    public async Task ProcessarPagamentoMatriculaAsync_DeveLancarQuandoMatriculaNaoEncontrada()
-    {
-        // Arrange
-        var matriculaId = Guid.CreateVersion7();
-        var valor = 99.99m;
-        var cartaoCredito = new CartaoCredito("1234567890123456", "12/25", "123", "Usuário Teste");
-
-        _estudanteRepositoryMock.Setup(x => x.GetMatriculaByIdAsync(matriculaId))
-            .ReturnsAsync((Matricula?)null);
-
-        // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            _pagamentoService.ProcessarPagamentoMatriculaAsync(matriculaId, valor, cartaoCredito));
-
-        _pagamentoRepositoryMock.Verify(x => x.Insert(It.IsAny<Pagamento>()), Times.Never);
-        _pagamentoRepositoryMock.Verify(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()), Times.Never);
-        _estudanteRepositoryMock.Verify(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Fact]

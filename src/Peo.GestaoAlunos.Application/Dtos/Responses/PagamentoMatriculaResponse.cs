@@ -2,6 +2,6 @@ namespace Peo.GestaoAlunos.Application.Dtos.Responses;
 
 public record PagamentoMatriculaResponse(
     Guid MatriculaId,
-    string StatusPagamento,
+    string? StatusPagamento,
     decimal ValorPago
 );
