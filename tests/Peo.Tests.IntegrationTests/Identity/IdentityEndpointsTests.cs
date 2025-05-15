@@ -56,7 +56,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
         user!.Email.Should().Be(request.Email);
         user.UserName.Should().Be(request.Email);
 
-        var isInRole = await _userManager.IsInRoleAsync(user, "Student");
+        var isInRole = await _userManager.IsInRoleAsync(user, "Aluno");
         isInRole.Should().BeTrue();
     }
 
@@ -92,7 +92,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
         };
 
         await _userManager.CreateAsync(user, password);
-        await _userManager.AddToRoleAsync(user, "Student");
+        await _userManager.AddToRoleAsync(user, "Aluno");
 
         var request = new LoginRequest(email, password);
 

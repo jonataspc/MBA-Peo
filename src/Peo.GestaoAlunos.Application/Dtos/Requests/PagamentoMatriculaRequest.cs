@@ -1,0 +1,14 @@
+using Peo.Faturamento.Domain.Dtos;
+using Peo.Faturamento.Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations;
+
+namespace Peo.GestaoAlunos.Application.Dtos.Requests;
+
+public class PagamentoMatriculaRequest
+{
+    [Required]
+    public Guid MatriculaId { get; set; }
+
+    [Required]
+    public CartaoCredito DadosCartao { get; set; } = null!;
+}

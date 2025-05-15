@@ -28,23 +28,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Peo.Billing.Application\Peo.Billing.Application.csproj" />
-    <ProjectReference Include="..\..\src\Peo.Billing.Infra.Data\Peo.Billing.Infra.Data.csproj" />
-    <ProjectReference Include="..\..\src\Peo.Billing.Integrations.Paypal\Peo.Billing.Integrations.Paypal.csproj" />
-    <ProjectReference Include="..\..\src\Peo.ContentManagement.Application\Peo.ContentManagement.Application.csproj" />
-    <ProjectReference Include="..\..\src\Peo.ContentManagement.Infra.Data\Peo.ContentManagement.Infra.Data.csproj" />
+    <ProjectReference Include="..\..\src\Peo.Faturamento.Application\Peo.Faturamento.Application.csproj" />
+    <ProjectReference Include="..\..\src\Peo.Faturamento.Infra.Data\Peo.Faturamento.Infra.Data.csproj" />
+    <ProjectReference Include="..\..\src\Peo.Faturamento.Integrations.Paypal\Peo.Faturamento.Integrations.Paypal.csproj" />
+    <ProjectReference Include="..\..\src\Peo.GestaoConteudo.Application\Peo.GestaoConteudo.Application.csproj" />
+    <ProjectReference Include="..\..\src\Peo.GestaoConteudo.Infra.Data\Peo.GestaoConteudo.Infra.Data.csproj" />
     <ProjectReference Include="..\..\src\Peo.Core.Infra.Data\Peo.Core.Infra.Data.csproj" />
     <ProjectReference Include="..\..\src\Peo.Core.Web\Peo.Core.Web.csproj" />
     <ProjectReference Include="..\..\src\Peo.Identity.Application\Peo.Identity.Application.csproj" />
     <ProjectReference Include="..\..\src\Peo.Identity.Domain\Peo.Identity.Domain.csproj" />
-    <ProjectReference Include="..\..\src\Peo.Billing.Domain\Peo.Billing.Domain.csproj" />
-    <ProjectReference Include="..\..\src\Peo.ContentManagement.Domain\Peo.ContentManagement.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Peo.Faturamento.Domain\Peo.Faturamento.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Peo.GestaoConteudo.Domain\Peo.GestaoConteudo.Domain.csproj" />
     <ProjectReference Include="..\..\src\Peo.Identity.Infra.Data\Peo.Identity.Infra.Data.csproj" />
     <ProjectReference Include="..\..\src\Peo.IoC\Peo.IoC.csproj" />
-    <ProjectReference Include="..\..\src\Peo.StudentManagement.Application\Peo.StudentManagement.Application.csproj" />
-    <ProjectReference Include="..\..\src\Peo.StudentManagement.Domain\Peo.StudentManagement.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Peo.GestaoAlunos.Application\Peo.GestaoAlunos.Application.csproj" />
+    <ProjectReference Include="..\..\src\Peo.GestaoAlunos.Domain\Peo.GestaoAlunos.Domain.csproj" />
     <ProjectReference Include="..\..\src\Peo.Core\Peo.Core.csproj" />
-    <ProjectReference Include="..\..\src\Peo.StudentManagement.Infra.Data\Peo.StudentManagement.Infra.Data.csproj" />
+    <ProjectReference Include="..\..\src\Peo.GestaoAlunos.Infra.Data\Peo.GestaoAlunos.Infra.Data.csproj" />
     <ProjectReference Include="..\..\src\Peo.Web.Api\Peo.Web.Api.csproj" />
   </ItemGroup>
 

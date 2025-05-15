@@ -46,8 +46,8 @@ namespace Peo.Web.Api.Configuration
                     .AddPolicy(AccessRoles.Admin, policy =>
                         policy.RequireRole(AccessRoles.Admin)
                         )
-                    .AddPolicy(AccessRoles.Student, policy =>
-                        policy.RequireRole(AccessRoles.Student)
+                    .AddPolicy(AccessRoles.Aluno, policy =>
+                        policy.RequireRole(AccessRoles.Aluno)
                         );
 
             return services;

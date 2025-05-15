@@ -1,6 +1,16 @@
 using FluentAssertions;
 using NetArchTest.Rules;
 using Peo.Core.Interfaces.Data;
+using Peo.Faturamento.Application.Services;
+using Peo.Faturamento.Domain.Dtos;
+using Peo.Faturamento.Infra.Data.Helpers;
+using Peo.Faturamento.Integrations.Paypal.Services;
+using Peo.GestaoAlunos.Application.Endpoints;
+using Peo.GestaoAlunos.Domain.Entities;
+using Peo.GestaoAlunos.Infra.Data.Helpers;
+using Peo.GestaoConteudo.Application.Services;
+using Peo.GestaoConteudo.Domain.Entities;
+using Peo.GestaoConteudo.Infra.Data.Helpers;
 using Peo.Tests.ArchitectureTests.Extensions;
 using System.Reflection;
 
@@ -12,9 +22,9 @@ public class ArchitectTests
     {
         return [
             typeof(Peo.Identity.Domain.Interfaces.Data.IUserRepository ).Assembly,
-            typeof(Peo.Billing.Domain.Dtos.CartaoCredito).Assembly,
-            typeof(Peo.ContentManagement.Domain.Entities.Curso).Assembly,
-            typeof(Peo.StudentManagement.Domain.Entities.Certificado ).Assembly,
+            typeof(CartaoCredito).Assembly,
+            typeof(Curso).Assembly,
+            typeof(Certificado ).Assembly,
             typeof(Peo.Core.DomainObjects.AccessRoles).Assembly,
             ];
     }
@@ -26,15 +36,15 @@ public class ArchitectTests
             typeof(Peo.Web.Api.Services.AppIdentityUser).Assembly,
             typeof(Peo.Core.Web.Api.IEndpoint).Assembly,
             typeof(Peo.Core.Infra.Data.Contexts.Base.DbContextBase ).Assembly,
-            typeof(Peo.StudentManagement.Infra.Data.Helpers.StudentManagementeDbMigrationHelpers).Assembly,
-            typeof(Peo.StudentManagement.Application.Endpoints.EndpointsEstudante ).Assembly,
+            typeof(GestaoAlunosDbMigrationHelpers).Assembly,
+            typeof(EndpointsEstudante ).Assembly,
             typeof(Peo.Identity.Infra.Data.Helpers.IdentityDbMigrationHelpers).Assembly,
             typeof(Peo.Identity.Application.Services.TokenService).Assembly,
-            typeof(Peo.ContentManagement.Infra.Data.Helpers.GestaoConteudoDbMigrationHelpers).Assembly,
-            typeof(Peo.ContentManagement.Application.Services.CursoAulaService).Assembly,
-            typeof(Peo.Billing.Integrations.Paypal.Services .PaypalBrokerService ).Assembly,
-            typeof(Peo.Billing.Infra.Data.Helpers.BillingDbMigrationHelpers).Assembly,
-            typeof(Peo.Billing.Application.Services.PagamentoService ).Assembly,
+            typeof(GestaoConteudoDbMigrationHelpers).Assembly,
+            typeof(CursoAulaService).Assembly,
+            typeof(PaypalBrokerService ).Assembly,
+            typeof(FaturamentoDbMigrationHelpers).Assembly,
+            typeof(PagamentoService ).Assembly,
         };
 
         list.AddRange(GetDomainAssemblies());
@@ -53,9 +63,9 @@ public class ArchitectTests
             "Microsoft",
             "Peo.Identity.Domain",
             "Peo.Core",
-            "Peo.Billing.Domain",
-            "Peo.ContentManagement.Domain",
-            "Peo.StudentManagement.Domain")
+            "Peo.Faturamento.Domain",
+            "Peo.GestaoConteudo.Domain",
+            "Peo.GestaoAlunos.Domain")
             .GetResult();
 
         result.IsSuccessful.Should().BeTrue(result.GetDetails());

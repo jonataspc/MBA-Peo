@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Peo.ContentManagement.Application;
+using Peo.GestaoAlunos.Application.Endpoints;
+using Peo.GestaoConteudo.Application;
 using Peo.Identity.Application.Extensions;
 using Peo.Identity.Application.Services;
 using Peo.Identity.Domain.Interfaces.Data;
 using Peo.Identity.Domain.Interfaces.Services;
 using Peo.Identity.Infra.Data.Contexts;
 using Peo.Identity.Infra.Data.Repositories;
-using Peo.StudentManagement.Application.Endpoints;
 
 namespace Peo.IoC.Configuration
 {

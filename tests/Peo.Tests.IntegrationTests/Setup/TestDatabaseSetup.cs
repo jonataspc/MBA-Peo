@@ -1,13 +1,13 @@
 using FluentAssertions.Execution;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Peo.ContentManagement.Domain.Entities;
+using Peo.GestaoConteudo.Domain.Entities;
 using Peo.Core.DomainObjects;
 using Peo.Core.Entities;
 using Peo.Core.Interfaces.Data;
 using Peo.Identity.Domain.Interfaces.Data;
-using Peo.StudentManagement.Domain.Entities;
-using Peo.StudentManagement.Domain.Interfaces;
+using Peo.GestaoAlunos.Domain.Entities;
+using Peo.GestaoAlunos.Domain.Interfaces;
 
 namespace Peo.Tests.IntegrationTests.Setup;
 
@@ -49,7 +49,7 @@ public class TestDatabaseSetup
         };
 
         await userManager.CreateAsync(identityUser, SenhaUsuarioTeste);
-        await userManager.AddToRoleAsync(identityUser, AccessRoles.Student);
+        await userManager.AddToRoleAsync(identityUser, AccessRoles.Aluno);
 
         var estudante = new Estudante(usuarioId);
         await _estudanteRepository.AddAsync(estudante);

@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Peo.Billing.Infra.Data.Contexts;
-using Peo.ContentManagement.Infra.Data.Contexts;
+using Peo.Faturamento.Infra.Data.Contexts;
+using Peo.GestaoAlunos.Infra.Data.Contexts;
+using Peo.GestaoConteudo.Infra.Data.Contexts;
 using Peo.Identity.Infra.Data.Contexts;
-using Peo.StudentManagement.Infra.Data.Contexts;
 
 namespace Peo.IoC.Configuration
 {
@@ -46,7 +46,7 @@ namespace Peo.IoC.Configuration
             });
 
             // BCs:
-            // Content
+            // GestaoConteudo
             services.AddDbContext<GestaoConteudoContext>(options =>
             {
                 if (hostEnvironment.IsDevelopment())
@@ -67,7 +67,7 @@ namespace Peo.IoC.Configuration
                 }
             });
 
-            // Student
+            // Alunos
             services.AddDbContext<GestaoEstudantesContext>(options =>
             {
                 if (hostEnvironment.IsDevelopment())
@@ -88,7 +88,7 @@ namespace Peo.IoC.Configuration
                 }
             });
 
-            // Billing
+            // Faturamento
             services.AddDbContext<CobrancaContext>(options =>
             {
                 if (hostEnvironment.IsDevelopment())

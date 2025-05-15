@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Peo.Billing.Domain.Entities;
-using Peo.Billing.Infra.Data.Contexts;
-using Peo.ContentManagement.Domain.Entities;
-using Peo.ContentManagement.Infra.Data.Repositories;
+using Peo.Faturamento.Domain.Entities;
+using Peo.GestaoConteudo.Domain.Entities;
 using Peo.Core.Infra.Data.Repositories;
 using Peo.Core.Interfaces.Data;
-using Peo.StudentManagement.Domain.Interfaces;
-using Peo.StudentManagement.Infra.Data.Repositories;
+using Peo.Faturamento.Infra.Data.Contexts;
+using Peo.GestaoAlunos.Infra.Data.Repositories;
+using Peo.GestaoConteudo.Infra.Data.Repositories;
+using Peo.GestaoAlunos.Domain.Interfaces;
 
 namespace Peo.IoC.Configuration
 {
@@ -14,13 +14,13 @@ namespace Peo.IoC.Configuration
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            // ContentManagement
+            // Gestao conteudo
             services.AddScoped<IRepository<Curso>, CursoRepository>();
 
-            // StudentManagement
+            // Gestao alunos
             services.AddScoped<IEstudanteRepository, EstudanteRepository>();
 
-            // Billing
+            // Faturamento
             services.AddScoped<IRepository<Pagamento>, GenericRepository<Pagamento, CobrancaContext>>();
 
             return services;

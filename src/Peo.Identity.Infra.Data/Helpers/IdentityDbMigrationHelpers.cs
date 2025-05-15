@@ -48,9 +48,9 @@ namespace Peo.Identity.Infra.Data.Helpers
                     await roleManager.CreateAsync(new IdentityRole(AccessRoles.Admin));
                 }
 
-                if (!await roleManager.RoleExistsAsync(AccessRoles.Student))
+                if (!await roleManager.RoleExistsAsync(AccessRoles.Aluno))
                 {
-                    await roleManager.CreateAsync(new IdentityRole(AccessRoles.Student));
+                    await roleManager.CreateAsync(new IdentityRole(AccessRoles.Aluno));
                 }
             }
             catch (Exception e)

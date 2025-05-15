@@ -27,33 +27,33 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Identity.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Core.Web", "src\Peo.Core.Web\Peo.Core.Web.csproj", "{A632C1F6-BB9B-4AD4-89EB-C6C275649FBE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContentManagement", "ContentManagement", "{38B2A1AF-152F-4267-8C79-8EE03343FB96}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GestaoConteudo", "GestaoConteudo", "{38B2A1AF-152F-4267-8C79-8EE03343FB96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BCs", "BCs", "{7E612033-D7CE-4A9F-BD8A-4086911E865B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.ContentManagement.Domain", "src\Peo.ContentManagement.Domain\Peo.ContentManagement.Domain.csproj", "{CE05B9E6-9743-4795-94DE-16410428DF6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.GestaoConteudo.Domain", "src\Peo.GestaoConteudo.Domain\Peo.GestaoConteudo.Domain.csproj", "{CE05B9E6-9743-4795-94DE-16410428DF6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.ContentManagement.Application", "src\Peo.ContentManagement.Application\Peo.ContentManagement.Application.csproj", "{6B13F2D6-0515-441D-8010-A1FD1F80387D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.GestaoConteudo.Application", "src\Peo.GestaoConteudo.Application\Peo.GestaoConteudo.Application.csproj", "{6B13F2D6-0515-441D-8010-A1FD1F80387D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.ContentManagement.Infra.Data", "src\Peo.ContentManagement.Infra.Data\Peo.ContentManagement.Infra.Data.csproj", "{69BB8792-F843-4837-B6E7-E03831EC7D4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.GestaoConteudo.Infra.Data", "src\Peo.GestaoConteudo.Infra.Data\Peo.GestaoConteudo.Infra.Data.csproj", "{69BB8792-F843-4837-B6E7-E03831EC7D4D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StudentManagement", "StudentManagement", "{5B0BD767-0B72-4A4F-B117-8989B899DC9B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GestaoAlunos", "GestaoAlunos", "{5B0BD767-0B72-4A4F-B117-8989B899DC9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.StudentManagement.Domain", "src\Peo.StudentManagement.Domain\Peo.StudentManagement.Domain.csproj", "{9183301B-9DD0-4BB1-8483-ACB3D222A9C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.GestaoAlunos.Domain", "src\Peo.GestaoAlunos.Domain\Peo.GestaoAlunos.Domain.csproj", "{9183301B-9DD0-4BB1-8483-ACB3D222A9C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.StudentManagement.Application", "src\Peo.StudentManagement.Application\Peo.StudentManagement.Application.csproj", "{366F0C36-BB82-48EC-AF0F-FEAA633B4CE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.GestaoAlunos.Application", "src\Peo.GestaoAlunos.Application\Peo.GestaoAlunos.Application.csproj", "{366F0C36-BB82-48EC-AF0F-FEAA633B4CE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.StudentManagement.Infra.Data", "src\Peo.StudentManagement.Infra.Data\Peo.StudentManagement.Infra.Data.csproj", "{6DDCC1B3-159E-47C5-BB4A-1FE5312AB259}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.GestaoAlunos.Infra.Data", "src\Peo.GestaoAlunos.Infra.Data\Peo.GestaoAlunos.Infra.Data.csproj", "{6DDCC1B3-159E-47C5-BB4A-1FE5312AB259}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Billing", "Billing", "{397FB400-6213-45BA-BBC5-26DF4EB49D6E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Faturamento", "Faturamento", "{397FB400-6213-45BA-BBC5-26DF4EB49D6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Billing.Application", "src\Peo.Billing.Application\Peo.Billing.Application.csproj", "{F135A34E-F49E-5A31-EC38-8CEB9969E679}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Faturamento.Application", "src\Peo.Faturamento.Application\Peo.Faturamento.Application.csproj", "{F135A34E-F49E-5A31-EC38-8CEB9969E679}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Billing.Domain", "src\Peo.Billing.Domain\Peo.Billing.Domain.csproj", "{75AABF76-F196-33C0-0D28-F6C988C92776}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Faturamento.Domain", "src\Peo.Faturamento.Domain\Peo.Faturamento.Domain.csproj", "{75AABF76-F196-33C0-0D28-F6C988C92776}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Billing.Infra.Data", "src\Peo.Billing.Infra.Data\Peo.Billing.Infra.Data.csproj", "{B310468C-81E3-849E-C0DF-94F80E46BF39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Faturamento.Infra.Data", "src\Peo.Faturamento.Infra.Data\Peo.Faturamento.Infra.Data.csproj", "{B310468C-81E3-849E-C0DF-94F80E46BF39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Billing.Integrations.Paypal", "src\Peo.Billing.Integrations.Paypal\Peo.Billing.Integrations.Paypal.csproj", "{2AEE3C2D-4DAE-4F99-8D92-5F05A0203917}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peo.Faturamento.Integrations.Paypal", "src\Peo.Faturamento.Integrations.Paypal\Peo.Faturamento.Integrations.Paypal.csproj", "{2AEE3C2D-4DAE-4F99-8D92-5F05A0203917}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests", "_Tests", "{6176EAD5-BAC5-431A-A3CF-BF02E3F059D0}"
 EndProject

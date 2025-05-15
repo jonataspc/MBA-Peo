@@ -42,8 +42,7 @@ namespace Peo.Identity.Application.Endpoints
             {
                 await userManager.ConfirmEmailAsync(user, await userManager.GenerateEmailConfirmationTokenAsync(user));
 
-                // Add user to Student role
-                var roleResult = await userManager.AddToRoleAsync(user, AccessRoles.Student);
+                var roleResult = await userManager.AddToRoleAsync(user, AccessRoles.Aluno);
                 if (!roleResult.Succeeded)
                 {
                     return Results.BadRequest(new { Description = "Failed to assign role", Content = roleResult.Errors });
