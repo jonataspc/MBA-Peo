@@ -76,17 +76,16 @@ public class PagamentoService : IPagamentoService
     }
 
     public async Task<Pagamento> ProcessarPagamentoMatriculaAsync(Guid matriculaId, decimal valor, CartaoCredito cartaoCredito)
-    {
-        // Get the enrollment
+    {        
         var matricula = await _estudanteRepository.GetMatriculaByIdAsync(matriculaId)
             ?? throw new InvalidOperationException($"Matrícula com ID {matriculaId} não encontrada");
 
-        // Create and process the payment
+        
         var pagamento = await CriarPagamentoAsync(matriculaId, valor);
         var idTransacao = Guid.CreateVersion7().ToString();
         pagamento = await ProcessarPagamentoAsync(pagamento.Id, idTransacao);
 
-        // call external broker service
+        
         PaymentBrokerResult result;
         try
         {
@@ -107,7 +106,6 @@ public class PagamentoService : IPagamentoService
             pagamento.MarcarComoFalha(result.Details);
         }
 
-        // If payment is successful, update enrollment status
         if (pagamento.Status == StatusPagamento.Pago)
         {
             matricula.ConfirmarPagamento();

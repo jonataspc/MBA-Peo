@@ -146,20 +146,20 @@ public class CursoAulaService : ICursoAulaService
 
     public async Task<decimal> ObterPrecoCursoAsync(Guid cursoId)
     {
-        var course = await _cursoRepository.GetAsync(cursoId);
-        return course?.Preco ?? 0;
+        var curso = await _cursoRepository.GetAsync(cursoId);
+        return curso?.Preco ?? 0;
     }
 
     public async Task<string?> ObterTituloCursoAsync(Guid cursoId)
     {
-        var course = await _cursoRepository.GetAsync(cursoId);
-        return course?.Titulo;
+        var curso = await _cursoRepository.GetAsync(cursoId);
+        return curso?.Titulo;
     }
 
     public async Task<int> ObterTotalAulasDoCursoAsync(Guid cursoId)
     {
-        var course = await _cursoRepository.GetAsync(cursoId);
-        return course?.Aulas.Count ?? 0;
+        var curso = await _cursoRepository.GetAsync(cursoId);
+        return curso?.Aulas.Count ?? 0;
     }
 
     public async Task<bool> ValidarSeCursoExisteAsync(Guid cursoId)

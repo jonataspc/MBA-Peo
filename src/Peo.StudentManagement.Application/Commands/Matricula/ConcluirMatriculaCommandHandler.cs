@@ -19,16 +19,15 @@ public class ConcluirMatriculaCommandHandler : IRequestHandler<ConcluirMatricula
     {
         try
         {
-            var enrollment = await _estudanteService.ConcluirMatriculaAsync(request.Request.MatriculaId, cancellationToken);
+            var matricula = await _estudanteService.ConcluirMatriculaAsync(request.Request.MatriculaId, cancellationToken);
 
-            var response = new ConcluirMatriculaResponse(enrollment.Id, enrollment.Status.ToString(), enrollment.DataConclusao, enrollment.PercentualProgresso);
+            var response = new ConcluirMatriculaResponse(matricula.Id, matricula.Status.ToString(), matricula.DataConclusao, matricula.PercentualProgresso);
 
             return Result.Success(response);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Erro ao concluir matrícula {MatriculaId}", request.Request.MatriculaId);
-            _logger.LogError(ex, "Error completing enrollment {EnrollmentId}", request.Request.MatriculaId);
             return Result.Failure<ConcluirMatriculaResponse>(new Error(ex.Message));
         }
     }

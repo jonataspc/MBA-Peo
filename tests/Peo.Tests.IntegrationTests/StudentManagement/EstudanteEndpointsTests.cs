@@ -35,10 +35,8 @@ public class EstudanteEndpointsTests : IClassFixture<WebApplicationFactory<Progr
 
     public async Task InitializeAsync()
     {
-        // Create test student
         _testEstudante = await _testDb.CriarEstudanteTesteAsync(_testUserId);
 
-        // Course
         var curso = await _testDb.CriarCursoTesteAsync(instrutorId: _testEstudante.UsuarioId);
         _testCurso = curso;
 
@@ -47,7 +45,7 @@ public class EstudanteEndpointsTests : IClassFixture<WebApplicationFactory<Progr
         var cursoNaoMatriculado = await _testDb.CriarCursoTesteAsync(instrutorId: _testEstudante.UsuarioId);
         _testCursoNaoMatriculado = cursoNaoMatriculado;
 
-        // Create test enrollment
+        // Create test 
         _testMatricula = await _testDb.CriarMatriculaTesteAsync(_testEstudante.Id, _testCurso.Id, true);
         _testMatriculaNaoPaga = await _testDb.CriarMatriculaTesteAsync(_testEstudante.Id, cursoDois.Id, false);
 
@@ -253,7 +251,7 @@ public class EstudanteEndpointsTests : IClassFixture<WebApplicationFactory<Progr
         // Arrange
         var request = new PagamentoMatriculaRequest
         {
-            MatriculaId = Guid.CreateVersion7(), // Non-existent enrollment ID
+            MatriculaId = Guid.CreateVersion7(), // Matricula nao existente
             DadosCartao = new (
                 "4111111111111111",
                 "12/25",
