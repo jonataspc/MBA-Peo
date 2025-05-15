@@ -15,13 +15,13 @@ namespace Peo.IoC.Configuration
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             // ContentManagement
-            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<IRepository<Curso>, CursoRepository>();
 
             // StudentManagement
-            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IEstudanteRepository, EstudanteRepository>();
 
             // Billing
-            services.AddScoped<IRepository<Payment>, GenericRepository<Payment, BillingContext>>();
+            services.AddScoped<IRepository<Pagamento>, GenericRepository<Pagamento, BillingContext>>();
 
             return services;
         }

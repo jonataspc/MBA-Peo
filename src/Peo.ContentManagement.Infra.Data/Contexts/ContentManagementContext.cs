@@ -8,9 +8,9 @@ namespace Peo.ContentManagement.Infra.Data.Contexts
 {
     public class ContentManagementContext : DbContextBase
     {
-        public DbSet<Course> Courses { get; set; }
+        public DbSet<Curso> Cursos { get; set; } = null!;
 
-        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Aula> Aulas { get; set; } = null!;
 
         public ContentManagementContext(DbContextOptions<ContentManagementContext> options) : base(options)
         {

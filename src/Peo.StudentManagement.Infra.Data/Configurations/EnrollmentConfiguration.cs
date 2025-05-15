@@ -6,40 +6,40 @@ using Peo.StudentManagement.Domain.ValueObjects;
 
 namespace Peo.StudentManagement.Infra.Data.Configurations;
 
-public class EnrollmentConfiguration : EntityBaseConfiguration<Enrollment>
+public class MatriculaConfiguration : EntityBaseConfiguration<Matricula>
 {
-    public override void Configure(EntityTypeBuilder<Enrollment> builder)
+    public override void Configure(EntityTypeBuilder<Matricula> builder)
     {
         base.Configure(builder);
 
-        builder.Property(e => e.StudentId)
+        builder.Property(e => e.EstudanteId)
             .IsRequired();
 
-        builder.Property(e => e.CourseId)
+        builder.Property(e => e.CursoId)
             .IsRequired();
 
-        builder.Property(e => e.EnrollmentDate)
+        builder.Property(e => e.DataMatricula)
             .IsRequired();
 
         builder.Property(e => e.Status)
             .IsRequired()
             .HasConversion(
                 v => v.ToString(),
-                v => (EnrollmentStatus)Enum.Parse(typeof(EnrollmentStatus), v))
-            .HasDefaultValue(EnrollmentStatus.PendingPayment);
+                v => (StatusMatricula)Enum.Parse(typeof(StatusMatricula), v))
+            .HasDefaultValue(StatusMatricula.PendentePagamento);
 
-        builder.Property(e => e.ProgressPercentage)
+        builder.Property(e => e.PercentualProgresso)
             .IsRequired()
             .HasDefaultValue(0);
 
         // Indexes
-        builder.HasIndex(e => new { e.StudentId, e.CourseId })
+        builder.HasIndex(e => new { e.EstudanteId, e.CursoId })
             .IsUnique();
 
         // Relationships
-        builder.HasOne<Student>(e => e.Student)
-            .WithMany(e => e.Enrollments)
-            .HasForeignKey(e => e.StudentId)
+        builder.HasOne<Estudante>(e => e.Estudante)
+            .WithMany(e => e.Matriculas)
+            .HasForeignKey(e => e.EstudanteId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

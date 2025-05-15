@@ -3,19 +3,19 @@ using Peo.Core.Entities.Base;
 
 namespace Peo.StudentManagement.Domain.Entities;
 
-public class Student : EntityBase, IAggregateRoot
+public class Estudante : EntityBase, IAggregateRoot
 {
     public Guid UserId { get; private set; }
 
     public bool IsActive { get; private set; }
 
-    public virtual ICollection<Enrollment> Enrollments { get; private set; } = [];
+    public virtual ICollection<Matricula> Matriculas { get; private set; } = [];
 
-    public Student()
+    public Estudante()
     {
     }
 
-    public Student(Guid userId)
+    public Estudante(Guid userId)
     {
         UserId = userId;
         IsActive = true;

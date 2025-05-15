@@ -4,27 +4,27 @@ using Peo.Core.Infra.Data.Configurations.Base;
 
 namespace Peo.ContentManagement.Infra.Data.Configurations
 {
-    internal class CourseEntityConfiguration : EntityBaseConfiguration<Course>
+    internal class CursoEntityConfiguration : EntityBaseConfiguration<Curso>
     {
-        public override void Configure(EntityTypeBuilder<Course> builder)
+        public override void Configure(EntityTypeBuilder<Curso> builder)
         {
             base.Configure(builder);
 
-            builder.Property(e => e.Title)
+            builder.Property(e => e.Titulo)
                    .HasMaxLength(256)
                    .IsRequired();
 
-            builder.Property(e => e.Description)
+            builder.Property(e => e.Descricao)
                    .HasMaxLength(1024);
 
-            builder.OwnsOne(c => c.ProgramContent, pc =>
+            builder.OwnsOne(c => c.ConteudoProgramatico, pc =>
             {
-                pc.Property(p => p.Content).HasMaxLength(1024);
+                pc.Property(p => p.Conteudo).HasMaxLength(1024);
             });
 
-            builder.HasOne(o => o.Instructor)
+            builder.HasOne(o => o.Instrutor)
                    .WithMany()
-                   .HasForeignKey(o => o.InstructorId);
+                   .HasForeignKey(o => o.InstrutorId);
         }
     }
 }
