@@ -5,127 +5,127 @@ using Peo.Core.Interfaces.Data;
 
 namespace Peo.Tests.UnitTests.ContentManagement;
 
-public class CourseLessonServiceTests
+public class CursoAulaServiceTests
 {
-    private readonly Mock<IRepository<Peo.ContentManagement.Domain.Entities.Course>> _courseRepositoryMock;
-    private readonly CourseLessonService _courseLessonService;
+    private readonly Mock<IRepository<Peo.ContentManagement.Domain.Entities.Curso>> _cursoRepositoryMock;
+    private readonly CursoAulaService _cursoAulaService;
 
-    public CourseLessonServiceTests()
+    public CursoAulaServiceTests()
     {
-        _courseRepositoryMock = new Mock<IRepository<Peo.ContentManagement.Domain.Entities.Course>>();
-        _courseLessonService = new CourseLessonService(_courseRepositoryMock.Object);
+        _cursoRepositoryMock = new Mock<IRepository<Peo.ContentManagement.Domain.Entities.Curso>>();
+        _cursoAulaService = new CursoAulaService(_cursoRepositoryMock.Object);
     }
 
     [Fact]
-    public async Task CheckIfCourseExistsAsync_ShouldReturnTrueWhenCourseExists()
+    public async Task ValidarSeCursoExisteAsync_DeveRetornarVerdadeiroQuandoCursoExiste()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
+        var cursoId = Guid.CreateVersion7();
+        var curso = new Peo.ContentManagement.Domain.Entities.Curso("Curso Teste", "Descrição", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Aula>());
 
-        _courseRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Course, bool>>>()))
+        _cursoRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Curso, bool>>>() ))
             .ReturnsAsync(true);
 
         // Act
-        var result = await _courseLessonService.CheckIfCourseExistsAsync(courseId);
+        var resultado = await _cursoAulaService.ValidarSeCursoExisteAsync(cursoId);
 
         // Assert
-        result.Should().BeTrue();
-        _courseRepositoryMock.Verify(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Course, bool>>>()), Times.Once);
+        resultado.Should().BeTrue();
+        _cursoRepositoryMock.Verify(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Curso, bool>>>()), Times.Once);
     }
 
     [Fact]
-    public async Task CheckIfCourseExistsAsync_ShouldReturnFalseWhenCourseDoesNotExist()
+    public async Task ValidarSeCursoExisteAsync_DeveRetornarFalsoQuandoCursoNaoExiste()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
+        var cursoId = Guid.CreateVersion7();
 
-        _courseRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Course, bool>>>()))
+        _cursoRepositoryMock.Setup(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Curso, bool>>>() ))
             .ReturnsAsync(false);
 
         // Act
-        var result = await _courseLessonService.CheckIfCourseExistsAsync(courseId);
+        var resultado = await _cursoAulaService.ValidarSeCursoExisteAsync(cursoId);
 
         // Assert
-        result.Should().BeFalse();
-        _courseRepositoryMock.Verify(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Course, bool>>>()), Times.Once);
+        resultado.Should().BeFalse();
+        _cursoRepositoryMock.Verify(x => x.AnyAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Peo.ContentManagement.Domain.Entities.Curso, bool>>>()), Times.Once);
     }
 
     [Fact]
-    public async Task GetCoursePriceAsync_ShouldReturnCoursePrice()
+    public async Task ObterPrecoCursoAsync_DeveRetornarPrecoDoCurso()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        var expectedPrice = 99.99m;
-        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.CreateVersion7(), null, expectedPrice, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
+        var cursoId = Guid.CreateVersion7();
+        var precoEsperado = 99.99m;
+        var curso = new Peo.ContentManagement.Domain.Entities.Curso("Curso Teste", "Descrição", Guid.CreateVersion7(), null, precoEsperado, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Aula>());
 
-        _courseRepositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync(course);
+        _cursoRepositoryMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync(curso);
 
         // Act
-        var result = await _courseLessonService.GetCoursePriceAsync(courseId);
+        var resultado = await _cursoAulaService.ObterPrecoCursoAsync(cursoId);
 
         // Assert
-        result.Should().Be(expectedPrice);
-        _courseRepositoryMock.Verify(x => x.GetAsync(courseId), Times.Once);
+        resultado.Should().Be(precoEsperado);
+        _cursoRepositoryMock.Verify(x => x.GetAsync(cursoId), Times.Once);
     }
 
     [Fact]
-    public async Task GetCourseTitleAsync_ShouldReturnCourseTitle()
+    public async Task ObterTituloCursoAsync_DeveRetornarTituloDoCurso()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        var expectedTitle = "Test Course";
-        var course = new Peo.ContentManagement.Domain.Entities.Course(expectedTitle, "Description", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
+        var cursoId = Guid.CreateVersion7();
+        var tituloEsperado = "Curso Teste";
+        var curso = new Peo.ContentManagement.Domain.Entities.Curso(tituloEsperado, "Descrição", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Aula>());
 
-        _courseRepositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync(course);
+        _cursoRepositoryMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync(curso);
 
         // Act
-        var result = await _courseLessonService.GetCourseTitleAsync(courseId);
+        var resultado = await _cursoAulaService.ObterTituloCursoAsync(cursoId);
 
         // Assert
-        result.Should().Be(expectedTitle);
-        _courseRepositoryMock.Verify(x => x.GetAsync(courseId), Times.Once);
+        resultado.Should().Be(tituloEsperado);
+        _cursoRepositoryMock.Verify(x => x.GetAsync(cursoId), Times.Once);
     }
 
     [Fact]
-    public async Task GetTotalLessonsInCourseAsync_ShouldReturnLessonCount()
+    public async Task ObterTotalAulasDoCursoAsync_DeveRetornarQuantidadeDeAulas()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        var expectedCount = 10;
-        var lessons = Enumerable.Range(0, expectedCount)
-            .Select(_ => new Peo.ContentManagement.Domain.Entities.Lesson("Test Lesson", "Description", "video-url", TimeSpan.FromMinutes(30), new List<Peo.ContentManagement.Domain.Entities.LessonFile>(), courseId))
+        var cursoId = Guid.CreateVersion7();
+        var quantidadeEsperada = 10;
+        var aulas = Enumerable.Range(0, quantidadeEsperada)
+            .Select(_ => new Peo.ContentManagement.Domain.Entities.Aula("Aula Teste", "Descrição", "video-url", TimeSpan.FromMinutes(30), new List<Peo.ContentManagement.Domain.Entities.ArquivoAula>(), cursoId))
             .ToList();
-        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), lessons);
+        var curso = new Peo.ContentManagement.Domain.Entities.Curso("Curso Teste", "Descrição", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), aulas);
 
-        _courseRepositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync(course);
+        _cursoRepositoryMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync(curso);
 
         // Act
-        var result = await _courseLessonService.GetTotalLessonsInCourseAsync(courseId);
+        var resultado = await _cursoAulaService.ObterTotalAulasDoCursoAsync(cursoId);
 
         // Assert
-        result.Should().Be(expectedCount);
-        _courseRepositoryMock.Verify(x => x.GetAsync(courseId), Times.Once);
+        resultado.Should().Be(quantidadeEsperada);
+        _cursoRepositoryMock.Verify(x => x.GetAsync(cursoId), Times.Once);
     }
 
     [Fact]
-    public async Task GetTotalLessonsInCourseAsync_ShouldReturnZeroWhenNoLessons()
+    public async Task ObterTotalAulasDoCursoAsync_DeveRetornarZeroQuandoNaoHaAulas()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        var course = new Peo.ContentManagement.Domain.Entities.Course("Test Course", "Description", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Lesson>());
+        var cursoId = Guid.CreateVersion7();
+        var curso = new Peo.ContentManagement.Domain.Entities.Curso("Curso Teste", "Descrição", Guid.CreateVersion7(), null, 99.99m, true, DateTime.UtcNow, new List<string>(), new List<Peo.ContentManagement.Domain.Entities.Aula>());
 
-        _courseRepositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync(course);
+        _cursoRepositoryMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync(curso);
 
         // Act
-        var result = await _courseLessonService.GetTotalLessonsInCourseAsync(courseId);
+        var resultado = await _cursoAulaService.ObterTotalAulasDoCursoAsync(cursoId);
 
         // Assert
-        result.Should().Be(0);
-        _courseRepositoryMock.Verify(x => x.GetAsync(courseId), Times.Once);
+        resultado.Should().Be(0);
+        _cursoRepositoryMock.Verify(x => x.GetAsync(cursoId), Times.Once);
     }
 }

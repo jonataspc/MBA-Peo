@@ -16,7 +16,7 @@ namespace Peo.Identity.Application.Endpoints
         public static void Map(IEndpointRouteBuilder app)
         {
             app.MapPost("/register", HandleRegister)
-               .WithSummary("Register a new user")
+               .WithSummary("Registra um novo usuário")
                .AllowAnonymous();
         }
 
@@ -50,7 +50,7 @@ namespace Peo.Identity.Application.Endpoints
                 }
 
                 await userService.AddAsync(
-                new User(Guid.Parse(user.Id), request.Name, user.Email!)
+                new Usuario(Guid.Parse(user.Id), request.Name, user.Email!)
                 );
 
                 return TypedResults.NoContent();

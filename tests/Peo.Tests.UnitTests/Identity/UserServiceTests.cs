@@ -18,50 +18,50 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task AddAsync_ShouldAddUserAndCommitChanges()
+    public async Task AddAsync_DeveAdicionarUsuarioEConfirmarAlteracoes()
     {
         // Arrange
-        var user = new User(Guid.CreateVersion7(), "Test User", "test@example.com");
+        var usuario = new Usuario(Guid.CreateVersion7(), "Usuário Teste", "teste@exemplo.com");
         _userRepositoryMock.Setup(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(1);
 
         // Act
-        await _userService.AddAsync(user);
+        await _userService.AddAsync(usuario);
 
         // Assert
-        _userRepositoryMock.Verify(x => x.Insert(user), Times.Once);
+        _userRepositoryMock.Verify(x => x.Insert(usuario), Times.Once);
         _userRepositoryMock.Verify(x => x.UnitOfWork.CommitAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
-    public async Task GetUserByIdAsync_ShouldReturnUserWhenFound()
+    public async Task ObterUsuarioPorIdAsync_DeveRetornarUsuarioQuandoEncontrado()
     {
         // Arrange
-        var userId = Guid.CreateVersion7();
-        var expectedUser = new User(userId, "Test User", "test@example.com");
-        _userRepositoryMock.Setup(x => x.GetByIdAsync(userId))
-            .ReturnsAsync(expectedUser);
+        var usuarioId = Guid.CreateVersion7();
+        var usuarioEsperado = new Usuario(usuarioId, "Usuário Teste", "teste@exemplo.com");
+        _userRepositoryMock.Setup(x => x.GetByIdAsync(usuarioId))
+            .ReturnsAsync(usuarioEsperado);
 
         // Act
-        var result = await _userService.GetUserByIdAsync(userId);
+        var resultado = await _userService.ObterUsuarioPorIdAsync(usuarioId);
 
         // Assert
-        result.Should().NotBeNull();
-        result.Should().BeEquivalentTo(expectedUser);
+        resultado.Should().NotBeNull();
+        resultado.Should().BeEquivalentTo(usuarioEsperado);
     }
 
     [Fact]
-    public async Task GetUserByIdAsync_ShouldReturnNullWhenUserNotFound()
+    public async Task ObterUsuarioPorIdAsync_DeveRetornarNullQuandoUsuarioNaoEncontrado()
     {
         // Arrange
-        var userId = Guid.CreateVersion7();
-        _userRepositoryMock.Setup(x => x.GetByIdAsync(userId))
-            .ReturnsAsync((User?)null);
+        var usuarioId = Guid.CreateVersion7();
+        _userRepositoryMock.Setup(x => x.GetByIdAsync(usuarioId))
+            .ReturnsAsync((Usuario?)null);
 
         // Act
-        var result = await _userService.GetUserByIdAsync(userId);
+        var resultado = await _userService.ObterUsuarioPorIdAsync(usuarioId);
 
         // Assert
-        result.Should().BeNull();
+        resultado.Should().BeNull();
     }
 }

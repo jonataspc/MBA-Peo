@@ -3,16 +3,16 @@ using Peo.Billing.Domain.Interfaces.Brokers;
 
 namespace Peo.Billing.Integrations.Paypal.Services
 {
-    public class PaypalBrokerService : IPaymentBrokerService
+    public class PaypalBrokerService : IBrokerPagamentoService
     {
-        public async Task<PaymentBrokerResult> ProcessPaymentAsync(CreditCard creditCard)
+        public async Task<PaymentBrokerResult> ProcessarPagamentoAsync(CartaoCredito cartaoCredito)
         {
-            if (creditCard?.CardNumber is null)
+            if (cartaoCredito?.NumeroCartao is null)
             {
                 return new PaymentBrokerResult(false, "Credit card is null", Guid.CreateVersion7().ToString());
             }
 
-            if (creditCard.CardNumber.Length != 16 && creditCard.CardNumber.Length != 15)
+            if (cartaoCredito.NumeroCartao.Length != 16 && cartaoCredito.NumeroCartao.Length != 15)
             {
                 return new PaymentBrokerResult(false, "Credit card is invalid", Guid.CreateVersion7().ToString());
             }

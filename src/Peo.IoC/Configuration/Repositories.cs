@@ -21,7 +21,7 @@ namespace Peo.IoC.Configuration
             services.AddScoped<IEstudanteRepository, EstudanteRepository>();
 
             // Billing
-            services.AddScoped<IRepository<Pagamento>, GenericRepository<Pagamento, BillingContext>>();
+            services.AddScoped<IRepository<Pagamento>, GenericRepository<Pagamento, CobrancaContext>>();
 
             return services;
         }

@@ -36,7 +36,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
     }
 
     [Fact]
-    public async Task Register_WithValidRequest_ShouldCreateUser()
+    public async Task Registrar_ComRequisicaoValida_DeveCriarUsuario()
     {
         // Arrange
         var request = new RegisterRequest(
@@ -61,7 +61,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
     }
 
     [Fact]
-    public async Task Register_WithInvalidEmail_ShouldReturnValidationError()
+    public async Task Registrar_ComEmailInvalido_DeveRetornarErroValidacao()
     {
         // Arrange
         var request = new RegisterRequest(
@@ -78,7 +78,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
     }
 
     [Fact]
-    public async Task Login_WithValidCredentials_ShouldReturnToken()
+    public async Task Login_ComCredenciaisValidas_DeveRetornarToken()
     {
         // Arrange
         var email = $"{Guid.CreateVersion7()}@example.com";
@@ -108,7 +108,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
     }
 
     [Fact]
-    public async Task Login_WithInvalidCredentials_ShouldReturnUnauthorized()
+    public async Task Login_ComCredenciaisInvalidas_DeveRetornarNaoAutorizado()
     {
         // Arrange
         var request = new LoginRequest("test@example.com", "WrongPassword");
@@ -121,7 +121,7 @@ public class IdentityEndpointsTests : IClassFixture<WebApplicationFactory<Progra
     }
 
     [Fact]
-    public async Task RefreshToken_WithInvalidToken_ShouldReturnUnauthorized()
+    public async Task RefreshToken_ComTokenInvalido_DeveRetornarNaoAutorizado()
     {
         // Arrange
         var request = new RefreshTokenRequest("invalid-token");

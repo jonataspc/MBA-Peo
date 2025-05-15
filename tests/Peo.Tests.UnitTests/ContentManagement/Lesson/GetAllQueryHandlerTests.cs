@@ -2,125 +2,125 @@ using FluentAssertions;
 using Mapster;
 using Moq;
 using Peo.ContentManagement.Application.Dtos;
-using Peo.ContentManagement.Application.UseCases.Lesson.GetAll;
+using Peo.ContentManagement.Application.UseCases.Aula.ObterTodos;
 using Peo.ContentManagement.Domain.ValueObjects;
 using Peo.Core.Interfaces.Data;
 
 namespace Peo.Tests.UnitTests.ContentManagement.Lesson;
 
-public class GetAllQueryHandlerTests
+public class ObterTodasAulasQueryHandlerTests
 {
-    private readonly Mock<IRepository<Peo.ContentManagement.Domain.Entities.Course>> _repositoryMock;
+    private readonly Mock<IRepository<Peo.ContentManagement.Domain.Entities.Curso>> _repositorioMock;
     private readonly Handler _handler;
 
-    public GetAllQueryHandlerTests()
+    public ObterTodasAulasQueryHandlerTests()
     {
-        _repositoryMock = new Mock<IRepository<Peo.ContentManagement.Domain.Entities.Course>>();
-        _handler = new Handler(_repositoryMock.Object);
+        _repositorioMock = new Mock<IRepository<Peo.ContentManagement.Domain.Entities.Curso>>();
+        _handler = new Handler(_repositorioMock.Object);
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnAllLessons_WhenCourseExists()
+    public async Task Handler_DeveRetornarTodasAulas_QuandoCursoExiste()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        var lessons = new List<Peo.ContentManagement.Domain.Entities.Lesson>
+        var cursoId = Guid.CreateVersion7();
+        var aulas = new List<Peo.ContentManagement.Domain.Entities.Aula>
         {
             new(
-                title: "Test Lesson 1",
-                description: "Test Lesson Description 1",
-                videoUrl: "https://example.com/video1",
-                duration: TimeSpan.FromMinutes(30),
-                files: [],
-                courseId: courseId
+                titulo: "Aula Teste 1",
+                descricao: "Descrição da Aula Teste 1",
+                urlVideo: "https://example.com/video1",
+                duracao: TimeSpan.FromMinutes(30),
+                arquivos: new List<Peo.ContentManagement.Domain.Entities.ArquivoAula>(),
+                cursoId: cursoId
             ),
             new(
-                title: "Test Lesson 2",
-                description: "Test Lesson Description 2",
-                videoUrl: "https://example.com/video2",
-                duration: TimeSpan.FromMinutes(45),
-                files: [],
-                courseId: courseId
+                titulo: "Aula Teste 2",
+                descricao: "Descrição da Aula Teste 2",
+                urlVideo: "https://example.com/video2",
+                duracao: TimeSpan.FromMinutes(45),
+                arquivos: new List<Peo.ContentManagement.Domain.Entities.ArquivoAula>(),
+                cursoId: cursoId
             )
         };
 
-        var course = new Peo.ContentManagement.Domain.Entities.Course(
-            title: "Test Course",
-            description: "Test Description",
-            instructorId: Guid.CreateVersion7(),
-            programContent: new ProgramContent("Test Program Content"),
-            price: 99.99m,
-            isPublished: true,
-            publishedAt: DateTime.Now,
-            tags: ["test", "course"],
-            lessons: lessons
+        var curso = new Peo.ContentManagement.Domain.Entities.Curso(
+            titulo: "Curso Teste",
+            descricao: "Descrição Teste",
+            instrutorId: Guid.CreateVersion7(),
+            conteudoProgramatico: new ConteudoProgramatico("Conteúdo Programático Teste"),
+            preco: 99.99m,
+            estaPublicado: true,
+            dataPublicacao: DateTime.Now,
+            tags: new List<string> { "teste", "curso" },
+            aulas: aulas
         );
 
-        _repositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync(course);
+        _repositorioMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync(curso);
 
-        var query = new Query(courseId);
+        var consulta = new Query(cursoId);
 
         // Act
-        var result = await _handler.Handle(query, CancellationToken.None);
+        var resultado = await _handler.Handle(consulta, CancellationToken.None);
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().NotBeNull();
-        result.Value.Lessons.Should().NotBeNull();
-        result.Value.Lessons.First().Files.Should().NotBeNull();
-        result.Value.Lessons.Should().HaveCount(2);
-        result.Value.Lessons.Should().BeEquivalentTo(lessons.Adapt<IEnumerable<LessonResponse>>());
+        resultado.IsSuccess.Should().BeTrue();
+        resultado.Value.Should().NotBeNull();
+        resultado.Value.Aulas.Should().NotBeNull();
+        resultado.Value.Aulas.First().Arquivos.Should().NotBeNull();
+        resultado.Value.Aulas.Should().HaveCount(2);
+        resultado.Value.Aulas.Should().BeEquivalentTo(aulas.Adapt<IEnumerable<AulaResponse>>());
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnFailure_WhenCourseNotFound()
+    public async Task Handler_DeveRetornarFalha_QuandoCursoNaoEncontrado()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        _repositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync((Peo.ContentManagement.Domain.Entities.Course?)null);
+        var cursoId = Guid.CreateVersion7();
+        _repositorioMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync((Peo.ContentManagement.Domain.Entities.Curso?)null);
 
-        var query = new Query(courseId);
+        var consulta = new Query(cursoId);
 
         // Act
-        var result = await _handler.Handle(query, CancellationToken.None);
+        var resultado = await _handler.Handle(consulta, CancellationToken.None);
 
         // Assert
-        result.IsSuccess.Should().BeFalse();
-        result.Error.Should().NotBeNull();
-        result.Error.Message.Should().Be("Course does not exist");
+        resultado.IsSuccess.Should().BeFalse();
+        resultado.Error.Should().NotBeNull();
+        resultado.Error.Message.Should().Be("Curso não existe");
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnEmptyList_WhenCourseHasNoLessons()
+    public async Task Handler_DeveRetornarListaVazia_QuandoCursoNaoTemAulas()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        var course = new Peo.ContentManagement.Domain.Entities.Course(
-            title: "Test Course",
-            description: "Test Description",
-            instructorId: Guid.CreateVersion7(),
-            programContent: new ProgramContent("Test Program Content"),
-            price: 99.99m,
-            isPublished: true,
-            publishedAt: DateTime.Now,
-            tags: ["test", "course"],
-            lessons: []
+        var cursoId = Guid.CreateVersion7();
+        var curso = new Peo.ContentManagement.Domain.Entities.Curso(
+            titulo: "Curso Teste",
+            descricao: "Descrição Teste",
+            instrutorId: Guid.CreateVersion7(),
+            conteudoProgramatico: new ConteudoProgramatico("Conteúdo Programático Teste"),
+            preco: 99.99m,
+            estaPublicado: true,
+            dataPublicacao: DateTime.Now,
+            tags: new List<string> { "teste", "curso" },
+            aulas: new List<Peo.ContentManagement.Domain.Entities.Aula>()
         );
 
-        _repositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync(course);
+        _repositorioMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync(curso);
 
-        var query = new Query(courseId);
+        var consulta = new Query(cursoId);
 
         // Act
-        var result = await _handler.Handle(query, CancellationToken.None);
+        var resultado = await _handler.Handle(consulta, CancellationToken.None);
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().NotBeNull();
-        result.Value.Lessons.Should().NotBeNull();
-        result.Value.Lessons.Should().BeEmpty();
+        resultado.IsSuccess.Should().BeTrue();
+        resultado.Value.Should().NotBeNull();
+        resultado.Value.Aulas.Should().NotBeNull();
+        resultado.Value.Aulas.Should().BeEmpty();
     }
 }

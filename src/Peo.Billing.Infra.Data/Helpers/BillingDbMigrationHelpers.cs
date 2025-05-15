@@ -27,7 +27,7 @@ namespace Peo.Billing.Infra.Data.Helpers
 
             if (env.IsDevelopment())
             {
-                var context = scope.ServiceProvider.GetRequiredService<BillingContext>();
+                var context = scope.ServiceProvider.GetRequiredService<CobrancaContext>();
 
                 await context.Database.MigrateAsync();
             }

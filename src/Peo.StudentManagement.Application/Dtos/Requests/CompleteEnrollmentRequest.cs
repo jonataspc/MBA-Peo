@@ -1,6 +1,9 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Peo.StudentManagement.Application.Dtos.Requests;
 
-public class CompleteEnrollmentRequest
+public class ConcluirMatriculaRequest
 {
-    public Guid EnrollmentId { get; set; }
+    [Required]
+    public Guid MatriculaId { get; set; }
 }

@@ -11,7 +11,7 @@ namespace Peo.Identity.Infra.Data.Contexts
 {
     public class IdentityContext : IdentityDbContext<IdentityUser>, IUnitOfWork
     {
-        public DbSet<User> ApplicationUsers { get; set; }
+        public DbSet<Usuario> ApplicationUsers { get; set; }
 
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {

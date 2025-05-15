@@ -47,7 +47,7 @@ namespace Peo.IoC.Configuration
 
             // BCs:
             // Content
-            services.AddDbContext<ContentManagementContext>(options =>
+            services.AddDbContext<GestaoConteudoContext>(options =>
             {
                 if (hostEnvironment.IsDevelopment())
                 {
@@ -68,7 +68,7 @@ namespace Peo.IoC.Configuration
             });
 
             // Student
-            services.AddDbContext<StudentManagementContext>(options =>
+            services.AddDbContext<GestaoEstudantesContext>(options =>
             {
                 if (hostEnvironment.IsDevelopment())
                 {
@@ -89,7 +89,7 @@ namespace Peo.IoC.Configuration
             });
 
             // Billing
-            services.AddDbContext<BillingContext>(options =>
+            services.AddDbContext<CobrancaContext>(options =>
             {
                 if (hostEnvironment.IsDevelopment())
                 {

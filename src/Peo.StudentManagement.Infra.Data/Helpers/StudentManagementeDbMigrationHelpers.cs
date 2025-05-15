@@ -27,7 +27,7 @@ namespace Peo.StudentManagement.Infra.Data.Helpers
 
             if (env.IsDevelopment())
             {
-                var context = scope.ServiceProvider.GetRequiredService<StudentManagementContext>();
+                var context = scope.ServiceProvider.GetRequiredService<GestaoEstudantesContext>();
 
                 await context.Database.MigrateAsync();
             }

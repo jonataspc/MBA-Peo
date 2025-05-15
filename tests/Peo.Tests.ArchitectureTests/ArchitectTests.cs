@@ -12,9 +12,9 @@ public class ArchitectTests
     {
         return [
             typeof(Peo.Identity.Domain.Interfaces.Data.IUserRepository ).Assembly,
-            typeof(Peo.Billing.Domain.Dtos.CreditCard).Assembly,
-            typeof(Peo.ContentManagement.Domain.Entities.Course).Assembly,
-            typeof(Peo.StudentManagement.Domain.Entities.Certificate).Assembly,
+            typeof(Peo.Billing.Domain.Dtos.CartaoCredito).Assembly,
+            typeof(Peo.ContentManagement.Domain.Entities.Curso).Assembly,
+            typeof(Peo.StudentManagement.Domain.Entities.Certificado ).Assembly,
             typeof(Peo.Core.DomainObjects.AccessRoles).Assembly,
             ];
     }
@@ -27,14 +27,14 @@ public class ArchitectTests
             typeof(Peo.Core.Web.Api.IEndpoint).Assembly,
             typeof(Peo.Core.Infra.Data.Contexts.Base.DbContextBase ).Assembly,
             typeof(Peo.StudentManagement.Infra.Data.Helpers.StudentManagementeDbMigrationHelpers).Assembly,
-            typeof(Peo.StudentManagement.Application.Endpoints.StudentEndpoints).Assembly,
+            typeof(Peo.StudentManagement.Application.Endpoints.EndpointsEstudante ).Assembly,
             typeof(Peo.Identity.Infra.Data.Helpers.IdentityDbMigrationHelpers).Assembly,
             typeof(Peo.Identity.Application.Services.TokenService).Assembly,
-            typeof(Peo.ContentManagement.Infra.Data.Helpers.ContentManagementeDbMigrationHelpers).Assembly,
-            typeof(Peo.ContentManagement.Application.Services.CourseLessonService).Assembly,
+            typeof(Peo.ContentManagement.Infra.Data.Helpers.GestaoConteudoDbMigrationHelpers).Assembly,
+            typeof(Peo.ContentManagement.Application.Services.CursoAulaService).Assembly,
             typeof(Peo.Billing.Integrations.Paypal.Services .PaypalBrokerService ).Assembly,
             typeof(Peo.Billing.Infra.Data.Helpers.BillingDbMigrationHelpers).Assembly,
-            typeof(Peo.Billing.Application.Services.PaymentService ).Assembly,
+            typeof(Peo.Billing.Application.Services.PagamentoService ).Assembly,
         };
 
         list.AddRange(GetDomainAssemblies());

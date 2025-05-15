@@ -9,9 +9,9 @@ namespace Peo.ContentManagement.Domain.Entities
     {
         public string Titulo { get; private set; } = null!;
         public string? Descricao { get; private set; }
-        public virtual User? Instrutor { get; }
+        public virtual Usuario? Instrutor { get; }
         public Guid InstrutorId { get; private set; }
-        public virtual ProgramContent? ConteudoProgramatico { get; private set; }
+        public virtual ConteudoProgramatico? ConteudoProgramatico { get; private set; }
         public decimal Preco { get; private set; }
         public bool EstaPublicado { get; private set; }
         public DateTime? DataPublicacao { get; private set; }
@@ -22,7 +22,7 @@ namespace Peo.ContentManagement.Domain.Entities
         {
         }
 
-        public Curso(string titulo, string? descricao, Guid instrutorId, ProgramContent? conteudoProgramatico, decimal preco, bool estaPublicado, DateTime? dataPublicacao, List<string> tags, ICollection<Aula> aulas)
+        public Curso(string titulo, string? descricao, Guid instrutorId, ConteudoProgramatico? conteudoProgramatico, decimal preco, bool estaPublicado, DateTime? dataPublicacao, List<string> tags, ICollection<Aula> aulas)
         {
             Titulo = titulo;
             Descricao = descricao;
@@ -33,6 +33,12 @@ namespace Peo.ContentManagement.Domain.Entities
             DataPublicacao = dataPublicacao;
             Tags = tags;
             Aulas = aulas;
+        }
+
+        public void AtualizarTituloDescricao(string titulo, string? descricao)
+        {
+            Titulo = titulo;
+            Descricao = descricao;
         }
     }
 }

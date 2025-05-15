@@ -2,71 +2,72 @@ using FluentAssertions;
 using Mapster;
 using Moq;
 using Peo.ContentManagement.Application.Dtos;
-using Peo.ContentManagement.Application.UseCases.Course.GetById;
+using Peo.ContentManagement.Application.UseCases.Curso.ObterPorId;
 using Peo.ContentManagement.Domain.ValueObjects;
+using Peo.Core.DomainObjects.Result;
 using Peo.Core.Interfaces.Data;
 
 namespace Peo.Tests.UnitTests.ContentManagement.Course;
 
-public class GetByIdQueryHandlerTests
+public class ObterCursoPorIdQueryHandlerTests
 {
-    private readonly Mock<IRepository<Peo.ContentManagement.Domain.Entities.Course>> _repositoryMock;
+    private readonly Mock<IRepository<Peo.ContentManagement.Domain.Entities.Curso>> _repositorioMock;
     private readonly Handler _handler;
 
-    public GetByIdQueryHandlerTests()
+    public ObterCursoPorIdQueryHandlerTests()
     {
-        _repositoryMock = new Mock<IRepository<Peo.ContentManagement.Domain.Entities.Course>>();
-        _handler = new Handler(_repositoryMock.Object);
+        _repositorioMock = new Mock<IRepository<Peo.ContentManagement.Domain.Entities.Curso>>();
+        _handler = new Handler(_repositorioMock.Object);
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnCourse_WhenFound()
+    public async Task Handler_DeveRetornarCurso_QuandoExiste()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        var course = new Peo.ContentManagement.Domain.Entities.Course(
-            title: "Test Course",
-            description: "Test Description",
-            instructorId: Guid.CreateVersion7(),
-            programContent: new ProgramContent("Test Program Content"),
-            price: 99.99m,
-            isPublished: true,
-            publishedAt: DateTime.Now,
-            tags: ["test", "course"],
-            lessons: []
+        var cursoId = Guid.CreateVersion7();
+        var curso = new Peo.ContentManagement.Domain.Entities.Curso(
+            titulo: "Curso Teste",
+            descricao: "Descrição Teste",
+            instrutorId: Guid.CreateVersion7(),
+            conteudoProgramatico: new ConteudoProgramatico("Conteúdo Programático Teste"),
+            preco: 99.99m,
+            estaPublicado: true,
+            dataPublicacao: DateTime.Now,
+            tags: new List<string> { "teste", "curso" },
+            aulas: new List<Peo.ContentManagement.Domain.Entities.Aula>()
         );
 
-        _repositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync(course);
+        _repositorioMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync(curso);
 
-        var query = new Query(courseId);
+        var consulta = new Query(cursoId);
 
         // Act
-        var result = await _handler.Handle(query, CancellationToken.None);
+        var resultado = await _handler.Handle(consulta, CancellationToken.None);
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().NotBeNull();
-        result.Value.Course.Should().NotBeNull();
-        result.Value.Course.Should().BeEquivalentTo(course.Adapt<CourseResponse>());
+        resultado.IsSuccess.Should().BeTrue();
+        resultado.Value.Should().NotBeNull();
+        resultado.Value.Curso.Should().NotBeNull();
+        resultado.Value.Curso.Should().BeEquivalentTo(curso.Adapt<CursoResponse>());
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnNullCourse_WhenNotFound()
+    public async Task Handler_DeveRetornarFalha_QuandoCursoNaoEncontrado()
     {
         // Arrange
-        var courseId = Guid.CreateVersion7();
-        _repositoryMock.Setup(x => x.GetAsync(courseId))
-            .ReturnsAsync((Peo.ContentManagement.Domain.Entities.Course?)null);
+        var cursoId = Guid.CreateVersion7();
+        _repositorioMock.Setup(x => x.GetAsync(cursoId))
+            .ReturnsAsync((Peo.ContentManagement.Domain.Entities.Curso?)null);
 
-        var query = new Query(courseId);
+        var consulta = new Query(cursoId);
 
         // Act
-        var result = await _handler.Handle(query, CancellationToken.None);
+        var result = await _handler.Handle(consulta, CancellationToken.None);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().NotBeNull();
-        result.Value.Course.Should().BeNull();
+        result.Value.Curso.Should().BeNull();
     }
 }

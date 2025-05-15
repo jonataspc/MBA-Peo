@@ -1,11 +1,14 @@
 using Peo.Billing.Domain.Dtos;
+using Peo.Billing.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace Peo.StudentManagement.Application.Dtos.Requests;
 
-public record EnrollmentPaymentRequest(
+public class PagamentoMatriculaRequest
+{
     [Required]
-    Guid EnrollmentId,
+    public Guid MatriculaId { get; set; }
 
     [Required]
-    CreditCard CreditCard);
+    public CartaoCredito DadosCartao { get; set; } = null!;
+}

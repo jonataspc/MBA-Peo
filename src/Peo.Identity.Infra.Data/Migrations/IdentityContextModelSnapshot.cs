@@ -213,10 +213,9 @@ namespace Peo.Identity.Infra.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Peo.Identity.Domain.Entities.User", b =>
+            modelBuilder.Entity("Peo.Core.Entities.Usuario", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -228,18 +227,18 @@ namespace Peo.Identity.Infra.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime?>("ModifiedAt")
                         .HasPrecision(0)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("NomeCompleto")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -42,8 +42,8 @@ namespace Peo.IoC.Configuration
         public static WebApplication MapEndpoints(this WebApplication app)
         {
             app.MapIdentityEndpoints();
-            app.MapCourseEndpoints();
-            app.MapStudentEndpoints();
+            app.MapCursoEndpoints();
+            app.MapEstudanteEndpoints();
             return app;
         }
     }

@@ -2,85 +2,85 @@ using FluentAssertions;
 using Mapster;
 using Moq;
 using Peo.ContentManagement.Application.Dtos;
-using Peo.ContentManagement.Application.UseCases.Course.GetAll;
+using Peo.ContentManagement.Application.UseCases.Curso.ObterTodos;
 using Peo.ContentManagement.Domain.ValueObjects;
 using Peo.Core.Interfaces.Data;
 
 namespace Peo.Tests.UnitTests.ContentManagement.Course;
 
-public class GetAllQueryHandlerTests
+public class ObterTodosCursosQueryHandlerTests
 {
-    private readonly Mock<IRepository<Peo.ContentManagement.Domain.Entities.Course>> _repositoryMock;
+    private readonly Mock<IRepository<Peo.ContentManagement.Domain.Entities.Curso>> _repositorioMock;
     private readonly Handler _handler;
 
-    public GetAllQueryHandlerTests()
+    public ObterTodosCursosQueryHandlerTests()
     {
-        _repositoryMock = new Mock<IRepository<Peo.ContentManagement.Domain.Entities.Course>>();
-        _handler = new Handler(_repositoryMock.Object);
+        _repositorioMock = new Mock<IRepository<Peo.ContentManagement.Domain.Entities.Curso>>();
+        _handler = new Handler(_repositorioMock.Object);
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnAllCourses()
+    public async Task Handler_DeveRetornarTodosCursos()
     {
         // Arrange
-        var courses = new List<Peo.ContentManagement.Domain.Entities.Course>
+        var cursos = new List<Peo.ContentManagement.Domain.Entities.Curso>
         {
             new(
-                title: "Test Course 1",
-                description: "Test Description 1",
-                instructorId: Guid.CreateVersion7(),
-                programContent: new ProgramContent("Test Program Content 1"),
-                price: 99.99m,
-                isPublished: true,
-                publishedAt: DateTime.Now,
-                tags: ["test", "course"],
-                lessons: []
+                titulo: "Curso Teste 1",
+                descricao: "Descrição Teste 1",
+                instrutorId: Guid.CreateVersion7(),
+                conteudoProgramatico: new ConteudoProgramatico("Conteúdo Programático Teste 1"),
+                preco: 99.99m,
+                estaPublicado: true,
+                dataPublicacao: DateTime.Now,
+                tags: new List<string> { "teste", "curso" },
+                aulas: new List<Peo.ContentManagement.Domain.Entities.Aula>()
             ),
             new(
-                title: "Test Course 2",
-                description: "Test Description 2",
-                instructorId: Guid.CreateVersion7(),
-                programContent: new ProgramContent("Test Program Content 2"),
-                price: 199.99m,
-                isPublished: true,
-                publishedAt: DateTime.Now,
-                tags: ["test", "course"],
-                lessons: []
+                titulo: "Curso Teste 2",
+                descricao: "Descrição Teste 2",
+                instrutorId: Guid.CreateVersion7(),
+                conteudoProgramatico: new ConteudoProgramatico("Conteúdo Programático Teste 2"),
+                preco: 199.99m,
+                estaPublicado: true,
+                dataPublicacao: DateTime.Now,
+                tags: new List<string> { "teste", "curso" },
+                aulas: new List<Peo.ContentManagement.Domain.Entities.Aula>()
             )
         };
 
-        _repositoryMock.Setup(x => x.GetAllAsync())
-            .ReturnsAsync(courses);
+        _repositorioMock.Setup(x => x.GetAllAsync())
+            .ReturnsAsync(cursos);
 
-        var query = new Query();
+        var consulta = new Query();
 
         // Act
-        var result = await _handler.Handle(query, CancellationToken.None);
+        var resultado = await _handler.Handle(consulta, CancellationToken.None);
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().NotBeNull();
-        result.Value.Courses.Should().NotBeNull();
-        result.Value.Courses.Should().HaveCount(2);
-        result.Value.Courses.Should().BeEquivalentTo(courses.Adapt<IEnumerable<CourseResponse>>());
+        resultado.IsSuccess.Should().BeTrue();
+        resultado.Value.Should().NotBeNull();
+        resultado.Value.Cursos.Should().NotBeNull();
+        resultado.Value.Cursos.Should().HaveCount(2);
+        resultado.Value.Cursos.Should().BeEquivalentTo(cursos.Adapt<IEnumerable<CursoResponse>>());
     }
 
     [Fact]
-    public async Task Handle_ShouldReturnEmptyList_WhenNoCoursesExist()
+    public async Task Handler_DeveRetornarListaVazia_QuandoNaoExistemCursos()
     {
         // Arrange
-        _repositoryMock.Setup(x => x.GetAllAsync())
-            .ReturnsAsync(Enumerable.Empty<Peo.ContentManagement.Domain.Entities.Course>());
+        _repositorioMock.Setup(x => x.GetAllAsync())
+            .ReturnsAsync(Enumerable.Empty<Peo.ContentManagement.Domain.Entities.Curso>());
 
-        var query = new Query();
+        var consulta = new Query();
 
         // Act
-        var result = await _handler.Handle(query, CancellationToken.None);
+        var resultado = await _handler.Handle(consulta, CancellationToken.None);
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().NotBeNull();
-        result.Value.Courses.Should().NotBeNull();
-        result.Value.Courses.Should().BeEmpty();
+        resultado.IsSuccess.Should().BeTrue();
+        resultado.Value.Should().NotBeNull();
+        resultado.Value.Cursos.Should().NotBeNull();
+        resultado.Value.Cursos.Should().BeEmpty();
     }
 }

@@ -26,5 +26,11 @@ namespace Peo.ContentManagement.Domain.Entities
             Arquivos = arquivos;
             CursoId = cursoId;
         }
+
+        public void AtualizarTituloDescricao(string titulo, string? descricao)
+        {
+            Titulo = titulo;
+            Descricao = descricao;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using FluentAssertions.Execution;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Peo.ContentManagement.Domain.Entities;
@@ -12,144 +13,144 @@ namespace Peo.Tests.IntegrationTests.Setup;
 
 public class TestDatabaseSetup
 {
-    private readonly IStudentRepository _studentRepository;
-    private readonly IRepository<Course> _courseRepository;
+    private readonly IEstudanteRepository _estudanteRepository;
+    private readonly IRepository<Curso> _cursoRepository;
 
-    private readonly IServiceScope _scope;
+    private readonly IServiceScope _escopo;
 
-    internal readonly string UserTestPassword = "Test123!91726312389831625192JHTBADPDJANDHJPXASDO";
-    internal readonly string UserTestEmail = $"{Guid.CreateVersion7()}@example.com";
+    internal readonly string SenhaUsuarioTeste = "Test123!91726312389831625192JHTBADPDJANDHJPXASDO";
+    internal readonly string EmailUsuarioTeste = $"{Guid.CreateVersion7()}@example.com";
 
     public TestDatabaseSetup(IServiceProvider serviceProvider)
     {
-        _scope = serviceProvider.CreateScope();
+        _escopo = serviceProvider.CreateScope();
 
-        _studentRepository = _scope.ServiceProvider.GetRequiredService<IStudentRepository>();
-        _courseRepository = _scope.ServiceProvider.GetRequiredService<IRepository<Course>>();
+        _estudanteRepository = _escopo.ServiceProvider.GetRequiredService<IEstudanteRepository>();
+        _cursoRepository = _escopo.ServiceProvider.GetRequiredService<IRepository<Curso>>();
     }
 
-    public async Task<Student> CreateTestStudentAsync(Guid userId)
+    public async Task<Estudante> CriarEstudanteTesteAsync(Guid usuarioId)
     {
-        var userManager = _scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        var userManager = _escopo.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-        var user = new User(userId, $"John Conor {Random.Shared.NextDouble()}", UserTestEmail);
+        var usuario = new Usuario(usuarioId, $"John Conor {Random.Shared.NextDouble()}", EmailUsuarioTeste);
 
-        IUserRepository userRepo = _scope.ServiceProvider.GetRequiredService<IUserRepository>();
-        userRepo.Insert(user);
-        await userRepo.UnitOfWork.CommitAsync(default);
+        IUserRepository usuarioRepo = _escopo.ServiceProvider.GetRequiredService<IUserRepository>();
+        usuarioRepo.Insert(usuario);
+        await usuarioRepo.UnitOfWork.CommitAsync(default);
 
-        //  add user to Identity
+        // Adiciona usuário ao Identity
         var identityUser = new IdentityUser
         {
-            Id = userId.ToString(),
-            UserName = user.Email,
-            Email = user.Email,
+            Id = usuarioId.ToString(),
+            UserName = usuario.Email,
+            Email = usuario.Email,
             EmailConfirmed = true
         };
 
-        await userManager.CreateAsync(identityUser, UserTestPassword);
+        await userManager.CreateAsync(identityUser, SenhaUsuarioTeste);
         await userManager.AddToRoleAsync(identityUser, AccessRoles.Student);
 
-        var student = new Student(userId);
-        await _studentRepository.AddAsync(student);
-        await _studentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-        return student;
+        var estudante = new Estudante(usuarioId);
+        await _estudanteRepository.AddAsync(estudante);
+        await _estudanteRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        return estudante;
     }
 
-    public async Task CreateAdminUser(Guid userId)
+    public async Task CriarUsuarioAdmin(Guid usuarioId)
     {
-        var userManager = _scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        var userManager = _escopo.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-        var user = new User(userId, $"Sara Conor {Random.Shared.NextDouble()}", UserTestEmail);
+        var usuario = new Usuario(usuarioId, $"Sara Conor {Random.Shared.NextDouble()}", EmailUsuarioTeste);
 
-        IUserRepository userRepo = _scope.ServiceProvider.GetRequiredService<IUserRepository>();
-        userRepo.Insert(user);
-        await userRepo.UnitOfWork.CommitAsync(default);
+        IUserRepository usuarioRepo = _escopo.ServiceProvider.GetRequiredService<IUserRepository>();
+        usuarioRepo.Insert(usuario);
+        await usuarioRepo.UnitOfWork.CommitAsync(default);
 
-        //  add user to Identity
+        // Adiciona usuário ao Identity
         var identityUser = new IdentityUser
         {
-            Id = userId.ToString(),
-            UserName = user.Email,
-            Email = user.Email,
+            Id = usuarioId.ToString(),
+            UserName = usuario.Email,
+            Email = usuario.Email,
             EmailConfirmed = true
         };
 
-        await userManager.CreateAsync(identityUser, UserTestPassword);
+        await userManager.CreateAsync(identityUser, SenhaUsuarioTeste);
         await userManager.AddToRoleAsync(identityUser, AccessRoles.Admin);
     }
 
-    public async Task<Enrollment> CreateTestEnrollmentAsync(Guid studentId, Guid courseId, bool makePaymentDone)
+    public async Task<Matricula> CriarMatriculaTesteAsync(Guid estudanteId, Guid cursoId, bool pagamentoRealizado)
     {
-        var enrollment = new Enrollment(studentId, courseId);
+        var matricula = new Matricula(estudanteId, cursoId);
 
-        if (makePaymentDone)
-            enrollment.PaymentDone();
+        if (pagamentoRealizado)
+            matricula.ConfirmarPagamento();
 
-        await _studentRepository.AddEnrollmentAsync(enrollment);
-        await _studentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-        return enrollment;
+        await _estudanteRepository.AddMatriculaAsync(matricula);
+        await _estudanteRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        return matricula;
     }
 
-    public async Task<EnrollmentProgress> CreateTestLessonProgressAsync(Guid enrollmentId, Guid lessonId)
+    public async Task<ProgressoMatricula> CriarProgressoAulaTesteAsync(Guid matriculaId, Guid aulaId)
     {
-        var progress = new EnrollmentProgress(enrollmentId, lessonId);
-        await _studentRepository.AddEnrollmentProgressAsync(progress);
-        await _studentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-        return progress;
+        var progresso = new ProgressoMatricula(matriculaId, aulaId);
+        await _estudanteRepository.AddProgressoMatriculaAsync(progresso);
+        await _estudanteRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        return progresso;
     }
 
-    public async Task<Certificate> CreateTestCertificateAsync(Guid enrollmentId, string content)
+    public async Task<Certificado> CriarCertificadoTesteAsync(Guid matriculaId, string conteudo)
     {
-        var certificate = new Certificate(enrollmentId, content, DateTime.UtcNow, $"CERT-{Guid.CreateVersion7():N}");
-        await _studentRepository.AddCertificateAsync(certificate);
-        await _studentRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-        return certificate;
+        var certificado = new Certificado(matriculaId, conteudo, DateTime.UtcNow, $"CERT-{Guid.CreateVersion7():N}");
+        await _estudanteRepository.AddCertificadoAsync(certificado);
+        await _estudanteRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        return certificado;
     }
 
-    public async Task<Course> CreateTestCourseAsync(
-        string title = "Test Course",
-        string description = "Test Course Description",
-        Guid? instructorId = null,
-        decimal price = 99.99m,
-        bool isPublished = true)
+    public async Task<Curso> CriarCursoTesteAsync(
+        string titulo = "Curso de Teste",
+        string descricao = "Descrição do Curso de Teste",
+        Guid? instrutorId = null,
+        decimal preco = 99.99m,
+        bool publicado = true)
     {
-        instructorId ??= Guid.CreateVersion7();
+        instrutorId ??= Guid.CreateVersion7();
 
-        var course = new Course(
-            title,
-            description,
-            instructorId.Value,
-            null, // No program content for test
-            price,
-            isPublished,
-            isPublished ? DateTime.UtcNow : null,
-            new List<string> { "test", "integration" },
-            new List<Lesson>
-            {
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), new List<LessonFile>
+        var curso = new Curso(
+            titulo,
+            descricao,
+            instrutorId.Value,
+            null, // Sem conteúdo de programa para teste
+            preco,
+            publicado,
+            publicado ? DateTime.UtcNow : null,
+            new List<string> { "teste", "integracao" },
+        new List<Aula>
+        {
+                new Aula("", "", "", TimeSpan.FromSeconds(10), new List<ArquivoAula>
                 {
-                    new LessonFile( "", "", Guid.Empty),
-                    new LessonFile( "", "", Guid.Empty),
-                    new LessonFile( "", "", Guid.Empty)
+                    new ArquivoAula( "", "", Guid.Empty),
+                    new ArquivoAula( "", "", Guid.Empty),
+                    new ArquivoAula( "", "", Guid.Empty)
                 }, Guid.Empty),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
-                new Lesson("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty)
+                new Aula("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Aula("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Aula("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Aula("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty),
+                new Aula("", "", "", TimeSpan.FromSeconds(10), default!, Guid.Empty)
             }
         );
 
-        _courseRepository.Insert(course);
-        await _courseRepository.UnitOfWork.CommitAsync(CancellationToken.None);
-        return course;
+        _cursoRepository.Insert(curso);
+        await _cursoRepository.UnitOfWork.CommitAsync(CancellationToken.None);
+        return curso;
     }
 
-    public async Task CleanupAsync()
+    public async Task LimparAsync()
     {
-        // Add cleanup logic here if needed
-        _scope.Dispose();
+        // Adicione lógica de limpeza aqui se necessário
+        _escopo.Dispose();
         await Task.CompletedTask;
     }
 }

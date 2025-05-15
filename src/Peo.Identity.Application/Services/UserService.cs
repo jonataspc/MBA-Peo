@@ -5,15 +5,15 @@ using Peo.Identity.Domain.Interfaces.Services;
 
 namespace Peo.Identity.Application.Services
 {
-    public class UserService(IUserRepository repository) : IUserService, IUserDetailsService
+    public class UserService(IUserRepository repository) : IUserService, IDetalhesUsuarioService
     {
-        public async Task AddAsync(User user)
+        public async Task AddAsync(Usuario user)
         {
             repository.Insert(user);
             await repository.UnitOfWork.CommitAsync(CancellationToken.None);
         }
 
-        public async Task<User?> GetUserByIdAsync(Guid userId)
+        public async Task<Usuario?> ObterUsuarioPorIdAsync(Guid userId)
         {
             return await repository.GetByIdAsync(userId);
         }

@@ -5,9 +5,9 @@ namespace Peo.StudentManagement.Domain.Entities;
 
 public class Estudante : EntityBase, IAggregateRoot
 {
-    public Guid UserId { get; private set; }
+    public Guid UsuarioId { get; private set; }
 
-    public bool IsActive { get; private set; }
+    public bool EstaAtivo { get; private set; }
 
     public virtual ICollection<Matricula> Matriculas { get; private set; } = [];
 
@@ -15,19 +15,19 @@ public class Estudante : EntityBase, IAggregateRoot
     {
     }
 
-    public Estudante(Guid userId)
+    public Estudante(Guid usuarioId)
     {
-        UserId = userId;
-        IsActive = true;
+        UsuarioId = usuarioId;
+        EstaAtivo = true;
     }
 
     public void Deactivate()
     {
-        IsActive = false;
+        EstaAtivo = false;
     }
 
     public void Activate()
     {
-        IsActive = true;
+        EstaAtivo = true;
     }
 }

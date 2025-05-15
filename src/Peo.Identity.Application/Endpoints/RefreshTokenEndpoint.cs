@@ -22,7 +22,7 @@ namespace Peo.Identity.Application.Endpoints
         public static void Map(IEndpointRouteBuilder app)
         {
             app.MapPost("/refresh-token", HandleRefreshToken)
-               .WithSummary("Refreshes the authentication token")
+               .WithSummary("Atualiza um token")
                .AllowAnonymous();
         }
 

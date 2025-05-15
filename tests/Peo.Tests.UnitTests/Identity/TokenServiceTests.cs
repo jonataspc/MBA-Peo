@@ -44,18 +44,18 @@ public class TokenServiceTests
     }
 
     [Fact]
-    public void CreateToken_ShouldReturnValidJwtToken()
+    public void CriarToken_DeveRetornarJwtValido()
     {
         // Arrange
-        var user = new Microsoft.AspNetCore.Identity.IdentityUser
+        var usuario = new Microsoft.AspNetCore.Identity.IdentityUser
         {
             Id = "123",
-            UserName = "test@example.com"
+            UserName = "teste@exemplo.com"
         };
-        var roles = new[] { "Student" };
+        var papeis = new[] { "Aluno" };
 
         // Act
-        var token = _tokenService.CreateToken(user, roles);
+        var token = _tokenService.CreateToken(usuario, papeis);
 
         // Assert
         token.Should().NotBeNullOrEmpty();
@@ -80,7 +80,7 @@ public class TokenServiceTests
         var jwtToken = (JwtSecurityToken)validatedToken;
         jwtToken.Issuer.Should().Be("test-issuer");
         jwtToken.Audiences.Should().Contain("test-audience");
-        jwtToken.Claims.Should().Contain(c => c.Type == ClaimTypes.NameIdentifier && c.Value == "test@example.com");
-        jwtToken.Claims.Should().Contain(c => c.Type == ClaimTypes.Role && c.Value == "Student");
+        jwtToken.Claims.Should().Contain(c => c.Type == ClaimTypes.NameIdentifier && c.Value == "teste@exemplo.com");
+        jwtToken.Claims.Should().Contain(c => c.Type == ClaimTypes.Role && c.Value == "Aluno");
     }
 }
