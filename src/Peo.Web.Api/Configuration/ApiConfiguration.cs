@@ -1,5 +1,5 @@
 ﻿using Peo.Core.DomainObjects;
-using Peo.Web.Api.MIddlewares;
+using Peo.Web.Api.Middlewares;
 using System.Text.Json.Serialization;
 
 namespace Peo.Web.Api.Configuration
