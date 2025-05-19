@@ -40,7 +40,6 @@
     <ProjectReference Include="..\..\src\Peo.Faturamento.Domain\Peo.Faturamento.Domain.csproj" />
     <ProjectReference Include="..\..\src\Peo.GestaoConteudo.Domain\Peo.GestaoConteudo.Domain.csproj" />
     <ProjectReference Include="..\..\src\Peo.Identity.Infra.Data\Peo.Identity.Infra.Data.csproj" />
-    <ProjectReference Include="..\..\src\Peo.IoC\Peo.IoC.csproj" />
     <ProjectReference Include="..\..\src\Peo.GestaoAlunos.Application\Peo.GestaoAlunos.Application.csproj" />
     <ProjectReference Include="..\..\src\Peo.GestaoAlunos.Domain\Peo.GestaoAlunos.Domain.csproj" />
     <ProjectReference Include="..\..\src\Peo.Core\Peo.Core.csproj" />

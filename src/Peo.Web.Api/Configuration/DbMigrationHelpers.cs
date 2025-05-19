@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Peo.Faturamento.Infra.Data.Helpers;
+﻿using Peo.Faturamento.Infra.Data.Helpers;
 using Peo.GestaoAlunos.Infra.Data.Helpers;
 using Peo.GestaoConteudo.Infra.Data.Helpers;
 using Peo.Identity.Infra.Data.Helpers;
 
-namespace Peo.IoC.Helpers
+namespace Peo.Web.Api.Configuration
 {
     public static class DbMigrationHelpers
     {
