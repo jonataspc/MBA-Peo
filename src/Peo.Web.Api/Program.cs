@@ -1,11 +1,8 @@
-using Peo.IoC;
-using Peo.IoC.Helpers;
 using Peo.Web.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDependencies(builder.Configuration, builder.Environment)
-                .AddApiServices()
                 .AddSwagger()
                 .SetupWebApi(builder.Configuration)
                 .AddPolicies()
@@ -18,7 +15,7 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.AddEndpoints();
+app.MapEndpoints();
 app.UseExceptionHandler();
 
 await app.UseDbMigrationHelperAsync();
