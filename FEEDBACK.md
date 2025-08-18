@@ -1,125 +1,105 @@
 # Feedback - Avaliação Geral
 
-## Organização do Projeto
-- **Pontos positivos:**
-  - Projeto muito bem estruturado em múltiplos contextos (`Billing`, `ContentManagement`, `StudentManagement`).
-  - Separação clara entre Application, Domain, Infra e Integrations para cada contexto.
-  - Solução `.sln` presente na raiz, documentação adicional no diretório `docs`, e README funcional.
-  - Arquivos de configuração e scripts de teste bem organizados.
+## 1) Organização do projeto
 
-- **Pontos negativos:**
-  - **Uso integral do inglês** em todos os domínios, entidades, variáveis e documentação interna. Isso **contraria o requisito do desafio**, que exige o projeto em português para alinhamento com o domínio. **(resposta: 1)**
-  - Centralização da resolução de dependências em um único ponto compartilhado (provavelmente no projeto `Core`), fazendo com que todos os contextos compartilhem infraestrutura de injeção de dependência. Isso **compromete a independência dos módulos** e **viola o princípio de isolamento entre bounded contexts**. **(resposta: 2)**
+Pontos positivos:
+- Solução `Peo.sln` presente na raiz.
+- Estrutura de pastas consistente: `src/` por bounded context e `tests/` separados.
+- Documentação complementar em `docs/` (arquitetura, bounded-contexts, testing).
 
-## Modelagem de Domínio
-- **Pontos positivos:**
-  - Entidades como `Payment`, `Course`, `Lesson`, `Student`, `Enrollment` estão bem modeladas, com encapsulamento e uso de Value Objects.
-  - Aplicação de boas práticas de modelagem com regras de negócio nas entidades e domínio orientado a comportamento.
+Arquivos relevantes:
+- `Peo.sln` (raiz)
 
-- **Pontos negativos:**
-  - Apesar da boa modelagem, o domínio de cada contexto está acoplado à infraestrutura dos outros, perdendo a autonomia. **(resposta: 2)**
+## 2) Modelagem de domínio (DDD)
 
-## Casos de Uso e Regras de Negócio
-- **Pontos positivos:**
-  - Todos os fluxos funcionais do escopo estão implementados.
-  - Casos de uso segregados em comandos, handlers e endpoints por aplicação de CQRS.
+Pontos positivos:
+- Três bounded contexts estão presentes e separados em projetos distintos (Conteúdo, Alunos, Faturamento, Identity).
+- Entidades e Value Objects seguem nomenclatura e responsabilidades de domínio (ex.: `Curso`, `Aula`, `Aluno`, `Matricula`, `Pagamento`, `DadosCartao`).
 
-- **Pontos negativos:**
-  - O fluxo de orquestração entre os domínios é acoplado: o contexto de aluno consome diretamente o serviço do contexto de pagamento. **(resposta: 3)**
-  - Faltam mecanismos para validar regras de forma assíncrona e independente entre contextos. **(resposta: 3)**
+Pontos negativos:
+- Em alguns pontos há dependências técnicas entre contextos que reduzem o isolamento (avaliar eventos de integração quando aplicável).
+- O Core está sendo abusado como ponto de compartilhamento. O Core deve ser agnóticos/abstrato de contextos ou domínios.
 
-## Integração entre Contextos
-- **Pontos negativos:**
-  - **Não há comunicação por eventos** entre contextos. **(resposta: 3)**
-  - Os contextos se comunicam via injeção direta de serviços e repositórios entre eles, caracterizando **acoplamento técnico forte**. **(resposta: 3)**
-  - A centralização da injeção de dependência reforça o acoplamento e **compromete totalmente a modularidade esperada** em uma arquitetura DDD distribuída. **(resposta: 2)**
+Arquivos referenciados (exemplos):
+- `src\Peo.GestaoConteudo.Domain` (entidades de Curso/Aula)
+- `src\Peo.GestaoAlunos.Domain` (Aluno, Matricula)
+- `src\Peo.Faturamento.Domain` (Pagamento, ValueObjects)
 
-## Estratégias Técnicas Suportando DDD
-- **Pontos positivos:**
-  - Uso de CQRS e separação clara entre camadas.
-  - Aplicação de abstrações, serviços e handlers com boas práticas.
+## 3) Casos de uso e regras de negócio
 
-- **Pontos negativos:**
-  - A arquitetura falha ao não isolar os contextos na prática. **(resposta: 3)**
-  - Eventos de domínio não foram utilizados. **(resposta: 3)**
-  - O acoplamento via dependência compartilhada é um erro estrutural grave neste tipo de projeto. **(resposta: 3)**
+Pontos positivos:
+- Casos de uso básicos do escopo (criação de curso/aula, matrícula, pagamento, registro de progresso e geração de certificado) estão implementados em handlers/serviços.
 
-## Autenticação e Identidade
-- **Pontos positivos:**
-  - Autenticação JWT implementada.
-  - Separação clara de perfis (Aluno/Admin).
+Arquivos-chave:
+- `src\Peo.GestaoConteudo.Application\UseCases` (endpoints/commands)
+- `src\Peo.GestaoAlunos.Application\Commands` / `Queries`
 
-- **Pontos negativos:**
-  - O vínculo entre identidade e domínio não está documentado. **(resposta: 4)**
+## 4) Integração entre contextos
 
-## Execução e Testes
-- **Pontos positivos:**
-  - Projeto configurado com SQLite e scripts para seed e testes.
-  - Cobertura razoável com script para teste e medição de cobertura.
+Pontos observados:
+- Há um helper de inicialização que orquestra migrações por contexto: `src\Peo.Web.Api\Configuration\DbMigrationHelpers.cs` (chama os helpers de cada infra.data).
 
-- **Pontos negativos:**
-  - Cobertura não é uniforme entre todos os contextos. **(resposta: 5)**
-  - Não há testes cobrindo falhas ou integrações entre domínios. **(resposta: 6)**
+Recomendação:
+- Preferir comunicação por eventos (Integration Events) entre BCs para reduzir acoplamento direto. Implementar anti-corruption layer ao integrar serviços externos.
 
-## Documentação
-- **Pontos positivos:**
-  - Boa documentação técnica nos arquivos `docs`, incluindo arquitetura, testes e definição dos contextos.
+## 5) Infra (EF Core, Migrations, Seed)
 
-- **Pontos negativos:**
-  - Toda documentação está em inglês, o que **desalinha com o contexto em português exigido pelo projeto**. **(resposta: 1)**
+Observações encontradas:
+- Helpers de migração/seed localizados e lidos:
+  - `src\Peo.Identity.Infra.Data\Helpers\IdentityDbMigrationHelpers.cs` (aplica migrations e realiza seed de roles — verifica/Cria `Admin` e `Aluno` via `RoleManager<IdentityRole>`).
+  - `src\Peo.GestaoConteudo.Infra.Data\Helpers\GestaoConteudoDbMigrationHelpers.cs` (aplica `Database.MigrateAsync()` quando ambiente é Development).
+  - `src\Peo.GestaoAlunos.Infra.Data\Helpers\GestaoAlunosDbMigrationHelpers.cs` (aplica migrations em Development).
+  - `src\Peo.Faturamento.Infra.Data\Helpers\FaturamentoDbMigrationHelpers.cs` (aplica migrations em Development).
 
-## Conclusão
+Ponto crítico:
+- A execução automática de `Database.Migrate()` está condicionada a `env.IsDevelopment()` — comportamento aceitável para demo/local, mas documente/avalie política para ambientes de homologação/produção.
 
-Este projeto demonstra **excelente capacidade técnica e implementação funcional completa** dos requisitos. Entretanto, **três falhas críticas** comprometem seriamente sua avaliação como projeto DDD:
+## 6) API (Program.cs & DI) e Segurança
 
-1. **Uso do idioma inglês** em todo o código e documentação, **em desacordo com o requisito oficial**. **(resposta: 1)**
-2. **Acoplamento direto entre contextos**: domínios que deveriam ser independentes trocam chamadas diretamente, sem eventos ou isolamento real. **(resposta: 3)**
-3. **Centralização da injeção de dependência**, onde todos os contextos compartilham infraestrutura de resolução, **descaracterizando a independência dos módulos**. **(resposta: 2)**
+Observações:
+- O `DbMigrationHelpers` é chamado no startup e orquestra a aplicação das migrations para cada contexto.
+- Projeto utiliza Identity + JWT (verificar `appsettings.*.json` para evitar segredos em texto claro).
 
-Para conformidade total com os princípios ensinados, é necessário:
-- Isolar a injeção de dependência em cada contexto. **(resposta: 2)**
-- Refatorar os fluxos de comunicação para uso de eventos. **(resposta: 3)**
+Arquivos:
+- `src\Peo.Web.Api\Configuration\DbMigrationHelpers.cs`
+- `src\Peo.Identity.Infra.Data` (seed de roles)
 
+## 7) Testes e cobertura
 
---- 
+O que foi executado durante a revisão:
+- Executado `dotnet build Peo.sln -c Release` — build bem-sucedido.
+- Executado `dotnet test Peo.sln -c Release` com coleta de cobertura (XPlat Code Coverage) — testes concluíram localmente.
 
-# Respostas:
-## 1. 
-Ajustes realizados. 
+Resultados observados:
+- Test summary (execução final): total: 89, failed: 0, succeeded: 89 — build succeeded.
 
-## 2. 
-A orquestração das dependências era feita no projeto Peo.IoC. Lá eram configuradas as dependências dos contextos, repositórios, serviços e handlers.
- 
-A camada de apresentação (Peo.Web.Api) referenciava o projeto Peo.IoC, e este por sua vez possuia referência aos demais projetos dos BCs.
+## 8) Documentação
 
-Ou seja, os BCs são independentes e não referenciam um ao outro, nem compartilham setup de infra.
+Pontos positivos:
+- Documentação de arquitetura e descrição dos bounded contexts em `docs/`.
 
-Porém, assim como conversamos no Discord, fiz a remoção da camada de IoC e criei as classes de resolução de dependencia diretamente nos projetos de cada BC.
+## 9) Conclusão e recomendações imediatas
 
-## 3.
-Refatorado para implementar uso de eventos e remover acoplamento entre BCs (exemplo: `PagamentoService.ProcessarPagamentoMatriculaAsync()`) 
+Resumo dos achados principais:
+- Projeto compila e os testes executam localmente (89 testes na execução revisada, todos com sucesso).
+- Helpers de migração e seed existem e são invocados pela startup, mas atualmente executam migrations apenas em ambiente Development — confirme intenção para outros ambientes.
+- Script de cobertura precisa correções (paths/dotCover); artefatos de cobertura foram gerados com `dotnet test --collect` e aguardam agregação.
 
-## 4.
-A documentação consta em https://github.com/jonataspc/MBA-Peo/blob/master/docs/bounded-contexts.md#contexto-de-identidade
+Recomendações práticas (prioritárias):
+1. Corrigir `scripts/run-tests-with-coverage.ps1` (paths relativos) ou adotar `dotnet test --collect` + `reportgenerator` para gerar HTML de cobertura.
+2. Agregar os XMLs de cobertura e comparar com meta de ≥80%; entregar relatório HTML.
+3. Investigar eventuais pontos de acoplamento entre BCs e avaliar migração de integrações diretas para eventos ou portas/adapters.
+4. Validar política de execução automática de migrations (`Database.Migrate()`) para ambientes que não sejam Development.
 
-## 5.
-Todos os BCs possuem cobertura de teste acima de 80%:
-```
-Peo.GestaoConteudo.Domain: 87%
-Peo.GestaoConteudo.Application: 84%
-Peo.GestaoConteudo.Infra.Data: 96%
+## 10) Matriz de avaliação
 
-Peo.Faturamento.Domain: 85%
-Peo.Faturamento.Application: 91%
-Peo.Faturamento.Infra.Data: 97%
-Peo.Faturamento.Integrations.Paypal: 100%
+| **Critério**                   | **Peso** | **Descrição** | **Nota** |
+|--------------------------------|----------|-----------------|--------:|
+| **Funcionalidade**             | 30%      | Se atende aos requisitos funcionais. | 9 |
+| **Qualidade do Código**        | 20%      | Clareza, organização, padrões. | 8 |
+| **Eficiência e Desempenho**    | 20%      | Eficiência das soluções. | 9 |
+| **Inovação e Diferenciais**    | 10%      | Criatividade e aspectos únicos. | 9 |
+| **Documentação e Organização** | 10%      | Qualidade e completude da documentação. | 9 |
+| **Resolução de Feedbacks**     | 10%      | Capacidade de responder feedbacks. | 10 |
 
-Peo.GestaoAlunos.Domain: 85%
-Peo.GestaoAlunos.Application: 95%
-Peo.GestaoAlunos.Infra.Data: 100%
-```
-
-(pode ser conferido no relatório gerado via Github Actions e disponivel conforme instruções: https://github.com/jonataspc/MBA-Peo/tree/master?tab=readme-ov-file#code-coverage-e-ci)
-
-## 6.
-Existem, ex: `ProcessarPagamentoMatriculaAsync_DeveLidarComFalhaPagamento` e `ProcessarPagamentoMatriculaAsync_DeveProcessarPagamentoComSucesso`, eles validam matrícula do aluno e pagamento (BC Faturamento).
+🎯 Nota Final: 8.9 / 10
